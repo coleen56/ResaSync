@@ -10,7 +10,10 @@ module fr.bts.sio.resasync {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
+    requires com.h2database;
 
     opens fr.bts.sio.resasync to javafx.fxml;
     exports fr.bts.sio.resasync;
+
 }
