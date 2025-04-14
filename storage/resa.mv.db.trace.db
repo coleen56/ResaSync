@@ -1,0 +1,6 @@
+2025-04-14 15:06:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENT" not found (this database is empty); SQL statement:
+INSERT INTO CLIENT(nom, prenom, tel, email, datenaissance, identreprise, idadressefacturation)values (?, ?, ?, ?, ?, ?, ?) [42104-220]
+2025-04-14 15:07:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENT" not found (this database is empty); SQL statement:
+INSERT INTO CLIENT(nom, prenom, tel, email, datenaissance, identreprise, idadressefacturation)values (?, ?, ?, ?, ?, ?, ?) [42104-220]
