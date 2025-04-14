@@ -15,4 +15,5 @@ public class Chambre {
         this.idStatusChambre = idStatusChambre;
 
     }
+
 }
