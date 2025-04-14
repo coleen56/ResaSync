@@ -3,14 +3,14 @@ package fr.bts.sio.resasync.model.entity;
 import java.time.LocalDate;
 
 public class Client {
-    int idClient;
-    String nom;
-    String prenom;
-    String tel;
-    String email;
-    LocalDate dateNaissance;
-    int idEntreprise;
-    int idAdresseFacturation;
+    private int idClient;
+    private String nom;
+    private String prenom;
+    private String tel;
+    private String email;
+    private LocalDate dateNaissance;
+    private int idEntreprise;
+    private int idAdresseFacturation;
 
     public Client(int idClient, String nom, String prenom, String tel, String email, LocalDate dateNaissance, int idEntreprise, int idAdresseFacturation) {
         this.idClient = idClient;
