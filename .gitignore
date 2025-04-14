@@ -1,4 +1,3 @@
-src/main/java/fr/bts/sio/resasync/storage
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
