@@ -1,0 +1,128 @@
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Chambre\000d\000a  ADD PRIMARY KEY (idChambre)[*],\000d\000a  ADD KEY idTypeChambre (idTypeChambre),\000d\000a  ADD KEY idStatutChambre (idStatutChambre)"
+Syntax error in SQL statement "ALTER TABLE Chambre\000d\000a  ADD PRIMARY KEY (idChambre)[*],\000d\000a  ADD KEY idTypeChambre (idTypeChambre),\000d\000a  ADD KEY idStatutChambre (idStatutChambre)"; SQL statement:
+ALTER TABLE Chambre
+  ADD PRIMARY KEY (idChambre),
+  ADD KEY idTypeChambre (idTypeChambre),
+  ADD KEY idStatutChambre (idStatutChambre) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Client\000d\000a  ADD PRIMARY KEY (idClient)[*],\000d\000a  ADD KEY idEntreprise (idEntreprise),\000d\000a  ADD KEY idAdresseFacturation (idAdresseFacturation)"
+Syntax error in SQL statement "ALTER TABLE Client\000d\000a  ADD PRIMARY KEY (idClient)[*],\000d\000a  ADD KEY idEntreprise (idEntreprise),\000d\000a  ADD KEY idAdresseFacturation (idAdresseFacturation)"; SQL statement:
+ALTER TABLE Client
+  ADD PRIMARY KEY (idClient),
+  ADD KEY idEntreprise (idEntreprise),
+  ADD KEY idAdresseFacturation (idAdresseFacturation) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Comprend\000d\000a  ADD PRIMARY KEY (idReservation,idOption)[*],\000d\000a  ADD KEY idOption (idOption)"
+Syntax error in SQL statement "ALTER TABLE Comprend\000d\000a  ADD PRIMARY KEY (idReservation,idOption)[*],\000d\000a  ADD KEY idOption (idOption)"; SQL statement:
+ALTER TABLE Comprend
+  ADD PRIMARY KEY (idReservation,idOption),
+  ADD KEY idOption (idOption) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Entreprise\000d\000a  ADD PRIMARY KEY (idEntreprise)[*],\000d\000a  ADD KEY idAdresseFacturation (idAdresseFacturation)"
+Syntax error in SQL statement "ALTER TABLE Entreprise\000d\000a  ADD PRIMARY KEY (idEntreprise)[*],\000d\000a  ADD KEY idAdresseFacturation (idAdresseFacturation)"; SQL statement:
+ALTER TABLE Entreprise
+  ADD PRIMARY KEY (idEntreprise),
+  ADD KEY idAdresseFacturation (idAdresseFacturation) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Facturation\000d\000a  ADD PRIMARY KEY (idFacture)[*],\000d\000a  ADD KEY idStatutFacture (idStatutFacture),\000d\000a  ADD KEY idClient (idClient)"
+Syntax error in SQL statement "ALTER TABLE Facturation\000d\000a  ADD PRIMARY KEY (idFacture)[*],\000d\000a  ADD KEY idStatutFacture (idStatutFacture),\000d\000a  ADD KEY idClient (idClient)"; SQL statement:
+ALTER TABLE Facturation
+  ADD PRIMARY KEY (idFacture),
+  ADD KEY idStatutFacture (idStatutFacture),
+  ADD KEY idClient (idClient) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Paye\000d\000a  ADD PRIMARY KEY (idFacture,idTypePaiement)[*],\000d\000a  ADD KEY idTypePaiement (idTypePaiement)"
+Syntax error in SQL statement "ALTER TABLE Paye\000d\000a  ADD PRIMARY KEY (idFacture,idTypePaiement)[*],\000d\000a  ADD KEY idTypePaiement (idTypePaiement)"; SQL statement:
+ALTER TABLE Paye
+  ADD PRIMARY KEY (idFacture,idTypePaiement),
+  ADD KEY idTypePaiement (idTypePaiement) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Relie\000d\000a  ADD PRIMARY KEY (idChambre,idReservation)[*],\000d\000a  ADD KEY idReservation (idReservation)"
+Syntax error in SQL statement "ALTER TABLE Relie\000d\000a  ADD PRIMARY KEY (idChambre,idReservation)[*],\000d\000a  ADD KEY idReservation (idReservation)"; SQL statement:
+ALTER TABLE Relie
+  ADD PRIMARY KEY (idChambre,idReservation),
+  ADD KEY idReservation (idReservation) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Reservation\000d\000a  ADD PRIMARY KEY (idReservation)[*],\000d\000a  ADD KEY idStatutResa (idStatutResa),\000d\000a  ADD KEY idClient (idClient),\000d\000a  ADD KEY idFacture (idFacture),\000d\000a  ADD KEY fk_id_client (idResp)"
+Syntax error in SQL statement "ALTER TABLE Reservation\000d\000a  ADD PRIMARY KEY (idReservation)[*],\000d\000a  ADD KEY idStatutResa (idStatutResa),\000d\000a  ADD KEY idClient (idClient),\000d\000a  ADD KEY idFacture (idFacture),\000d\000a  ADD KEY fk_id_client (idResp)"; SQL statement:
+ALTER TABLE Reservation
+  ADD PRIMARY KEY (idReservation),
+  ADD KEY idStatutResa (idStatutResa),
+  ADD KEY idClient (idClient),
+  ADD KEY idFacture (idFacture),
+  ADD KEY fk_id_client (idResp) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Utilisateur\000d\000a  ADD PRIMARY KEY (idUtilisateur)[*],\000d\000a  ADD KEY idNiveau_1 (idNiveau_1)"
+Syntax error in SQL statement "ALTER TABLE Utilisateur\000d\000a  ADD PRIMARY KEY (idUtilisateur)[*],\000d\000a  ADD KEY idNiveau_1 (idNiveau_1)"; SQL statement:
+ALTER TABLE Utilisateur
+  ADD PRIMARY KEY (idUtilisateur),
+  ADD KEY idNiveau_1 (idNiveau_1) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Chambre\000d\000a  ADD CONSTRAINT chambre_ibfk_1 FOREIGN KEY (idTypeChambre) REFERENCES TypeChambre (idTypeChambre)[*],\000d\000a  ADD CONSTRAINT chambre_ibfk_2 FOREIGN KEY (idStatutChambre) REFERENCES StatutChambre (idStatutChambre)"
+Syntax error in SQL statement "ALTER TABLE Chambre\000d\000a  ADD CONSTRAINT chambre_ibfk_1 FOREIGN KEY (idTypeChambre) REFERENCES TypeChambre (idTypeChambre)[*],\000d\000a  ADD CONSTRAINT chambre_ibfk_2 FOREIGN KEY (idStatutChambre) REFERENCES StatutChambre (idStatutChambre)"; SQL statement:
+ALTER TABLE Chambre
+  ADD CONSTRAINT chambre_ibfk_1 FOREIGN KEY (idTypeChambre) REFERENCES TypeChambre (idTypeChambre),
+  ADD CONSTRAINT chambre_ibfk_2 FOREIGN KEY (idStatutChambre) REFERENCES StatutChambre (idStatutChambre) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Client\000d\000a  ADD CONSTRAINT client_ibfk_1 FOREIGN KEY (idEntreprise) REFERENCES Entreprise (idEntreprise)[*],\000d\000a  ADD CONSTRAINT client_ibfk_2 FOREIGN KEY (idAdresseFacturation) REFERENCES AdresseFacturation (idAdresseFacturation)"
+Syntax error in SQL statement "ALTER TABLE Client\000d\000a  ADD CONSTRAINT client_ibfk_1 FOREIGN KEY (idEntreprise) REFERENCES Entreprise (idEntreprise)[*],\000d\000a  ADD CONSTRAINT client_ibfk_2 FOREIGN KEY (idAdresseFacturation) REFERENCES AdresseFacturation (idAdresseFacturation)"; SQL statement:
+ALTER TABLE Client
+  ADD CONSTRAINT client_ibfk_1 FOREIGN KEY (idEntreprise) REFERENCES Entreprise (idEntreprise),
+  ADD CONSTRAINT client_ibfk_2 FOREIGN KEY (idAdresseFacturation) REFERENCES AdresseFacturation (idAdresseFacturation) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Comprend\000d\000a  ADD CONSTRAINT comprend_ibfk_1 FOREIGN KEY (idReservation) REFERENCES Reservation (idReservation)[*],\000d\000a  ADD CONSTRAINT comprend_ibfk_2 FOREIGN KEY (idOption) REFERENCES OptionReservation (idOption)"
+Syntax error in SQL statement "ALTER TABLE Comprend\000d\000a  ADD CONSTRAINT comprend_ibfk_1 FOREIGN KEY (idReservation) REFERENCES Reservation (idReservation)[*],\000d\000a  ADD CONSTRAINT comprend_ibfk_2 FOREIGN KEY (idOption) REFERENCES OptionReservation (idOption)"; SQL statement:
+ALTER TABLE Comprend
+  ADD CONSTRAINT comprend_ibfk_1 FOREIGN KEY (idReservation) REFERENCES Reservation (idReservation),
+  ADD CONSTRAINT comprend_ibfk_2 FOREIGN KEY (idOption) REFERENCES OptionReservation (idOption) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Facturation\000d\000a  ADD CONSTRAINT facturation_ibfk_1 FOREIGN KEY (idStatutFacture) REFERENCES StatutFacture (idStatutFacture)[*],\000d\000a  ADD CONSTRAINT facturation_ibfk_2 FOREIGN KEY (idClient) REFERENCES Client (idClient)"
+Syntax error in SQL statement "ALTER TABLE Facturation\000d\000a  ADD CONSTRAINT facturation_ibfk_1 FOREIGN KEY (idStatutFacture) REFERENCES StatutFacture (idStatutFacture)[*],\000d\000a  ADD CONSTRAINT facturation_ibfk_2 FOREIGN KEY (idClient) REFERENCES Client (idClient)"; SQL statement:
+ALTER TABLE Facturation
+  ADD CONSTRAINT facturation_ibfk_1 FOREIGN KEY (idStatutFacture) REFERENCES StatutFacture (idStatutFacture),
+  ADD CONSTRAINT facturation_ibfk_2 FOREIGN KEY (idClient) REFERENCES Client (idClient) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Paye\000d\000a  ADD CONSTRAINT paye_ibfk_1 FOREIGN KEY (idFacture) REFERENCES Facturation (idFacture)[*],\000d\000a  ADD CONSTRAINT paye_ibfk_2 FOREIGN KEY (idTypePaiement) REFERENCES TypePaiement (idTypePaiement)"
+Syntax error in SQL statement "ALTER TABLE Paye\000d\000a  ADD CONSTRAINT paye_ibfk_1 FOREIGN KEY (idFacture) REFERENCES Facturation (idFacture)[*],\000d\000a  ADD CONSTRAINT paye_ibfk_2 FOREIGN KEY (idTypePaiement) REFERENCES TypePaiement (idTypePaiement)"; SQL statement:
+ALTER TABLE Paye
+  ADD CONSTRAINT paye_ibfk_1 FOREIGN KEY (idFacture) REFERENCES Facturation (idFacture),
+  ADD CONSTRAINT paye_ibfk_2 FOREIGN KEY (idTypePaiement) REFERENCES TypePaiement (idTypePaiement) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Relie\000d\000a  ADD CONSTRAINT relie_ibfk_1 FOREIGN KEY (idChambre) REFERENCES Chambre (idChambre)[*],\000d\000a  ADD CONSTRAINT relie_ibfk_2 FOREIGN KEY (idReservation) REFERENCES Reservation (idReservation)"
+Syntax error in SQL statement "ALTER TABLE Relie\000d\000a  ADD CONSTRAINT relie_ibfk_1 FOREIGN KEY (idChambre) REFERENCES Chambre (idChambre)[*],\000d\000a  ADD CONSTRAINT relie_ibfk_2 FOREIGN KEY (idReservation) REFERENCES Reservation (idReservation)"; SQL statement:
+ALTER TABLE Relie
+  ADD CONSTRAINT relie_ibfk_1 FOREIGN KEY (idChambre) REFERENCES Chambre (idChambre),
+  ADD CONSTRAINT relie_ibfk_2 FOREIGN KEY (idReservation) REFERENCES Reservation (idReservation) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Reservation\000d\000a  ADD CONSTRAINT fk_id_client FOREIGN KEY (idResp) REFERENCES Utilisateur (idUtilisateur)[*],\000d\000a  ADD CONSTRAINT reservation_ibfk_1 FOREIGN KEY (idStatutResa) REFERENCES StatutReservation (idStatutResa),\000d\000a  ADD CONSTRAINT reservation_ibfk_2 FOREIGN KEY (idClient) REFERENCES Client (idClient),\000d\000a  ADD CONSTRAINT reservation_ibfk_3 FOREIGN KEY (idFacture) REFERENCES Facturation (idFacture)"
+Syntax error in SQL statement "ALTER TABLE Reservation\000d\000a  ADD CONSTRAINT fk_id_client FOREIGN KEY (idResp) REFERENCES Utilisateur (idUtilisateur)[*],\000d\000a  ADD CONSTRAINT reservation_ibfk_1 FOREIGN KEY (idStatutResa) REFERENCES StatutReservation (idStatutResa),\000d\000a  ADD CONSTRAINT reservation_ibfk_2 FOREIGN KEY (idClient) REFERENCES Client (idClient),\000d\000a  ADD CONSTRAINT reservation_ibfk_3 FOREIGN KEY (idFacture) REFERENCES Facturation (idFacture)"; SQL statement:
+ALTER TABLE Reservation
+  ADD CONSTRAINT fk_id_client FOREIGN KEY (idResp) REFERENCES Utilisateur (idUtilisateur),
+  ADD CONSTRAINT reservation_ibfk_1 FOREIGN KEY (idStatutResa) REFERENCES StatutReservation (idStatutResa),
+  ADD CONSTRAINT reservation_ibfk_2 FOREIGN KEY (idClient) REFERENCES Client (idClient),
+  ADD CONSTRAINT reservation_ibfk_3 FOREIGN KEY (idFacture) REFERENCES Facturation (idFacture) [42000-220]
+2025-04-14 10:37:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "resasync" non trouvée
+Column "resasync" not found; SQL statement:
+CREATE USER resasync PASSWORD "resasync" [42122-220]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.ddl.CreateUser.setPassword(CreateUser.java:81)
+	at org.h2.command.ddl.CreateUser.update(CreateUser.java:114)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1109)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1096)
+	at org.h2.server.web.WebThread.process(WebThread.java:188)
+	at org.h2.server.web.WebThread.run(WebThread.java:101)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
