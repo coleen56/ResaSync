@@ -10,7 +10,6 @@ public class Chambre {
     public Chambre (int idChambre, int numChambre, String statutChambre, int idTypeChambre, int idStatusChambre){
         this.idChambre = idChambre;
         this.numChambre = numChambre;
-       //rob
         this.statutChambre = statutChambre;
         this.idTypeChambre = idTypeChambre;
         this.idStatusChambre = idStatusChambre;
