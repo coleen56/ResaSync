@@ -12,15 +12,14 @@ public class Client {
     private int idEntreprise;
     private int idAdresseFacturation;
 
-    public Client(int idClient, String nom, String prenom, String tel, String email, LocalDate dateNaissance, int idEntreprise, int idAdresseFacturation) {
+    public Client (int idClient, String nom, String prenom, String tel, String email){
         this.idClient = idClient;
         this.nom = nom;
-        this.prenom = prenom;
         this.tel = tel;
         this.email = email;
         this.dateNaissance = dateNaissance;
         this.idEntreprise = idEntreprise;
-        this.idAdresseFacturation = idAdresseFacturation;
+        this.idNiveau = idNiveau;
     }
 
     //getters and setters
@@ -81,17 +80,15 @@ public class Client {
         this.idEntreprise = idEntreprise;
     }
 
-    public int getIdAdresseFacturation() {
-        return idAdresseFacturation;
+    public int getIdNiveau() {
+        return idNiveau;
     }
 
-    public void setIdAdresseFacturation(int idAdresseFacturation) {
-        this.idAdresseFacturation = idAdresseFacturation;
+    public void setIdNiveau(int idNiveau) {
+        this.idNiveau = idNiveau;
     }
-
 
     // toString
-
 
     @Override
     public String toString() {
@@ -103,7 +100,7 @@ public class Client {
                 ", email='" + email + '\'' +
                 ", dateNaissance=" + dateNaissance +
                 ", idEntreprise=" + idEntreprise +
-                ", idAdresseFacturation=" + idAdresseFacturation +
+                ", idNiveau=" + idNiveau +
                 '}';
     }
 }
