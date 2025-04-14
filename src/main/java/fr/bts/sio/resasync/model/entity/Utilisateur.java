@@ -1,15 +1,15 @@
 package fr.bts.sio.resasync.model.entity;
 
 public class Utilisateur {
-    private int id;
+    private int idUtilisateur;
     private String login;
     private String pwd;
     private String nom;
     private String prenom;
     private int idNiveau;
 
-    public Utilisateur (int id, String login, String pwd, String nom, String prenom, int idNiveau){
-        this.id = id;
+    public Utilisateur (int idutilisateur, String login, String pwd, String nom, String prenom, int idNiveau){
+        this.idUtilisateur = idutilisateur;
         this.login = login;
         this.pwd = pwd;
         this.nom = nom;
@@ -19,11 +19,11 @@ public class Utilisateur {
     // Getters and Setters
 
     public int getId() {
-        return id;
+        return idUtilisateur;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idUtilisateur = id;
     }
 
     public String getLogin() {
