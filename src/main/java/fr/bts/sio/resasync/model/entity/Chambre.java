@@ -11,7 +11,8 @@ public class Chambre {
         this.idChambre = idChambre;
         this.numChambre = numChambre;
         this.statutChambre = statutChambre;
-
+        this.idTypeChambre = idTypeChambre;
+        this.idStatusChambre = idStatusChambre;
 
     }
 }

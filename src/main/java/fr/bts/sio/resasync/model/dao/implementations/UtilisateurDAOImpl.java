@@ -1,4 +1,6 @@
 package fr.bts.sio.resasync.model.dao.implementations;
 
-public class UtilisateurDAOImpl {
+import fr.bts.sio.resasync.model.dao.interfaces.UtilisateurDAO;
+
+public class UtilisateurDAOImpl implements UtilisateurDAO {
 }
