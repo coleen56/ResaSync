@@ -1,4 +1,4 @@
-package fr.bts.sio.resasync.util;
+package fr.bts.sio.resasync.model.utils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
