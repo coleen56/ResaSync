@@ -8,6 +8,9 @@ public class Entreprise {
     private String email;
     private int idAdresseFacturation;
 
+    public Entreprise() {
+    }
+
     public Entreprise(int idEntreprise, String raisonSociale, String tel, String numSiret, String email, int idAdresseFacturation) {
         this.idEntreprise = idEntreprise;
         this.raisonSociale = raisonSociale;
