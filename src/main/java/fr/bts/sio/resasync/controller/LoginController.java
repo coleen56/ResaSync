@@ -20,36 +20,31 @@ public class LoginController {
     @FXML
     private Button loginButton;
 
-    private UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl();
+    private UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl(); // Ou injecte-le si besoin
 
     @FXML
-    private void initialize() { // lancement de la méthode d'authentification au clic sur le bouton
+    private void initialize() {
         loginButton.setOnAction(event -> authentifierUtilisateur());
     }
 
     private void authentifierUtilisateur() {
-        String login = loginField.getText(); // récup de la saisie utilisateur dans les champs de saisie
+        String login = loginField.getText();
         String pwd = passwordField.getText();
-        String text = "";
 
         Utilisateur utilisateur = null;
-        if (login != null && !login.isEmpty()) { // si champ login non nul : on cherche l'utilisateur correspondant en bdd
+        if (login != null && !login.isEmpty()) {
             utilisateur = utilisateurDAO.findByLogin(login);
         }
 
         if (utilisateur != null && BCrypt.checkpw(pwd, utilisateur.getPwd())) {
             System.out.println("Connexion réussie. Redirection ...");
             // Rediriger vers l'application principale (changer de scène par exemple)
-        } else if (utilisateur == null){ // Afficher un message d'erreur dans la vue
-            if(login == ""||pwd == "") { // au moins 1 champ vide
-                System.out.println("Veuillez remplir tous les champs.");
-            } else { // utilisateur non trouvé en bdd
-                System.out.println("Échec de l'authentification : l'utilisateur n'existe pas.");
-            }
-        } else if (!BCrypt.checkpw(pwd, utilisateur.getPwd())) { // mot de passe ne courrespond pas a celui stocké en bdd
+        } else if (utilisateur == null){
+            System.out.println("Échec de l'authentification : l'utilisateur n'existe pas.");
+            // Afficher un message d'erreur dans la vue
+        } else if (!BCrypt.checkpw(pwd, utilisateur.getPwd())) {
             System.out.println("Mot de passe incorrect.");
         }
-
     }
 }
 

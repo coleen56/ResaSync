@@ -13,6 +13,7 @@ module fr.bts.sio.resasync {
     requires java.sql;
     requires com.h2database;
     requires jbcrypt;
+    requires java.desktop;
 
     opens fr.bts.sio.resasync to javafx.fxml;
     opens fr.bts.sio.resasync.controller to javafx.fxml;
