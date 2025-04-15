@@ -1,7 +1,8 @@
 package fr.bts.sio.resasync.model.dao.implementations;
 
-import fr.bts.sio.resasync.model.dao.interfaces.ChambreDAO;
-import fr.bts.sio.resasync.model.entity.Chambre;
+import fr.bts.sio.resasync.model.dao.interfaces.NiveauDroitsDAO;
+import fr.bts.sio.resasync.model.entity.Comprend;
+import fr.bts.sio.resasync.model.entity.NiveauDroits;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
 
 import java.sql.Connection;
@@ -9,17 +10,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ChambreDAOImpl implements ChambreDAO {
+public class NiveauDroitsDAOImpl implements NiveauDroitsDAO {
     private Connection connection;
 
-    public ChambreDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
-    public Chambre findById(int id) {
-        String sql = "SELECT * FROM chambre WHERE idchambre = ?";
-        Chambre chambre = null;
+    public NiveauDroits findById(int idniveau) {
+        String sql = "SELECT * FROM niveaudroits WHERE idniveau = ?;";
+        NiveauDroits niveau = null;
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -28,12 +26,11 @@ public class ChambreDAOImpl implements ChambreDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, id);
+            stmt.setInt(1, idniveau);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                chambre = new Chambre(rs.getInt("idchambre"), rs.getInt("numchambre"),
-                        rs.getInt("idtypechambre"), rs.getInt("idstatutchambre"));
+                niveau = new NiveauDroits(rs.getInt("idniveau"), rs.getString("libelle"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -50,13 +47,13 @@ public class ChambreDAOImpl implements ChambreDAO {
                 e.printStackTrace();
             }
         }
-        return chambre;
+        return niveau;
     }
 
     @Override
-    public void save(Chambre chambre) {
-        String sql = "INSERT INTO chambre(numchambre, idtypechambre, idstatutchambre) " +
-                "values (?, ?, ?)";
+    public void save(NiveauDroits niveau) {
+        String sql = "INSERT INTO niveaudroits(idniveau, libelle) " +
+                "values (?, ?)";
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -65,12 +62,11 @@ public class ChambreDAOImpl implements ChambreDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, chambre.getNumChambre());
-            stmt.setInt(2, chambre.getIdTypeChambre());
-            stmt.setInt(3, chambre.getIdStatutChambre());
+            stmt.setInt(1, niveau.getIdNiveau());
+            stmt.setString(2, niveau.getLibelle());
 
             stmt.executeUpdate();
-            System.out.println("chambre bien insérée en BDD");
+            System.out.println("Niveau de droits bien inséré en BDD");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,8 +86,8 @@ public class ChambreDAOImpl implements ChambreDAO {
     }
 
     @Override
-    public void update(Chambre chambre) {
-        String sql = "UPDATE chambre SET numchambre = ?, idtypechambre = ?, idstatutchambre = ? where idchambre = ?;";
+    public void update(NiveauDroits niveau) {
+        String sql = "UPDATE niveaudroits SET libelle = ? where idniveau = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -99,11 +95,9 @@ public class ChambreDAOImpl implements ChambreDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, chambre.getNumChambre());
-            stmt.setInt(2, chambre.getIdTypeChambre());
-            stmt.setInt(3, chambre.getIdStatutChambre());
+            stmt.setString(1, niveau.getLibelle());
 
-            stmt.setInt(5, chambre.getIdChambre());
+            stmt.setInt(2, niveau.getIdNiveau());
 
 
             stmt.executeUpdate();
@@ -125,8 +119,8 @@ public class ChambreDAOImpl implements ChambreDAO {
     }
 
     @Override
-    public void delete(Chambre chambre) {
-        String sql = "DELETE FROM chambre WHERE idchambre = ?;";
+    public void delete(NiveauDroits niveau) {
+        String sql = "DELETE FROM niveaudroits WHERE idniveau = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -134,7 +128,7 @@ public class ChambreDAOImpl implements ChambreDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, chambre.getIdChambre());
+            stmt.setInt(1, niveau.getIdNiveau());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
