@@ -40,11 +40,16 @@ public class LoginController {
             System.out.println("Connexion réussie. Redirection ...");
             // Rediriger vers l'application principale (changer de scène par exemple)
         } else if (utilisateur == null){
-            System.out.println("Échec de l'authentification : l'utilisateur n'existe pas.");
+            if(login == ""||pwd == "") {
+                System.out.println("Veuillez remplir tous les champs.");
+            } else {
+                System.out.println("Échec de l'authentification : l'utilisateur n'existe pas.");
+            }
             // Afficher un message d'erreur dans la vue
         } else if (!BCrypt.checkpw(pwd, utilisateur.getPwd())) {
             System.out.println("Mot de passe incorrect.");
         }
+
     }
 }
 
