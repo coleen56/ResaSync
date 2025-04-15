@@ -8,10 +8,10 @@ public class TestConnexion {
         try {
             Connection conn = DatabaseConnection.getConnection();
             if (conn != null && !conn.isClosed()) {
-                System.out.println("✅ Connexion à la base H2 réussie !");
+                System.out.println("Connexion à la base H2 réussie !");
             }
         } catch (SQLException e) {
-            System.out.println("❌ Erreur de connexion : " + e.getMessage());
+            System.out.println("Erreur de connexion : " + e.getMessage());
             e.printStackTrace();
         }
     }
