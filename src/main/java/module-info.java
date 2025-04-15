@@ -14,6 +14,10 @@ module fr.bts.sio.resasync {
     requires com.h2database;
 
     opens fr.bts.sio.resasync to javafx.fxml;
+    opens fr.bts.sio.resasync.controller to javafx.fxml;
+
     exports fr.bts.sio.resasync;
+    exports fr.bts.sio.resasync.controller to javafx.fxml;
+
 
 }
