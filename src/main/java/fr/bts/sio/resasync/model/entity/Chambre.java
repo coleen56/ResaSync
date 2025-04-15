@@ -3,18 +3,46 @@ package fr.bts.sio.resasync.model.entity;
 public class Chambre {
     private int idChambre;
     private int numChambre;
-    private String statutChambre;
     private int idTypeChambre;
-    private int idStatusChambre;
+    private int idStatutChambre;
 
-    public Chambre (int idChambre, int numChambre, String statutChambre, int idTypeChambre, int idStatusChambre){
+    public Chambre (int idChambre, int numChambre, int idTypeChambre, int idStatutChambre){
         this.idChambre = idChambre;
         this.numChambre = numChambre;
        //rob
-        this.statutChambre = statutChambre;
         this.idTypeChambre = idTypeChambre;
-        this.idStatusChambre = idStatusChambre;
-
+        this.idStatutChambre = idStatutChambre;
     }
 
+    public int getIdChambre() {
+        return idChambre;
+    }
+
+    public void setIdChambre(int idChambre) {
+        this.idChambre = idChambre;
+    }
+
+    public int getNumChambre() {
+        return numChambre;
+    }
+
+    public void setNumChambre(int numChambre) {
+        this.numChambre = numChambre;
+    }
+
+    public int getIdTypeChambre() {
+        return idTypeChambre;
+    }
+
+    public void setIdTypeChambre(int idTypeChambre) {
+        this.idTypeChambre = idTypeChambre;
+    }
+
+    public int getIdStatutChambre() {
+        return idStatutChambre;
+    }
+
+    public void setIdStatutChambre(int idStatusChambre) {
+        this.idStatutChambre = idStatusChambre;
+    }
 }
