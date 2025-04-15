@@ -31,6 +31,8 @@ public class Client {
         this.dateNaissance = dateNaissance;
     }
 
+
+
     //getters and setters
 
     public int getIdClient() {

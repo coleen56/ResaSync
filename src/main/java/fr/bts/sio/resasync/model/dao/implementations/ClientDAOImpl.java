@@ -91,11 +91,68 @@ public class ClientDAOImpl implements ClientDAO {
 
     @Override
     public void update(Client client) {
+        String sql = "UPDATE client SET nom = ?, prenom = ?, tel = ?, email = ?, datenaissance = ?, identreprise = ?, idadressefacturation = ? WHERE idclient = ?;\n";
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
+        try {
+            conn = DatabaseConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, client.getNom());
+            stmt.setString(2, client.getPrenom());
+            stmt.setString(3, client.getTel());
+            stmt.setString(4, client.getEmail());
+            stmt.setString(5, client.getDateNaissance());
+            stmt.setInt(6, client.getIdEntreprise());
+            stmt.setInt(7, client.getIdAdresseFacturation());
+            stmt.setInt(8, client.getIdClient());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Ferme les ressources
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void delete(Client client) {
+        String sql = "DELETE FROM client WHERE idclient = ?;";
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
+        try {
+            conn = DatabaseConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, client.getIdClient());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Ferme les ressources
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -7,5 +7,6 @@ public interface UtilisateurDAO {
     void save(Utilisateur utilisateur);
     void update(Utilisateur utilisateur);
     void delete(Utilisateur utilisateur);
+    Utilisateur findByLogin(String login);
 
 }
