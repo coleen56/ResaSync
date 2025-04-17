@@ -1,8 +1,8 @@
 package fr.bts.sio.resasync.model.dao.implementations;
 
-import fr.bts.sio.resasync.model.dao.interfaces.AdresseFacturationDAO;
-import fr.bts.sio.resasync.model.entity.AdresseFacturation;
-import fr.bts.sio.resasync.model.entity.Utilisateur;
+import fr.bts.sio.resasync.model.dao.interfaces.NiveauDroitsDAO;
+import fr.bts.sio.resasync.model.entity.Comprend;
+import fr.bts.sio.resasync.model.entity.NiveauDroits;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
 
 import java.sql.Connection;
@@ -10,17 +10,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
+public class NiveauDroitsDAOImpl implements NiveauDroitsDAO {
     private Connection connection;
 
-    public AdresseFacturationDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
-    public AdresseFacturation findById(int id) {
-        String sql = "SELECT * FROM adressefacturation WHERE idadressefacturation = ?";
-        AdresseFacturation adresseFact = null;
+    public NiveauDroits findById(int idniveau) {
+        String sql = "SELECT * FROM niveaudroits WHERE idniveau = ?;";
+        NiveauDroits niveau = null;
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -29,13 +26,11 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, id);
+            stmt.setInt(1, idniveau);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                adresseFact = new AdresseFacturation(rs.getInt("idadressefacturation"), rs.getString("numero"),
-                        rs.getString("voie"), rs.getString("codepostal"), rs.getString("ville"),
-                        rs.getString("pays"));
+                niveau = new NiveauDroits(rs.getInt("idniveau"), rs.getString("libelle"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -52,13 +47,13 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
                 e.printStackTrace();
             }
         }
-        return adresseFact;
+        return niveau;
     }
 
     @Override
-    public void save(AdresseFacturation adresseFacturation) {
-        String sql = "INSERT INTO adressefacturation(numero, voie, codepostal, ville, pays) " +
-                "values (?, ?, ?, ?, ?)";
+    public void save(NiveauDroits niveau) {
+        String sql = "INSERT INTO niveaudroits(idniveau, libelle) " +
+                "values (?, ?)";
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -67,14 +62,11 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, adresseFacturation.getNumero());
-            stmt.setString(2, adresseFacturation.getVoie());
-            stmt.setString(3, adresseFacturation.getCodePostal());
-            stmt.setString(4, adresseFacturation.getVille());
-            stmt.setString(5, adresseFacturation.getPays());
+            stmt.setInt(1, niveau.getIdNiveau());
+            stmt.setString(2, niveau.getLibelle());
 
             stmt.executeUpdate();
-            System.out.println("Client bien inséré en BDD");
+            System.out.println("Niveau de droits bien inséré en BDD");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,8 +86,8 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
     }
 
     @Override
-    public void update(AdresseFacturation adresseFacturation) {
-        String sql = "UPDATE adressefacturation SET numero = ?, voie = ?, codepostal = ?, ville = ?, pays = ? WHERE idadressefacturation = ?;\n";
+    public void update(NiveauDroits niveau) {
+        String sql = "UPDATE niveaudroits SET libelle = ? where idniveau = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -103,13 +95,10 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, adresseFacturation.getNumero());
-            stmt.setString(2, adresseFacturation.getVoie());
-            stmt.setString(3, adresseFacturation.getCodePostal());
-            stmt.setString(4, adresseFacturation.getVille());
-            stmt.setString(5, adresseFacturation.getPays());
+            stmt.setString(1, niveau.getLibelle());
 
-            stmt.setInt(6, adresseFacturation.getIdAdresseFacturation());
+            stmt.setInt(2, niveau.getIdNiveau());
+
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -130,8 +119,8 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
     }
 
     @Override
-    public void delete(AdresseFacturation adresseFacturation) {
-        String sql = "DELETE FROM adressefacturation WHERE idadressefacturation = ?;";
+    public void delete(NiveauDroits niveau) {
+        String sql = "DELETE FROM niveaudroits WHERE idniveau = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -139,7 +128,7 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, adresseFacturation.getIdAdresseFacturation());
+            stmt.setInt(1, niveau.getIdNiveau());
 
             stmt.executeUpdate();
         } catch (SQLException e) {

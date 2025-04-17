@@ -1,8 +1,7 @@
 package fr.bts.sio.resasync.model.dao.implementations;
 
-import fr.bts.sio.resasync.model.dao.interfaces.AdresseFacturationDAO;
-import fr.bts.sio.resasync.model.entity.AdresseFacturation;
-import fr.bts.sio.resasync.model.entity.Utilisateur;
+import fr.bts.sio.resasync.model.dao.interfaces.FacturationDAO;
+import fr.bts.sio.resasync.model.entity.Facturation;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
 
 import java.sql.Connection;
@@ -10,17 +9,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
+import static fr.bts.sio.resasync.util.Methods.javaDateToSqlDate;
+
+public class FacturationDAOImpl implements FacturationDAO {
     private Connection connection;
 
-    public AdresseFacturationDAOImpl(Connection connection) {
+    public FacturationDAOImpl(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public AdresseFacturation findById(int id) {
-        String sql = "SELECT * FROM adressefacturation WHERE idadressefacturation = ?";
-        AdresseFacturation adresseFact = null;
+    public Facturation findById(int id) {
+        String sql = "SELECT * FROM facturation WHERE idfacturation = ?";
+        Facturation facturation = null;
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -33,9 +34,8 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                adresseFact = new AdresseFacturation(rs.getInt("idadressefacturation"), rs.getString("numero"),
-                        rs.getString("voie"), rs.getString("codepostal"), rs.getString("ville"),
-                        rs.getString("pays"));
+                facturation = new Facturation(rs.getInt("idfacture"), rs.getDouble("totalfacture"), rs.getDate("datefacturation"),
+                        rs.getInt("idstatutfacturation"), rs.getInt("idclient"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -52,13 +52,13 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
                 e.printStackTrace();
             }
         }
-        return adresseFact;
+        return facturation;
     }
 
     @Override
-    public void save(AdresseFacturation adresseFacturation) {
-        String sql = "INSERT INTO adressefacturation(numero, voie, codepostal, ville, pays) " +
-                "values (?, ?, ?, ?, ?)";
+    public void save(Facturation facturation) {
+        String sql = "INSERT INTO facturation(totalfacture, datefacturation, idstatutfacture, idclient) " +
+                "values (?, ?, ?, ?)";
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -67,14 +67,14 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, adresseFacturation.getNumero());
-            stmt.setString(2, adresseFacturation.getVoie());
-            stmt.setString(3, adresseFacturation.getCodePostal());
-            stmt.setString(4, adresseFacturation.getVille());
-            stmt.setString(5, adresseFacturation.getPays());
+            stmt.setDouble(1, facturation.getTotalFacture());
+
+            stmt.setDate(2, javaDateToSqlDate(facturation.getDateFacturation()));// conversion de java date a sql date
+            stmt.setInt(3, facturation.getIdStatutFacture());
+            stmt.setInt(4, facturation.getIdClient());
 
             stmt.executeUpdate();
-            System.out.println("Client bien inséré en BDD");
+            System.out.println("facture bien inséré en BDD");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,8 +94,8 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
     }
 
     @Override
-    public void update(AdresseFacturation adresseFacturation) {
-        String sql = "UPDATE adressefacturation SET numero = ?, voie = ?, codepostal = ?, ville = ?, pays = ? WHERE idadressefacturation = ?;\n";
+    public void update(Facturation facturation) {
+        String sql = "UPDATE facturation SET totalfacture = ?, datefacturation = ?, idstatutfacture = ?, idclient = ? WHERE idfacture = ?;\n";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -103,13 +103,12 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, adresseFacturation.getNumero());
-            stmt.setString(2, adresseFacturation.getVoie());
-            stmt.setString(3, adresseFacturation.getCodePostal());
-            stmt.setString(4, adresseFacturation.getVille());
-            stmt.setString(5, adresseFacturation.getPays());
+            stmt.setDouble(1, facturation.getTotalFacture());
+            stmt.setDate(2, javaDateToSqlDate(facturation.getDateFacturation()));
+            stmt.setInt(3, facturation.getIdStatutFacture());
+            stmt.setInt(4, facturation.getIdClient());
 
-            stmt.setInt(6, adresseFacturation.getIdAdresseFacturation());
+            stmt.setInt(5, facturation.getIdFacture());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -130,8 +129,8 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
     }
 
     @Override
-    public void delete(AdresseFacturation adresseFacturation) {
-        String sql = "DELETE FROM adressefacturation WHERE idadressefacturation = ?;";
+    public void delete(Facturation facturation) {
+        String sql = "DELETE FROM facturation WHERE idfacture = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -139,7 +138,7 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, adresseFacturation.getIdAdresseFacturation());
+            stmt.setInt(1, facturation.getIdFacture());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
