@@ -603,3 +603,12 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/I
 	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 60 more
+2025-04-17 14:40:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "UTILISATEUR" not found (this database is empty); SQL statement:
+SELECT * FROM UTILISATEUR where login = ? [42104-220]
+2025-04-17 14:40:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "UTILISATEUR" not found (this database is empty); SQL statement:
+SELECT * FROM UTILISATEUR where login = ? [42104-220]
+2025-04-17 14:40:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "UTILISATEUR" not found (this database is empty); SQL statement:
+SELECT * FROM UTILISATEUR where login = ? [42104-220]
