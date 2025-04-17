@@ -1,6 +1,7 @@
 package fr.bts.sio.resasync.model.entity;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class Reservation {
@@ -8,6 +9,7 @@ public class Reservation {
     private String statusReservation;
     private LocalDate dateReservation;
     private LocalDate dateDebut;
+    private LocalDate dateFin;
     private String nbrPersonnes;
     private int nbrChambre;
     private int idStatusResa;
@@ -15,11 +17,12 @@ public class Reservation {
     private int idFacture;
     private int idResp;
 
-    public Reservation(int idReservation,String statusReservation, LocalDate dateReservation, LocalDate dateDebut,String nbrPersonnes,int nbrChambre,int idStatusResa,int idClient,int idFacture,int idResp){
+    public Reservation(int idReservation, String statusReservation, LocalDate dateReservation, LocalDate dateDebut, LocalDate dateFin, String nbrPersonnes, int nbrChambre, int idStatusResa, int idClient, int idFacture, int idResp) {
         this.idReservation = idReservation;
         this.statusReservation = statusReservation;
         this.dateReservation = dateReservation;
         this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
         this.nbrPersonnes = nbrPersonnes;
         this.nbrChambre = nbrChambre;
         this.idStatusResa = idStatusResa;
@@ -27,8 +30,6 @@ public class Reservation {
         this.idFacture = idFacture;
         this.idResp = idResp;
     }
-
-    //Getters and Setters
 
     public int getIdReservation() {
         return idReservation;
@@ -60,6 +61,14 @@ public class Reservation {
 
     public void setDateDebut(LocalDate dateDebut) {
         this.dateDebut = dateDebut;
+    }
+
+    public LocalDate getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(LocalDate dateFin) {
+        this.dateFin = dateFin;
     }
 
     public String getNbrPersonnes() {
@@ -110,16 +119,16 @@ public class Reservation {
         this.idResp = idResp;
     }
 
-
-    //ToString
-
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
         return "Reservation{" +
                 "idReservation=" + idReservation +
                 ", statusReservation='" + statusReservation + '\'' +
-                ", dateReservation=" + dateReservation +
-                ", dateDebut=" + dateDebut +
+                ", dateReservation=" + format(dateReservation, formatter) +
+                ", dateDebut=" + format(dateDebut, formatter) +
+                ", dateFin=" + format(dateFin, formatter) +
                 ", nbrPersonnes='" + nbrPersonnes + '\'' +
                 ", nbrChambre=" + nbrChambre +
                 ", idStatusResa=" + idStatusResa +
@@ -127,5 +136,9 @@ public class Reservation {
                 ", idFacture=" + idFacture +
                 ", idResp=" + idResp +
                 '}';
+    }
+
+    private String format(LocalDate date, DateTimeFormatter formatter) {
+        return (date != null) ? date.format(formatter) : "non renseignée";
     }
 }

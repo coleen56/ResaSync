@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<!-- FORMULAIRE -->
+<GridPane fx:controller="fr.bts.sio.resasync.controller.ReservationController"
+          xmlns:fx="http://javafx.com/fxml"
+          hgap="10" vgap="10">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Ligne 0 -->
+    <Label text="Statut Réservation" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <TextField fx:id="statutReservationField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+    <!-- Ligne 1 -->
+    <Label text="Date Réservation" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <DatePicker fx:id="dateReservationPicker" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+    <!-- Ligne 2 -->
+    <Label text="Date Début" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <DatePicker fx:id="dateDebutPicker" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+    <!-- Ligne 3 -->
+    <Label text="Date Fin" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <DatePicker fx:id="dateFinPicker" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+    <!-- Ligne 4 -->
+    <Label text="Nombre de Personnes" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <TextField fx:id="nbrPersonnesField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+    <!-- Ligne 5 -->
+    <Label text="Nombre de Chambres" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+    <TextField fx:id="nbrChambreField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+    <!-- Ligne 6 -->
+    <Label text="ID Statut Réservation" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+    <TextField fx:id="idStatusResaField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+    <!-- Ligne 7 -->
+    <Label text="ID Client" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+    <TextField fx:id="idClientField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+    <!-- Ligne 8 -->
+    <Label text="ID Facture" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+    <TextField fx:id="idFactureField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+
+    <!-- Ligne 9 -->
+    <Label text="ID Responsable" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+    <TextField fx:id="idRespField" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+
+    <!-- Ligne 10 : Boutons -->
+    <HBox spacing="10" GridPane.rowIndex="10" GridPane.columnIndex="0" GridPane.columnSpan="2">
+        <Button text="Rechercher" fx:id="btnRechercher" onAction="#rechercherReservation"/>
+        <Button text="Créer" fx:id="btnCreer" onAction="#creerReservation"/>
+        <Button text="Mettre à jour" fx:id="btnMettreAJour" onAction="#mettreAJourReservation"/>
+        <Button text="Supprimer" fx:id="btnSupprimer" onAction="#supprimerReservation"/>
+        <Button text="Exporter en PDF" fx:id="btnExporterPdf" onAction="#exporterReservationEnPdf" GridPane.rowIndex="12" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+    </HBox>
+
+    <!-- Ligne 11 : Résultat -->
+    <TextArea fx:id="resultatTextArea" GridPane.rowIndex="11" GridPane.columnIndex="0" GridPane.columnSpan="2"
+              prefHeight="150"/>
+</GridPane>
