@@ -17,7 +17,7 @@ public class ResaSyncMain extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         try {
 //            Utilisateur user = new Utilisateur("coleen56", "1234", "CONTE", "Coleen", 0);
 //
