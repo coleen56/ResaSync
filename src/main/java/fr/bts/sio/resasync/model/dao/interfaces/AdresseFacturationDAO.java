@@ -8,3 +8,4 @@ public interface AdresseFacturationDAO {
     void update(AdresseFacturation adresseFacturation);
     void delete(AdresseFacturation adresseFacturation);
 }
+
