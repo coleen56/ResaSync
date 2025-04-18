@@ -42,7 +42,7 @@ public class Constantes {
         this.valeur = valeur;
     }
 
-    public Date getDateDebut() {
+    public java.sql.Date getDateDebut() {
         return DateDebut;
     }
 
@@ -50,7 +50,7 @@ public class Constantes {
         DateDebut = dateDebut;
     }
 
-    public Date getDateFin() {
+    public java.sql.Date getDateFin() {
         return DateFin;
     }
 
