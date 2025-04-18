@@ -1,7 +1,7 @@
 package fr.bts.sio.resasync.model.dao.implementations;
 
-import fr.bts.sio.resasync.model.dao.interfaces.PayeDAO;
-import fr.bts.sio.resasync.model.entity.Paye;
+import fr.bts.sio.resasync.model.dao.interfaces.StatutChambreDAO;
+import fr.bts.sio.resasync.model.entity.StatutChambre;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
 
 import java.sql.Connection;
@@ -9,17 +9,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PayeDAOImpl implements PayeDAO {
+public class StatutChambreDAOImpl implements StatutChambreDAO {
     private Connection connection;
 
-    public PayeDAOImpl(Connection connection) {
+    public StatutChambreDAOImpl(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public Paye findById(int idFacture, int idTypePaiement) {
-        String sql = "SELECT * FROM paye WHERE idfacture = ? AND idtypepaiement = ?";
-        Paye paye = null;
+    public StatutChambre findById(int idStatutChambre) {
+        String sql = "SELECT * FROM statutchambre WHERE idstatutchambre = ?";
+        StatutChambre statut = null;
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -28,15 +28,13 @@ public class PayeDAOImpl implements PayeDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, idFacture);
-            stmt.setInt(2, idTypePaiement);
+            stmt.setInt(1, idStatutChambre);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                paye = new Paye(
-                        rs.getInt("idfacture"),
-                        rs.getInt("idtypepaiement"),
-                        rs.getDouble("montant")
+                statut = new StatutChambre(
+                        rs.getInt("idstatutchambre"),
+                        rs.getString("libelle")
                 );
             }
         } catch (SQLException e) {
@@ -50,12 +48,12 @@ public class PayeDAOImpl implements PayeDAO {
             }
         }
 
-        return paye;
+        return statut;
     }
 
     @Override
-    public void save(Paye paye) {
-        String sql = "INSERT INTO paye(idfacture, idtypepaiement, montant) VALUES (?, ?, ?)";
+    public void save(StatutChambre statutChambre) {
+        String sql = "INSERT INTO statutchambre(libelle) VALUES (?)";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -63,12 +61,10 @@ public class PayeDAOImpl implements PayeDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, paye.getIdFacture());
-            stmt.setInt(2, paye.getIdTypePaiement());
-            stmt.setDouble(3, paye.getMontant());
+            stmt.setString(1, statutChambre.getLibelle());
 
             stmt.executeUpdate();
-            System.out.println("Paye bien inséré en BDD");
+            System.out.println("StatutChambre inséré en BDD");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -82,8 +78,8 @@ public class PayeDAOImpl implements PayeDAO {
     }
 
     @Override
-    public void update(Paye paye) {
-        String sql = "UPDATE paye SET montant = ? WHERE idfacture = ? AND idtypepaiement = ?";
+    public void update(StatutChambre statutChambre) {
+        String sql = "UPDATE statutchambre SET libelle = ? WHERE idstatutchambre = ?";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -91,9 +87,8 @@ public class PayeDAOImpl implements PayeDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setDouble(1, paye.getMontant());
-            stmt.setInt(2, paye.getIdFacture());
-            stmt.setInt(3, paye.getIdTypePaiement());
+            stmt.setString(1, statutChambre.getLibelle());
+            stmt.setInt(2, statutChambre.getIdStatutChambre());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -109,8 +104,8 @@ public class PayeDAOImpl implements PayeDAO {
     }
 
     @Override
-    public void delete(Paye paye) {
-        String sql = "DELETE FROM paye WHERE idfacture = ? AND idtypepaiement = ?";
+    public void delete(StatutChambre statutChambre) {
+        String sql = "DELETE FROM statutchambre WHERE idstatutchambre = ?";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -118,8 +113,7 @@ public class PayeDAOImpl implements PayeDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, paye.getIdFacture());
-            stmt.setInt(2, paye.getIdTypePaiement());
+            stmt.setInt(1, statutChambre.getIdStatutChambre());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
