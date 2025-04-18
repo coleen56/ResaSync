@@ -1,5 +1,8 @@
 package fr.bts.sio.resasync;
 
+import fr.bts.sio.resasync.model.dao.implementations.UtilisateurDAOImpl;
+import fr.bts.sio.resasync.model.dao.interfaces.UtilisateurDAO;
+import fr.bts.sio.resasync.model.entity.Utilisateur;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
