@@ -1,26 +1,19 @@
 package fr.bts.sio.resasync.model.dao.implementations;
 
-import fr.bts.sio.resasync.model.dao.interfaces.ConstantesDAO;
-import fr.bts.sio.resasync.model.entity.Constantes;
+import fr.bts.sio.resasync.model.dao.interfaces.StatutReservationDAO;
+import fr.bts.sio.resasync.model.entity.StatutReservation;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
-import java.sql.Date;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import fr.bts.sio.resasync.util.Methods;
 
-public class ConstantesDAOImpl implements ConstantesDAO {
-    private Connection connection;
-
-    public ConstantesDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
-
+public class StatutReservationDAOImpl implements StatutReservationDAO {
     @Override
-    public Constantes findById(int idConstantes) {
-        String sql = "SELECT * FROM constantes WHERE idconstantes = ?";
-        Constantes constantes = null;
+    public StatutReservation findById(int id) {
+        String sql = "SELECT * FROM statutreservation WHERE idStatutreservation = ?";
+        StatutReservation statut = null;
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -29,12 +22,11 @@ public class ConstantesDAOImpl implements ConstantesDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, idConstantes);
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                constantes = new Constantes(rs.getInt("idconstantes"), rs.getString("libelle"),
-                        rs.getString("valeur"), rs.getDate("datedebut").toLocalDate(), rs.getDate("datefin").toLocalDate());
+                statut = new StatutReservation(rs.getInt("idstatutreservation"), rs.getString("libelle"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -51,13 +43,13 @@ public class ConstantesDAOImpl implements ConstantesDAO {
                 e.printStackTrace();
             }
         }
-        return constantes;
+        return statut;
     }
 
     @Override
-    public void save(Constantes constantes) {
-        String sql = "INSERT INTO constantes(libelle, valeur, datedebut,datefin) " +
-                "values (?, ?, ?, ?)";
+    public void save(StatutReservation statut) {
+        String sql = "INSERT INTO statutReservation(libelle)" +
+                "values (?)";
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -66,14 +58,10 @@ public class ConstantesDAOImpl implements ConstantesDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, constantes.getLibelle());
-            stmt.setString(2, constantes.getValeur());
-            stmt.setDate(3, Date.valueOf(constantes.getDateDebut()));
-            stmt.setDate(4, Date.valueOf(constantes.getDateFin()));
-
+            stmt.setString(1, statut.getLibelle());
 
             stmt.executeUpdate();
-            System.out.println("Constantes bien insérées en BDD");
+            System.out.println("statut reservation bien inséré en BDD");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,8 +81,8 @@ public class ConstantesDAOImpl implements ConstantesDAO {
     }
 
     @Override
-    public void update(Constantes constantes) {
-        String sql = "UPDATE constantes SET libelle = ?, valeur = ?, datedebut = ?, datefin = ? WHERE idconstantes = ?;\n";
+    public void update(StatutReservation statut) {
+        String sql = "UPDATE statutreservation SET libelle = ? where idstatutreservation = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -102,11 +90,9 @@ public class ConstantesDAOImpl implements ConstantesDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, constantes.getLibelle());
-            stmt.setString(2, constantes.getValeur());
-            stmt.setDate(3, Date.valueOf(constantes.getDateDebut()));
-            stmt.setDate(4, Date.valueOf(constantes.getDateFin()));
-            stmt.setInt(5, constantes.getIdConstante());
+            stmt.setString(1, statut.getLibelle());
+
+            stmt.setInt(2, statut.getIdStatutResa());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -127,8 +113,8 @@ public class ConstantesDAOImpl implements ConstantesDAO {
     }
 
     @Override
-    public void delete(Constantes constantes) {
-        String sql = "DELETE FROM constantes WHERE idconstantes = ?;";
+    public void delete(StatutReservation statut) {
+        String sql = "DELETE FROM statutreservation WHERE idstatutreservation = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -136,7 +122,7 @@ public class ConstantesDAOImpl implements ConstantesDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, constantes.getIdConstante());
+            stmt.setInt(1, statut.getIdStatutResa());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -156,5 +142,3 @@ public class ConstantesDAOImpl implements ConstantesDAO {
         }
     }
 }
-
-

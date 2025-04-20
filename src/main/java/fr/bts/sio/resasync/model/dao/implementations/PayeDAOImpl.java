@@ -10,11 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PayeDAOImpl implements PayeDAO {
-    private Connection connection;
-
-    public PayeDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
     public Paye findById(int idFacture, int idTypePaiement) {
