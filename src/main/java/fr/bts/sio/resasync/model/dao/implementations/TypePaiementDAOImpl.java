@@ -1,26 +1,19 @@
 package fr.bts.sio.resasync.model.dao.implementations;
 
-import fr.bts.sio.resasync.model.dao.interfaces.ConstantesDAO;
-import fr.bts.sio.resasync.model.entity.Constantes;
+import fr.bts.sio.resasync.model.dao.interfaces.TypePaiementDAO;
+import fr.bts.sio.resasync.model.entity.TypePaiement;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
-import java.sql.Date;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import fr.bts.sio.resasync.util.Methods;
 
-public class ConstantesDAOImpl implements ConstantesDAO {
-    private Connection connection;
-
-    public ConstantesDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
-
+public class TypePaiementDAOImpl implements TypePaiementDAO {
     @Override
-    public Constantes findById(int idConstantes) {
-        String sql = "SELECT * FROM constantes WHERE idconstantes = ?";
-        Constantes constantes = null;
+    public TypePaiement findById(int idTypePaiement) {
+        String sql = "SELECT * FROM TypePaiement WHERE idTypePaiement = ?";
+        TypePaiement tp = null;
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -29,12 +22,11 @@ public class ConstantesDAOImpl implements ConstantesDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, idConstantes);
+            stmt.setInt(1, idTypePaiement);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                constantes = new Constantes(rs.getInt("idconstantes"), rs.getString("libelle"),
-                        rs.getString("valeur"), rs.getDate("datedebut").toLocalDate(), rs.getDate("datefin").toLocalDate());
+                tp = new TypePaiement(rs.getInt("idTypePaiement"), rs.getString("libelle"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -51,13 +43,13 @@ public class ConstantesDAOImpl implements ConstantesDAO {
                 e.printStackTrace();
             }
         }
-        return constantes;
+        return tp;
     }
 
     @Override
-    public void save(Constantes constantes) {
-        String sql = "INSERT INTO constantes(libelle, valeur, datedebut,datefin) " +
-                "values (?, ?, ?, ?)";
+    public void save(TypePaiement typePaiement) {
+        String sql = "INSERT INTO typepaiement(libelle)" +
+                "values (?)";
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -66,14 +58,10 @@ public class ConstantesDAOImpl implements ConstantesDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, constantes.getLibelle());
-            stmt.setString(2, constantes.getValeur());
-            stmt.setDate(3, Date.valueOf(constantes.getDateDebut()));
-            stmt.setDate(4, Date.valueOf(constantes.getDateFin()));
-
+            stmt.setString(1, typePaiement.getLibelle());
 
             stmt.executeUpdate();
-            System.out.println("Constantes bien insérées en BDD");
+            System.out.println("type paiement bien inséré en BDD");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,8 +81,8 @@ public class ConstantesDAOImpl implements ConstantesDAO {
     }
 
     @Override
-    public void update(Constantes constantes) {
-        String sql = "UPDATE constantes SET libelle = ?, valeur = ?, datedebut = ?, datefin = ? WHERE idconstantes = ?;\n";
+    public void update(TypePaiement typePaiement) {
+        String sql = "UPDATE typepaiement SET libelle = ? where idtypepaiement = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -102,11 +90,9 @@ public class ConstantesDAOImpl implements ConstantesDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, constantes.getLibelle());
-            stmt.setString(2, constantes.getValeur());
-            stmt.setDate(3, Date.valueOf(constantes.getDateDebut()));
-            stmt.setDate(4, Date.valueOf(constantes.getDateFin()));
-            stmt.setInt(5, constantes.getIdConstante());
+            stmt.setString(1, typePaiement.getLibelle());
+
+            stmt.setInt(2, typePaiement.getIdTypePaiement());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -127,8 +113,8 @@ public class ConstantesDAOImpl implements ConstantesDAO {
     }
 
     @Override
-    public void delete(Constantes constantes) {
-        String sql = "DELETE FROM constantes WHERE idconstantes = ?;";
+    public void delete(TypePaiement typePaiement) {
+        String sql = "DELETE FROM typepaiement WHERE idtypepaiement = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -136,7 +122,7 @@ public class ConstantesDAOImpl implements ConstantesDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, constantes.getIdConstante());
+            stmt.setInt(1, typePaiement.getIdTypePaiement());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -156,5 +142,3 @@ public class ConstantesDAOImpl implements ConstantesDAO {
         }
     }
 }
-
-

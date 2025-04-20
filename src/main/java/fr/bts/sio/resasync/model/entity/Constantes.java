@@ -1,5 +1,6 @@
 package fr.bts.sio.resasync.model.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Constantes {
@@ -7,10 +8,10 @@ public class Constantes {
     private int idConstante;
     private String libelle;
     private String valeur;
-    private Date DateDebut;
-    private Date DateFin;
+    private LocalDate DateDebut;
+    private LocalDate DateFin;
 
-    public Constantes(int idConstante, String libelle, String valeur, Date dateDebut, Date dateFin) {
+    public Constantes(int idConstante, String libelle, String valeur, LocalDate dateDebut, LocalDate dateFin) {
         this.idConstante = idConstante;
         this.libelle = libelle;
         this.valeur = valeur;
@@ -42,19 +43,19 @@ public class Constantes {
         this.valeur = valeur;
     }
 
-    public java.sql.Date getDateDebut() {
+    public LocalDate getDateDebut() {
         return DateDebut;
     }
 
-    public void setDateDebut(Date dateDebut) {
+    public void setDateDebut(LocalDate dateDebut) {
         DateDebut = dateDebut;
     }
 
-    public java.sql.Date getDateFin() {
+    public LocalDate getDateFin() {
         return DateFin;
     }
 
-    public void setDateFin(Date dateFin) {
+    public void setDateFin(LocalDate dateFin) {
         DateFin = dateFin;
     }
 
