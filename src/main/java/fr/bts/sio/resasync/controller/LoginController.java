@@ -5,11 +5,17 @@ import fr.bts.sio.resasync.model.dao.interfaces.UtilisateurDAO;
 import fr.bts.sio.resasync.model.entity.Session;
 import fr.bts.sio.resasync.model.entity.Utilisateur;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
+
+import java.io.IOException;
 
 public class LoginController {
 
@@ -50,6 +56,22 @@ public class LoginController {
             session = new Session(login, utilisateur.getIdNiveau());
             System.out.println(session);
             // Rediriger vers l'application principale (changer de scène par exemple)
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/bts/sio/resasync/Dashboard.fxml"));
+                Parent root = loader.load();
+
+                // 👉 Accès au Stage via l'événement
+                Stage stage = (Stage) loginButton.getScene().
+                        getWindow();;
+
+                stage.setScene(new Scene(root));
+                stage.setTitle("Dashboard");
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         } else if (utilisateur == null){
             System.out.println("Échec de l'authentification : l'utilisateur n'existe pas.");
             text = "Échec de l'authentification : l'utilisateur n'existe pas.";
