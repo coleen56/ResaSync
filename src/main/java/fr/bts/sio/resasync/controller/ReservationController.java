@@ -5,10 +5,14 @@ import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
 import fr.bts.sio.resasync.model.dao.implementations.ReservationDAOImpl;
 import fr.bts.sio.resasync.model.entity.Reservation;
+import fr.bts.sio.resasync.model.entity.Session;
+import fr.bts.sio.resasync.util.Methods; // Import de la classe utilitaire Methods
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.io.FileOutputStream;
@@ -17,7 +21,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import javafx.scene.control.TextField;
 
 public class ReservationController {
 
@@ -35,7 +38,46 @@ public class ReservationController {
 
     private ReservationDAOImpl reservationDAO;
 
+    @FXML
+    public void allerADashboard() {
+        chargerVue("Dashboard.fxml");
+    }
 
+    @FXML
+    public void allerAChambre() {
+        chargerVue("Chambre.fxml");
+    }
+
+    @FXML
+    public void allerAClient() {
+        chargerVue("Client.fxml");
+    }
+
+    @FXML
+    public void allerAConfiguration() {
+        chargerVue("Configuration.fxml");
+    }
+
+    @FXML
+    public void Deconnexion() {
+        Methods.deconnexionAvecConfirmation(() -> chargerVue("Login.fxml")); // Appel direct à la méthode utilitaire
+    }
+
+    // Méthode pour charger une vue en utilisant la classe utilitaire
+    private void chargerVue(String fichierFxml) {
+        try {
+            // Obtenir la fenêtre actuelle (Stage) via un champ ou bouton
+            Stage stage = (Stage) resultatTextArea.getScene().getWindow();
+
+            // Utiliser la méthode utilitaire pour charger la vue
+            Methods.chargerVue(fichierFxml, stage);
+        } catch (Exception e) {
+            resultatTextArea.setText("Erreur changement de vue : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    // Méthode pour exporter une réservation en PDF
     @FXML
     public void exporterReservationEnPdf() {
         TextInputDialog dialog = new TextInputDialog();
@@ -78,7 +120,6 @@ public class ReservationController {
         });
     }
 
-
     // Initialisation du DAO
     public void initialize() {
         try {
@@ -110,7 +151,6 @@ public class ReservationController {
         });
     }
 
-
     // Bouton Rechercher
     @FXML
     public void rechercherReservation() {
@@ -134,7 +174,6 @@ public class ReservationController {
         });
     }
 
-
     // Bouton Créer
     @FXML
     public void creerReservation() {
@@ -146,7 +185,6 @@ public class ReservationController {
             resultatTextArea.setText("Erreur création : " + e.getMessage());
         }
     }
-
 
     // Bouton Mettre à jour
     @FXML
@@ -169,7 +207,6 @@ public class ReservationController {
         });
     }
 
-
     // Bouton Supprimer
     @FXML
     public void supprimerReservation() {
@@ -189,7 +226,6 @@ public class ReservationController {
             }
         });
     }
-
 
     // Lecture du formulaire
     private Reservation lireFormulaireSansId() {
