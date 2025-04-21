@@ -2,28 +2,28 @@ package fr.bts.sio.resasync.model.entity;
 
 public class Session {
 
-    private String login;
-    private int niveau;
+    private static String login; // Déclaré comme static
+    private static int niveau;   // Déclaré comme static
 
     public Session(String login, int niveau) {
-        this.login = login;
-        this.niveau = niveau;
+        Session.login = login; // Utilisation de la variable statique
+        Session.niveau = niveau; // Utilisation de la variable statique
     }
 
-    public String getLogin() {
+    public static String getLogin() {
         return login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public static void setLogin(String login) {
+        Session.login = login; // Utilisation de la variable statique
     }
 
-    public int getNiveau() {
+    public static int getNiveau() {
         return niveau;
     }
 
-    public void setNiveau(int niveau) {
-        this.niveau = niveau;
+    public static void setNiveau(int niveau) {
+        Session.niveau = niveau; // Utilisation de la variable statique
     }
 
     @Override

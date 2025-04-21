@@ -1,15 +1,21 @@
 package fr.bts.sio.resasync.controller;
 
-import fr.bts.sio.resasync.util.Methods; // Importer la classe utilitaire Methods
+import fr.bts.sio.resasync.model.entity.Session;
+import fr.bts.sio.resasync.util.Methods;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.stage.Stage;
 
-public class DashboardController {
+public class ClientController {
     @FXML private Hyperlink lienReservations;
     @FXML private Hyperlink lienChambres;
-    @FXML private Hyperlink lienClients;
+    @FXML private Hyperlink lienDashboard;
     @FXML private Hyperlink lienConfiguration;
+
+    @FXML
+    public void allerADashboard() {
+        chargerVue("Dashboard.fxml");
+    }
 
     @FXML
     public void allerAReservation() {
@@ -19,11 +25,6 @@ public class DashboardController {
     @FXML
     public void allerAChambre() {
         chargerVue("Chambre.fxml");
-    }
-
-    @FXML
-    public void allerAClient() {
-        chargerVue("Client.fxml");
     }
 
     @FXML
@@ -38,12 +39,13 @@ public class DashboardController {
 
     private void chargerVue(String fichierFxml) {
         try {
-            // Obtenir la fenêtre actuelle (Stage) via un des liens (par exemple, lienReservations)
+            // Obtenir la fenêtre actuelle (Stage) via un des hyperliens
             Stage stage = (Stage) lienReservations.getScene().getWindow();
 
-            // Utiliser la méthode utilitaire pour charger la vue
-            Methods.chargerVue(fichierFxml, stage); // Appel direct à la méthode utilitaire
+            // Utiliser la méthode utilitaire pour charger la nouvelle vue
+            Methods.chargerVue(fichierFxml, stage);
         } catch (Exception e) {
+            // Afficher une trace en cas d'erreur
             e.printStackTrace();
         }
     }

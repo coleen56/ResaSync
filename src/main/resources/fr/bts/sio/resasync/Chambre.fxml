@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.paint.Color?>
+<AnchorPane prefHeight="857.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.bts.sio.resasync.controller.ChambreController">
+    <children>
+        <VBox prefHeight="857.0" prefWidth="1280.0">
+            <children>
+                <AnchorPane prefHeight="832.0" prefWidth="1280.0">
+                    <children>
+                        <HBox prefHeight="79.0" prefWidth="1280.0" style="-fx-background-color: #d1f2eb;">
+                            <children>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <Hyperlink fx:id="lienDashboard" layoutX="36.0" layoutY="21.0" onAction="#allerADashboard" text="Dashboard">
+                                            <font>
+                                                <Font name="Segoe UI Bold" size="22.0" />
+                                            </font>
+                                        </Hyperlink>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <Hyperlink fx:id="lienReservation" layoutX="31.0" layoutY="21.0" text="Réservations" onAction="#allerAReservation">
+                                            <font>
+                                                <Font name="Segoe UI Bold" size="21.0" />
+                                            </font>
+                                        </Hyperlink>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <Hyperlink fx:id="lienClients" layoutX="58.0" layoutY="21.0" text="Clients" onAction="#allerAClient">
+                                            <font>
+                                                <Font name="Segoe UI Bold" size="22.0" />
+                                            </font>
+                                        </Hyperlink>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="242.0">
+                                    <children>
+                                        <Hyperlink fx:id="lienConfiguration" disable="true" layoutX="46.0" layoutY="21.0" text="Configuration" onAction="#allerAConfiguration">
+                                            <font>
+                                                <Font name="Segoe UI Bold" size="21.0" />
+                                            </font>
+                                        </Hyperlink>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="0.0" prefWidth="442.0">
+                                    <children>
+                                        <Hyperlink fx:id="lienDeconnexion" layoutX="276.0" layoutY="21.0" text="Déconnexion" onAction="#Deconnexion">
+                                            <font>
+                                                <Font name="Segoe UI Bold" size="21.0" />
+                                            </font>
+                                        </Hyperlink>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </HBox>
+                        <TableView layoutX="253.0" layoutY="183.0" prefHeight="260.0" prefWidth="774.0">
+                            <columns>
+                                <TableColumn prefWidth="90.0" text="Date Arrivée" />
+                                <TableColumn prefWidth="87.0" text="Date Départ" />
+                                <TableColumn prefWidth="74.0" text="Chambre" />
+                                <TableColumn prefWidth="60.0" text="Nom" />
+                                <TableColumn prefWidth="93.0" text="Prénom" />
+                                <TableColumn prefWidth="116.0" text="Nbr Personnes" />
+                            </columns>
+                        </TableView>
+                        <Label layoutX="538.0" layoutY="102.0" text="Chambres" textFill="#056861">
+                            <font>
+                                <Font name="Segoe UI" size="46.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="CROSSHAIR" />
+                            </cursor>
+                            <effect>
+                                <DropShadow>
+                                    <color>
+                                        <Color opacity="0.14885495603084564" />
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </Label>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

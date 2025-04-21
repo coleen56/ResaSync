@@ -4,6 +4,7 @@ import fr.bts.sio.resasync.model.dao.implementations.UtilisateurDAOImpl;
 import fr.bts.sio.resasync.model.dao.interfaces.UtilisateurDAO;
 import fr.bts.sio.resasync.model.entity.Session;
 import fr.bts.sio.resasync.model.entity.Utilisateur;
+import fr.bts.sio.resasync.util.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -56,21 +57,10 @@ public class LoginController {
             session = new Session(login, utilisateur.getIdNiveau());
             System.out.println(session);
             // Rediriger vers l'application principale (changer de scène par exemple)
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/bts/sio/resasync/Dashboard.fxml"));
-                Parent root = loader.load();
+            // Appel à la classe utilitaire pour charger la vue
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            Methods.chargerVue("Dashboard.fxml", stage);
 
-                // 👉 Accès au Stage via l'événement
-                Stage stage = (Stage) loginButton.getScene().
-                        getWindow();;
-
-                stage.setScene(new Scene(root));
-                stage.setTitle("Dashboard");
-                stage.show();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
         } else if (utilisateur == null){
             System.out.println("Échec de l'authentification : l'utilisateur n'existe pas.");
