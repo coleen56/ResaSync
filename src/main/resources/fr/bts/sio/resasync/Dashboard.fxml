@@ -44,7 +44,7 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="242.0">
                            <children>
-                              <Hyperlink fx:id="lienConfiguration" disable="true" layoutX="46.0" layoutY="21.0" onAction="#allerAConfiguration" text="Configuration">
+                              <Hyperlink fx:id="lienConfiguration" disable="false" layoutX="46.0" layoutY="21.0" onAction="#allerAConfiguration" text="Configuration">
                                  <font>
                                     <Font name="Segoe UI Bold" size="21.0" />
                                  </font>

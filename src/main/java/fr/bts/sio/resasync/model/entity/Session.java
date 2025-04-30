@@ -1,29 +1,44 @@
 package fr.bts.sio.resasync.model.entity;
 
+import java.time.LocalDateTime;
+
 public class Session {
+    private static Session instance;
 
-    private static String login; // Déclaré comme static
-    private static int niveau;   // Déclaré comme static
+    private String login;
+    private int niveau;
+    private LocalDateTime dateConnexion;
 
-    public Session(String login, int niveau) {
-        Session.login = login; // Utilisation de la variable statique
-        Session.niveau = niveau; // Utilisation de la variable statique
+    private Session(String login, int niveau, LocalDateTime dateConnexion) {
+        this.login = login;
+        this.niveau = niveau;
+        this.dateConnexion = dateConnexion;
     }
 
-    public static String getLogin() {
+    // Factory method pour créer une session
+    public static void creerSession(String login, int niveau) {
+        instance = new Session(login, niveau, LocalDateTime.now());
+    }
+
+    public static Session getInstance() {
+        return instance;
+    }
+
+    // Getters
+    public String getLogin() {
         return login;
     }
 
-    public static void setLogin(String login) {
-        Session.login = login; // Utilisation de la variable statique
-    }
-
-    public static int getNiveau() {
+    public int getNiveau() {
         return niveau;
     }
 
-    public static void setNiveau(int niveau) {
-        Session.niveau = niveau; // Utilisation de la variable statique
+    public LocalDateTime getDateConnexion() {
+        return dateConnexion;
+    }
+
+    public static void reset() {
+        instance = null;
     }
 
     @Override
@@ -31,6 +46,7 @@ public class Session {
         return "Session{" +
                 "login='" + login + '\'' +
                 ", niveau=" + niveau +
+                ", dateConnexion=" + dateConnexion +
                 '}';
     }
 }
