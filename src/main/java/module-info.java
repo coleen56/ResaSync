@@ -17,6 +17,8 @@ module fr.bts.sio.resasync {
 
     opens fr.bts.sio.resasync to javafx.fxml;
     opens fr.bts.sio.resasync.controller to javafx.fxml;
+    opens fr.bts.sio.resasync.model.entity to javafx.base;
+
 
     exports fr.bts.sio.resasync;
     exports fr.bts.sio.resasync.controller to javafx.fxml;

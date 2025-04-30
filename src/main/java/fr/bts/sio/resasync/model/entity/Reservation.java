@@ -6,26 +6,24 @@ import java.time.format.DateTimeFormatter;
 
 public class Reservation {
     private int idReservation;
-    private String statusReservation;
     private LocalDate dateReservation;
     private LocalDate dateDebut;
     private LocalDate dateFin;
     private String nbrPersonnes;
     private int nbrChambre;
-    private int idStatusResa;
+    private int idStatutResa;
     private int idClient;
     private int idFacture;
     private int idResp;
 
-    public Reservation(int idReservation, String statusReservation, LocalDate dateReservation, LocalDate dateDebut, LocalDate dateFin, String nbrPersonnes, int nbrChambre, int idStatusResa, int idClient, int idFacture, int idResp) {
+    public Reservation(int idReservation, LocalDate dateReservation, LocalDate dateDebut, LocalDate dateFin, String nbrPersonnes, int nbrChambre, int idStatusResa, int idClient, int idFacture, int idResp) {
         this.idReservation = idReservation;
-        this.statusReservation = statusReservation;
         this.dateReservation = dateReservation;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.nbrPersonnes = nbrPersonnes;
         this.nbrChambre = nbrChambre;
-        this.idStatusResa = idStatusResa;
+        this.idStatutResa = idStatutResa;
         this.idClient = idClient;
         this.idFacture = idFacture;
         this.idResp = idResp;
@@ -37,14 +35,6 @@ public class Reservation {
 
     public void setIdReservation(int idReservation) {
         this.idReservation = idReservation;
-    }
-
-    public String getStatusReservation() {
-        return statusReservation;
-    }
-
-    public void setStatusReservation(String statusReservation) {
-        this.statusReservation = statusReservation;
     }
 
     public LocalDate getDateReservation() {
@@ -87,12 +77,12 @@ public class Reservation {
         this.nbrChambre = nbrChambre;
     }
 
-    public int getIdStatusResa() {
-        return idStatusResa;
+    public int getIdStatutResa() {
+        return idStatutResa;
     }
 
-    public void setIdStatusResa(int idStatusResa) {
-        this.idStatusResa = idStatusResa;
+    public void setIdStatutResa(int idStatutResa) {
+        this.idStatutResa = idStatutResa;
     }
 
     public int getIdClient() {
@@ -125,13 +115,12 @@ public class Reservation {
 
         return "Reservation{" +
                 "idReservation=" + idReservation +
-                ", statusReservation='" + statusReservation + '\'' +
                 ", dateReservation=" + format(dateReservation, formatter) +
                 ", dateDebut=" + format(dateDebut, formatter) +
                 ", dateFin=" + format(dateFin, formatter) +
                 ", nbrPersonnes='" + nbrPersonnes + '\'' +
                 ", nbrChambre=" + nbrChambre +
-                ", idStatusResa=" + idStatusResa +
+                ", idStatutResa=" + idStatutResa +
                 ", idClient=" + idClient +
                 ", idFacture=" + idFacture +
                 ", idResp=" + idResp +
