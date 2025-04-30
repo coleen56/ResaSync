@@ -61,7 +61,7 @@ public class LoginController {
             Session.creerSession(login, utilisateur.getIdNiveau());
             System.out.println("Session après connexion : " + Session.getInstance());
 
-            Methods.writeLogs(Session.getInstance().getLogin(), Session.getInstance().getDateConnexion(), true, true, text); // écriture de la connexion dans le fichier de logs
+            Methods.writeLogs("connexion", Session.getInstance().getLogin(), Session.getInstance().getDateConnexion(), true, text); // écriture de la connexion dans le fichier de logs
 
             // Rediriger vers l'application principale (changer de scène par exemple)
             // Appel à la classe utilitaire pour charger la vue
@@ -72,12 +72,12 @@ public class LoginController {
         } else if (utilisateur == null){
             System.out.println("Échec de l'authentification : l'utilisateur n'existe pas.");
             text = "Échec de l'authentification : l'utilisateur n'existe pas.";
-            Methods.writeLogs(login, LocalDateTime.now(), true, false, text);
+            Methods.writeLogs("connexion", login, LocalDateTime.now(), false,  text);
             // Afficher un message d'erreur dans la vue
         } else if (!BCrypt.checkpw(pwd, utilisateur.getPwd())) {
             System.out.println("Mot de passe incorrect.");
             text = "Mot de passe incorrect." ;
-            Methods.writeLogs(login, LocalDateTime.now(),true, false, text);
+            Methods.writeLogs("connexion", login, LocalDateTime.now(),false, text);
         }
         loginError.setText(text);
     }

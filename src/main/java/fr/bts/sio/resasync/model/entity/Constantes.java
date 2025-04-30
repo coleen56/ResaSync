@@ -11,12 +11,22 @@ public class Constantes {
     private LocalDate DateDebut;
     private LocalDate DateFin;
 
+    public Constantes() { // pour jackson
+    }
+
+    public Constantes(String libelle, String valeur, LocalDate dateDebut, LocalDate dateFin) {
+        this.libelle = libelle;
+        this.valeur = valeur;
+        this.DateDebut = dateDebut;
+        this.DateFin = dateFin;
+    }
+
     public Constantes(int idConstante, String libelle, String valeur, LocalDate dateDebut, LocalDate dateFin) {
         this.idConstante = idConstante;
         this.libelle = libelle;
         this.valeur = valeur;
-        DateDebut = dateDebut;
-        DateFin = dateFin;
+        this.DateDebut = dateDebut;
+        this.DateFin = dateFin;
     }
 
     public int getIdConstante() {

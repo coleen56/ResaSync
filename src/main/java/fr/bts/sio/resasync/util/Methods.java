@@ -28,9 +28,8 @@ public class Methods {
     }
 
     // Conversion LocalDate en java.util.Date
-    public static Date convertLocalDateToDate(LocalDate localDate) {
-        if (localDate == null) return null;
-        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    public static java.sql.Date convertLocalDateToDate(LocalDate localDate) {
+        return java.sql.Date.valueOf(localDate);
     }
 
     /**
@@ -71,39 +70,30 @@ public class Methods {
             try {
                 Session.reset();
                 System.out.println("Instance de session après déconnexion : " + Session.getInstance());
-                writeLogs(login, LocalDateTime.now(), false, true, null);
+                writeLogs("déconnexion", login, LocalDateTime.now(), true, null);
                 chargeurVueLogin.run();
             } catch (Exception e) {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setTitle("Erreur de déconnexion");
                 errorAlert.setHeaderText("Une erreur s'est produite lors de la déconnexion.");
                 errorAlert.setContentText("Détails : " + e.getMessage());
-                writeLogs(login, LocalDateTime.now(), false, false, e.getMessage());
+                writeLogs("déconnexion" , login, LocalDateTime.now(), false, e.getMessage());
                 errorAlert.showAndWait();
                 e.printStackTrace();
             }
         }
     }
 
-    public static void writeLogs(String login, LocalDateTime date, boolean isLogin, boolean success, String text) {
-        Path path = Paths.get("authLogs.txt");
+    public static void writeLogs(String action, String login, LocalDateTime date, boolean success, String text) {
+        Path path = Paths.get("actionLogs.txt");
         String ligne = "";
 
         try {
-            if (isLogin) {
                 if(success) {
-                    ligne = "connexion réussie de : " + login + " à " + date + "| Message : " + text;
+                    ligne = action + " réussie de : " + login + " à " + date + "| Message : " + text;
                 } else {
-                    ligne = "connexion échouée de : " + login + " à " + date + "| Message : " + text;
+                    ligne = action + " échouée de : " + login + " à " + date + "| Message : " + text;
                 }
-            } else {
-                if (success) {
-                    ligne = "déconnexion réussie de : " + login + " à " + date + "| Message : " + text;
-                } else {
-                    ligne = "déconnexion échouée de : " + login + " à " + date + "| Message : " + text;
-                }
-
-            }
 
             Files.write(path, Collections.singletonList(ligne), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
             System.out.println("Ligne ajoutée au fichier !");

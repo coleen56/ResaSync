@@ -41,6 +41,10 @@ public class Session {
         instance = null;
     }
 
+    public boolean isAdmin() {
+        return niveau > 0;
+    }
+
     @Override
     public String toString() {
         return "Session{" +

@@ -8,14 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+
 import fr.bts.sio.resasync.util.Methods;
 
 public class ConstantesDAOImpl implements ConstantesDAO {
     private Connection connection;
-
-    public ConstantesDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
     public Constantes findById(int idConstantes) {
@@ -69,7 +67,12 @@ public class ConstantesDAOImpl implements ConstantesDAO {
             stmt.setString(1, constantes.getLibelle());
             stmt.setString(2, constantes.getValeur());
             stmt.setDate(3, Date.valueOf(constantes.getDateDebut()));
-            stmt.setDate(4, Date.valueOf(constantes.getDateFin()));
+            if (constantes.getDateFin() != null) {
+                stmt.setDate(4, Date.valueOf(constantes.getDateFin()));
+            } else {
+                stmt.setDate(4, null);
+            }
+
 
 
             stmt.executeUpdate();
@@ -137,6 +140,39 @@ public class ConstantesDAOImpl implements ConstantesDAO {
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, constantes.getIdConstante());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Ferme les ressources
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void updateLastConstante(String libelle) {
+        LocalDate today = LocalDate.now();
+        java.sql.Date date = Methods.convertLocalDateToDate(today);
+        String sql = "UPDATE constantes SET datefin = ? WHERE libelle = ? AND datefin is null;";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setDate(1, date);
+            stmt.setString(2, libelle);
 
             stmt.executeUpdate();
         } catch (SQLException e) {

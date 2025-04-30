@@ -1,0 +1,29 @@
+connexion réussie de : coleen56 à 2025-04-30T18:56:24.730553600| Message : Connexion réussie. Redirection ...
+Modification TVA réussie de : coleen56 à 2025-04-30T18:56:35.246680700| Message : Insertion en base de donnée réussie; nouvelle valeur : 0.2connexion réussie de : coleen56 à 2025-04-30T19:56:56.512825700| Message : Connexion réussie. Redirection ...
+connexion réussie de : coleen56 à 2025-04-30T20:02:30.501977400| Message : Connexion réussie. Redirection ...
+Modification TVA réussie de : coleen56 à 2025-04-30T20:02:35.285141100| Message : Insertion en base de donnée réussie; nouvelle valeur : 0.2
+connexion réussie de : coleen56 à 2025-04-30T20:07:22.313155| Message : Connexion réussie. Redirection ...
+Modification TVA réussie de : coleen56 à 2025-04-30T20:07:32.799582400| Message : Insertion en base de donnée réussie; nouvelle valeur : 0.1
+Modification pourcentagePersonneSupp réussie de : coleen56 à 2025-04-30T20:07:39.748909500| Message : Insertion en base de donnée réussie; nouvelle valeur : 0.15
+Modification prixBaseChambre réussie de : coleen56 à 2025-04-30T20:07:47.851756400| Message : Insertion en base de donnée réussie; nouvelle valeur : 65
+Modification taxeSejour réussie de : coleen56 à 2025-04-30T20:07:53.995679500| Message : Insertion en base de donnée réussie; nouvelle valeur : 1
+Modification TVA réussie de : coleen56 à 2025-04-30T20:07:59.956978200| Message : Insertion en base de donnée réussie; nouvelle valeur : 0.2
+Modification pourcentagePersonneSupp réussie de : coleen56 à 2025-04-30T20:08:04.966160600| Message : Insertion en base de donnée réussie; nouvelle valeur : 0.10
+Modification prixBaseChambre réussie de : coleen56 à 2025-04-30T20:08:10.559466| Message : Insertion en base de donnée réussie; nouvelle valeur : 62
+Modification taxeSejour réussie de : coleen56 à 2025-04-30T20:08:17.465821| Message : Insertion en base de donnée réussie; nouvelle valeur : 0.90
+connexion réussie de : coleen56 à 2025-04-30T20:11:31.257987400| Message : Connexion réussie. Redirection ...
+Modification TVA réussie de : coleen56 à 2025-04-30T20:11:41.312302700| Message : Insertion en base de donnée réussie; nouvelle valeur : 0.1
+Modification pourcentagePersonneSupp réussie de : coleen56 à 2025-04-30T20:11:45.424498400| Message : Insertion en base de donnée réussie; nouvelle valeur : 0.15
+Modification taxeSejour réussie de : coleen56 à 2025-04-30T20:11:49.895336400| Message : Insertion en base de donnée réussie; nouvelle valeur : 1
+Modification prixBaseChambre réussie de : coleen56 à 2025-04-30T20:11:56.166342700| Message : Insertion en base de donnée réussie; nouvelle valeur : 70
+déconnexion échouée de : coleen56 à 2025-04-30T20:11:58.183773700| Message : null
+connexion réussie de : coleen56 à 2025-04-30T20:12:57.024871| Message : Connexion réussie. Redirection ...
+Modification TVA réussie de : coleen56 à 2025-04-30T20:13:04.586913300| Message : Insertion en base de donnée réussie; nouvelle valeur : 0.2
+Modification pourcentagePersonneSupp réussie de : coleen56 à 2025-04-30T20:13:12.416699400| Message : Insertion en base de donnée réussie; nouvelle valeur : 0.10
+Modification prixBaseChambre réussie de : coleen56 à 2025-04-30T20:13:17.415060400| Message : Insertion en base de donnée réussie; nouvelle valeur : 62
+Modification taxeSejour réussie de : coleen56 à 2025-04-30T20:13:21.142062800| Message : Insertion en base de donnée réussie; nouvelle valeur : 0.90
+déconnexion échouée de : coleen56 à 2025-04-30T20:13:22.928746| Message : null
+connexion réussie de : coleen56 à 2025-04-30T20:24:06.076731500| Message : Connexion réussie. Redirection ...
+connexion réussie de : coleen56 à 2025-04-30T20:25:43.650904500| Message : Connexion réussie. Redirection ...
+connexion réussie de : admin à 2025-04-30T20:27:07.575345800| Message : Mot de passe incorrect.
+connexion réussie de : admin à 2025-04-30T20:27:15.799135| Message : Connexion réussie. Redirection ...
