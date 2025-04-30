@@ -2,29 +2,21 @@ package fr.bts.sio.resasync;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class Main extends Application {
 
-
     @Override
-    public void start(Stage stage) throws IOException {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fr/bts/sio/resasync/view/reservation_view.fxml"));
-
-        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
-
-        stage.setTitle("Gestion des Réservations");
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/fr/bts/sio/resasync/CRUDClientView.fxml"));
+        primaryStage.setTitle("Formulaire Client");
+        primaryStage.setScene(new Scene(root, 400, 300));
+        primaryStage.show();
     }
 
-
     public static void main(String[] args) {
-
-        launch();
+        launch(args);
     }
 }

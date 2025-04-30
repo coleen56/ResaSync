@@ -1,0 +1,605 @@
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Chambre\000d\000a  ADD PRIMARY KEY (idChambre)[*],\000d\000a  ADD KEY idTypeChambre (idTypeChambre),\000d\000a  ADD KEY idStatutChambre (idStatutChambre)"
+Syntax error in SQL statement "ALTER TABLE Chambre\000d\000a  ADD PRIMARY KEY (idChambre)[*],\000d\000a  ADD KEY idTypeChambre (idTypeChambre),\000d\000a  ADD KEY idStatutChambre (idStatutChambre)"; SQL statement:
+ALTER TABLE Chambre
+  ADD PRIMARY KEY (idChambre),
+  ADD KEY idTypeChambre (idTypeChambre),
+  ADD KEY idStatutChambre (idStatutChambre) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Client\000d\000a  ADD PRIMARY KEY (idClient)[*],\000d\000a  ADD KEY idEntreprise (idEntreprise),\000d\000a  ADD KEY idAdresseFacturation (idAdresseFacturation)"
+Syntax error in SQL statement "ALTER TABLE Client\000d\000a  ADD PRIMARY KEY (idClient)[*],\000d\000a  ADD KEY idEntreprise (idEntreprise),\000d\000a  ADD KEY idAdresseFacturation (idAdresseFacturation)"; SQL statement:
+ALTER TABLE Client
+  ADD PRIMARY KEY (idClient),
+  ADD KEY idEntreprise (idEntreprise),
+  ADD KEY idAdresseFacturation (idAdresseFacturation) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Comprend\000d\000a  ADD PRIMARY KEY (idReservation,idOption)[*],\000d\000a  ADD KEY idOption (idOption)"
+Syntax error in SQL statement "ALTER TABLE Comprend\000d\000a  ADD PRIMARY KEY (idReservation,idOption)[*],\000d\000a  ADD KEY idOption (idOption)"; SQL statement:
+ALTER TABLE Comprend
+  ADD PRIMARY KEY (idReservation,idOption),
+  ADD KEY idOption (idOption) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Entreprise\000d\000a  ADD PRIMARY KEY (idEntreprise)[*],\000d\000a  ADD KEY idAdresseFacturation (idAdresseFacturation)"
+Syntax error in SQL statement "ALTER TABLE Entreprise\000d\000a  ADD PRIMARY KEY (idEntreprise)[*],\000d\000a  ADD KEY idAdresseFacturation (idAdresseFacturation)"; SQL statement:
+ALTER TABLE Entreprise
+  ADD PRIMARY KEY (idEntreprise),
+  ADD KEY idAdresseFacturation (idAdresseFacturation) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Facturation\000d\000a  ADD PRIMARY KEY (idFacture)[*],\000d\000a  ADD KEY idStatutFacture (idStatutFacture),\000d\000a  ADD KEY idClient (idClient)"
+Syntax error in SQL statement "ALTER TABLE Facturation\000d\000a  ADD PRIMARY KEY (idFacture)[*],\000d\000a  ADD KEY idStatutFacture (idStatutFacture),\000d\000a  ADD KEY idClient (idClient)"; SQL statement:
+ALTER TABLE Facturation
+  ADD PRIMARY KEY (idFacture),
+  ADD KEY idStatutFacture (idStatutFacture),
+  ADD KEY idClient (idClient) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Paye\000d\000a  ADD PRIMARY KEY (idFacture,idTypePaiement)[*],\000d\000a  ADD KEY idTypePaiement (idTypePaiement)"
+Syntax error in SQL statement "ALTER TABLE Paye\000d\000a  ADD PRIMARY KEY (idFacture,idTypePaiement)[*],\000d\000a  ADD KEY idTypePaiement (idTypePaiement)"; SQL statement:
+ALTER TABLE Paye
+  ADD PRIMARY KEY (idFacture,idTypePaiement),
+  ADD KEY idTypePaiement (idTypePaiement) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Relie\000d\000a  ADD PRIMARY KEY (idChambre,idReservation)[*],\000d\000a  ADD KEY idReservation (idReservation)"
+Syntax error in SQL statement "ALTER TABLE Relie\000d\000a  ADD PRIMARY KEY (idChambre,idReservation)[*],\000d\000a  ADD KEY idReservation (idReservation)"; SQL statement:
+ALTER TABLE Relie
+  ADD PRIMARY KEY (idChambre,idReservation),
+  ADD KEY idReservation (idReservation) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Reservation\000d\000a  ADD PRIMARY KEY (idReservation)[*],\000d\000a  ADD KEY idStatutResa (idStatutResa),\000d\000a  ADD KEY idClient (idClient),\000d\000a  ADD KEY idFacture (idFacture),\000d\000a  ADD KEY fk_id_client (idResp)"
+Syntax error in SQL statement "ALTER TABLE Reservation\000d\000a  ADD PRIMARY KEY (idReservation)[*],\000d\000a  ADD KEY idStatutResa (idStatutResa),\000d\000a  ADD KEY idClient (idClient),\000d\000a  ADD KEY idFacture (idFacture),\000d\000a  ADD KEY fk_id_client (idResp)"; SQL statement:
+ALTER TABLE Reservation
+  ADD PRIMARY KEY (idReservation),
+  ADD KEY idStatutResa (idStatutResa),
+  ADD KEY idClient (idClient),
+  ADD KEY idFacture (idFacture),
+  ADD KEY fk_id_client (idResp) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Utilisateur\000d\000a  ADD PRIMARY KEY (idUtilisateur)[*],\000d\000a  ADD KEY idNiveau_1 (idNiveau_1)"
+Syntax error in SQL statement "ALTER TABLE Utilisateur\000d\000a  ADD PRIMARY KEY (idUtilisateur)[*],\000d\000a  ADD KEY idNiveau_1 (idNiveau_1)"; SQL statement:
+ALTER TABLE Utilisateur
+  ADD PRIMARY KEY (idUtilisateur),
+  ADD KEY idNiveau_1 (idNiveau_1) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Chambre\000d\000a  ADD CONSTRAINT chambre_ibfk_1 FOREIGN KEY (idTypeChambre) REFERENCES TypeChambre (idTypeChambre)[*],\000d\000a  ADD CONSTRAINT chambre_ibfk_2 FOREIGN KEY (idStatutChambre) REFERENCES StatutChambre (idStatutChambre)"
+Syntax error in SQL statement "ALTER TABLE Chambre\000d\000a  ADD CONSTRAINT chambre_ibfk_1 FOREIGN KEY (idTypeChambre) REFERENCES TypeChambre (idTypeChambre)[*],\000d\000a  ADD CONSTRAINT chambre_ibfk_2 FOREIGN KEY (idStatutChambre) REFERENCES StatutChambre (idStatutChambre)"; SQL statement:
+ALTER TABLE Chambre
+  ADD CONSTRAINT chambre_ibfk_1 FOREIGN KEY (idTypeChambre) REFERENCES TypeChambre (idTypeChambre),
+  ADD CONSTRAINT chambre_ibfk_2 FOREIGN KEY (idStatutChambre) REFERENCES StatutChambre (idStatutChambre) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Client\000d\000a  ADD CONSTRAINT client_ibfk_1 FOREIGN KEY (idEntreprise) REFERENCES Entreprise (idEntreprise)[*],\000d\000a  ADD CONSTRAINT client_ibfk_2 FOREIGN KEY (idAdresseFacturation) REFERENCES AdresseFacturation (idAdresseFacturation)"
+Syntax error in SQL statement "ALTER TABLE Client\000d\000a  ADD CONSTRAINT client_ibfk_1 FOREIGN KEY (idEntreprise) REFERENCES Entreprise (idEntreprise)[*],\000d\000a  ADD CONSTRAINT client_ibfk_2 FOREIGN KEY (idAdresseFacturation) REFERENCES AdresseFacturation (idAdresseFacturation)"; SQL statement:
+ALTER TABLE Client
+  ADD CONSTRAINT client_ibfk_1 FOREIGN KEY (idEntreprise) REFERENCES Entreprise (idEntreprise),
+  ADD CONSTRAINT client_ibfk_2 FOREIGN KEY (idAdresseFacturation) REFERENCES AdresseFacturation (idAdresseFacturation) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Comprend\000d\000a  ADD CONSTRAINT comprend_ibfk_1 FOREIGN KEY (idReservation) REFERENCES Reservation (idReservation)[*],\000d\000a  ADD CONSTRAINT comprend_ibfk_2 FOREIGN KEY (idOption) REFERENCES OptionReservation (idOption)"
+Syntax error in SQL statement "ALTER TABLE Comprend\000d\000a  ADD CONSTRAINT comprend_ibfk_1 FOREIGN KEY (idReservation) REFERENCES Reservation (idReservation)[*],\000d\000a  ADD CONSTRAINT comprend_ibfk_2 FOREIGN KEY (idOption) REFERENCES OptionReservation (idOption)"; SQL statement:
+ALTER TABLE Comprend
+  ADD CONSTRAINT comprend_ibfk_1 FOREIGN KEY (idReservation) REFERENCES Reservation (idReservation),
+  ADD CONSTRAINT comprend_ibfk_2 FOREIGN KEY (idOption) REFERENCES OptionReservation (idOption) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Facturation\000d\000a  ADD CONSTRAINT facturation_ibfk_1 FOREIGN KEY (idStatutFacture) REFERENCES StatutFacture (idStatutFacture)[*],\000d\000a  ADD CONSTRAINT facturation_ibfk_2 FOREIGN KEY (idClient) REFERENCES Client (idClient)"
+Syntax error in SQL statement "ALTER TABLE Facturation\000d\000a  ADD CONSTRAINT facturation_ibfk_1 FOREIGN KEY (idStatutFacture) REFERENCES StatutFacture (idStatutFacture)[*],\000d\000a  ADD CONSTRAINT facturation_ibfk_2 FOREIGN KEY (idClient) REFERENCES Client (idClient)"; SQL statement:
+ALTER TABLE Facturation
+  ADD CONSTRAINT facturation_ibfk_1 FOREIGN KEY (idStatutFacture) REFERENCES StatutFacture (idStatutFacture),
+  ADD CONSTRAINT facturation_ibfk_2 FOREIGN KEY (idClient) REFERENCES Client (idClient) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Paye\000d\000a  ADD CONSTRAINT paye_ibfk_1 FOREIGN KEY (idFacture) REFERENCES Facturation (idFacture)[*],\000d\000a  ADD CONSTRAINT paye_ibfk_2 FOREIGN KEY (idTypePaiement) REFERENCES TypePaiement (idTypePaiement)"
+Syntax error in SQL statement "ALTER TABLE Paye\000d\000a  ADD CONSTRAINT paye_ibfk_1 FOREIGN KEY (idFacture) REFERENCES Facturation (idFacture)[*],\000d\000a  ADD CONSTRAINT paye_ibfk_2 FOREIGN KEY (idTypePaiement) REFERENCES TypePaiement (idTypePaiement)"; SQL statement:
+ALTER TABLE Paye
+  ADD CONSTRAINT paye_ibfk_1 FOREIGN KEY (idFacture) REFERENCES Facturation (idFacture),
+  ADD CONSTRAINT paye_ibfk_2 FOREIGN KEY (idTypePaiement) REFERENCES TypePaiement (idTypePaiement) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Relie\000d\000a  ADD CONSTRAINT relie_ibfk_1 FOREIGN KEY (idChambre) REFERENCES Chambre (idChambre)[*],\000d\000a  ADD CONSTRAINT relie_ibfk_2 FOREIGN KEY (idReservation) REFERENCES Reservation (idReservation)"
+Syntax error in SQL statement "ALTER TABLE Relie\000d\000a  ADD CONSTRAINT relie_ibfk_1 FOREIGN KEY (idChambre) REFERENCES Chambre (idChambre)[*],\000d\000a  ADD CONSTRAINT relie_ibfk_2 FOREIGN KEY (idReservation) REFERENCES Reservation (idReservation)"; SQL statement:
+ALTER TABLE Relie
+  ADD CONSTRAINT relie_ibfk_1 FOREIGN KEY (idChambre) REFERENCES Chambre (idChambre),
+  ADD CONSTRAINT relie_ibfk_2 FOREIGN KEY (idReservation) REFERENCES Reservation (idReservation) [42000-220]
+2025-04-14 10:37:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "ALTER TABLE Reservation\000d\000a  ADD CONSTRAINT fk_id_client FOREIGN KEY (idResp) REFERENCES Utilisateur (idUtilisateur)[*],\000d\000a  ADD CONSTRAINT reservation_ibfk_1 FOREIGN KEY (idStatutResa) REFERENCES StatutReservation (idStatutResa),\000d\000a  ADD CONSTRAINT reservation_ibfk_2 FOREIGN KEY (idClient) REFERENCES Client (idClient),\000d\000a  ADD CONSTRAINT reservation_ibfk_3 FOREIGN KEY (idFacture) REFERENCES Facturation (idFacture)"
+Syntax error in SQL statement "ALTER TABLE Reservation\000d\000a  ADD CONSTRAINT fk_id_client FOREIGN KEY (idResp) REFERENCES Utilisateur (idUtilisateur)[*],\000d\000a  ADD CONSTRAINT reservation_ibfk_1 FOREIGN KEY (idStatutResa) REFERENCES StatutReservation (idStatutResa),\000d\000a  ADD CONSTRAINT reservation_ibfk_2 FOREIGN KEY (idClient) REFERENCES Client (idClient),\000d\000a  ADD CONSTRAINT reservation_ibfk_3 FOREIGN KEY (idFacture) REFERENCES Facturation (idFacture)"; SQL statement:
+ALTER TABLE Reservation
+  ADD CONSTRAINT fk_id_client FOREIGN KEY (idResp) REFERENCES Utilisateur (idUtilisateur),
+  ADD CONSTRAINT reservation_ibfk_1 FOREIGN KEY (idStatutResa) REFERENCES StatutReservation (idStatutResa),
+  ADD CONSTRAINT reservation_ibfk_2 FOREIGN KEY (idClient) REFERENCES Client (idClient),
+  ADD CONSTRAINT reservation_ibfk_3 FOREIGN KEY (idFacture) REFERENCES Facturation (idFacture) [42000-220]
+2025-04-14 10:37:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "resasync" non trouvée
+Column "resasync" not found; SQL statement:
+CREATE USER resasync PASSWORD "resasync" [42122-220]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.ddl.CreateUser.setPassword(CreateUser.java:81)
+	at org.h2.command.ddl.CreateUser.update(CreateUser.java:114)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1109)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1096)
+	at org.h2.server.web.WebThread.process(WebThread.java:188)
+	at org.h2.server.web.WebThread.run(WebThread.java:101)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+2025-04-15 09:17:17 database: flush
+org.h2.message.DbException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:212)
+	at com.h2database@2.2.220/org.h2.message.DbException.convert(DbException.java:407)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.handleException(MVStore.java:1547)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.panic(MVStore.java:371)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:291)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore$Builder.open(MVStore.java:2036)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.<init>(Store.java:133)
+	at com.h2database@2.2.220/org.h2.engine.Database.<init>(Database.java:324)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:92)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:222)
+	at com.h2database@2.2.220/org.h2.engine.Engine.createSession(Engine.java:201)
+	at com.h2database@2.2.220/org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at com.h2database@2.2.220/org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:682)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.utils.DatabaseConnection.getConnection(DatabaseConnection.java:16)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.ClientDAOImpl.update(ClientDAOImpl.java:99)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.HelloApplication.main(HelloApplication.java:29)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1164)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 27 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]
+	at com.h2database@2.2.220/org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:286)
+	... 21 more
+2025-04-15 09:17:29 database: flush
+org.h2.message.DbException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:212)
+	at com.h2database@2.2.220/org.h2.message.DbException.convert(DbException.java:407)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.handleException(MVStore.java:1547)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.panic(MVStore.java:371)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:291)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore$Builder.open(MVStore.java:2036)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.<init>(Store.java:133)
+	at com.h2database@2.2.220/org.h2.engine.Database.<init>(Database.java:324)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:92)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:222)
+	at com.h2database@2.2.220/org.h2.engine.Engine.createSession(Engine.java:201)
+	at com.h2database@2.2.220/org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at com.h2database@2.2.220/org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:682)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.utils.DatabaseConnection.getConnection(DatabaseConnection.java:16)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.ClientDAOImpl.update(ClientDAOImpl.java:99)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.HelloApplication.main(HelloApplication.java:29)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1164)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 27 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]
+	at com.h2database@2.2.220/org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:286)
+	... 21 more
+2025-04-15 09:17:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "UPDATE client SET [*]? ? ? ? ? ? ? WHERE id = ?;"; attendu "identifier"
+Syntax error in SQL statement "UPDATE client SET [*]? ? ? ? ? ? ? WHERE id = ?;"; expected "identifier"; SQL statement:
+UPDATE client SET ? ? ? ? ? ? ? WHERE id = ?; [42001-220]
+2025-04-15 09:20:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "ID" non trouvée
+Column "ID" not found; SQL statement:
+UPDATE client SET nom = ?, prenom = ?, tel = ?, email = ?, datenaissance = ?, identreprise = ?, idadressefacturation = ? WHERE id = ?;
+ [42122-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:223)
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:199)
+	at com.h2database@2.2.220/org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at com.h2database@2.2.220/org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at com.h2database@2.2.220/org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at com.h2database@2.2.220/org.h2.expression.condition.Comparison.optimize(Comparison.java:147)
+	at com.h2database@2.2.220/org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at com.h2database@2.2.220/org.h2.command.dml.Update.doPrepare(Update.java:127)
+	at com.h2database@2.2.220/org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at com.h2database@2.2.220/org.h2.command.Parser.prepareCommand(Parser.java:583)
+	at com.h2database@2.2.220/org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:634)
+	at com.h2database@2.2.220/org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:557)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:92)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:288)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.ClientDAOImpl.update(ClientDAOImpl.java:100)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.HelloApplication.main(HelloApplication.java:29)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1164)
+2025-04-15 09:25:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Le nombre de colonnes ne correspond pas
+Column count does not match; SQL statement:
+INSERT INTO client(nom, prenom, tel, email, datenaissance) VALUES ("CONTE", "Coleen", "1234567890", "coleen@test.com", "17-11-2002", 0, 0) [21002-220]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.command.dml.Insert.doPrepare(Insert.java:295)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:583)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:634)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:557)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1109)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1096)
+	at org.h2.server.web.WebThread.process(WebThread.java:188)
+	at org.h2.server.web.WebThread.run(WebThread.java:101)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+2025-04-15 09:25:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "CONTE" non trouvée
+Column "CONTE" not found; SQL statement:
+INSERT INTO client(nom, prenom, tel, email, datenaissance) VALUES ("CONTE", "Coleen", "1234567890", "coleen@test.com", "17-11-2002") [42122-220]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.dml.Insert.doPrepare(Insert.java:300)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:583)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:634)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:557)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1109)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1096)
+	at org.h2.server.web.WebThread.process(WebThread.java:188)
+	at org.h2.server.web.WebThread.run(WebThread.java:101)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+2025-04-15 09:30:38 database: flush
+org.h2.message.DbException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:212)
+	at com.h2database@2.2.220/org.h2.message.DbException.convert(DbException.java:407)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.handleException(MVStore.java:1547)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.panic(MVStore.java:371)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:291)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore$Builder.open(MVStore.java:2036)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.<init>(Store.java:133)
+	at com.h2database@2.2.220/org.h2.engine.Database.<init>(Database.java:324)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:92)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:222)
+	at com.h2database@2.2.220/org.h2.engine.Engine.createSession(Engine.java:201)
+	at com.h2database@2.2.220/org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at com.h2database@2.2.220/org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:682)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.utils.DatabaseConnection.getConnection(DatabaseConnection.java:16)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.ClientDAOImpl.update(ClientDAOImpl.java:99)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.HelloApplication.main(HelloApplication.java:29)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1164)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 27 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]
+	at com.h2database@2.2.220/org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:286)
+	... 21 more
+2025-04-15 09:31:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "IDCLIENT" non trouvée
+Column "IDCLIENT" not found; SQL statement:
+UPDATE client SET nom = ?, prenom = ?, tel = ?, email = ?, datenaissance = ?, identreprise = ?, idadressefacturation = ? WHERE idclient = ?;
+ [42122-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:223)
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:199)
+	at com.h2database@2.2.220/org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at com.h2database@2.2.220/org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at com.h2database@2.2.220/org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at com.h2database@2.2.220/org.h2.expression.condition.Comparison.optimize(Comparison.java:147)
+	at com.h2database@2.2.220/org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at com.h2database@2.2.220/org.h2.command.dml.Update.doPrepare(Update.java:127)
+	at com.h2database@2.2.220/org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at com.h2database@2.2.220/org.h2.command.Parser.prepareCommand(Parser.java:583)
+	at com.h2database@2.2.220/org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:634)
+	at com.h2database@2.2.220/org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:557)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:92)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:288)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.ClientDAOImpl.update(ClientDAOImpl.java:100)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.HelloApplication.main(HelloApplication.java:29)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1164)
+2025-04-15 09:32:17 database: flush
+org.h2.message.DbException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:212)
+	at com.h2database@2.2.220/org.h2.message.DbException.convert(DbException.java:407)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.handleException(MVStore.java:1547)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.panic(MVStore.java:371)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:291)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore$Builder.open(MVStore.java:2036)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.<init>(Store.java:133)
+	at com.h2database@2.2.220/org.h2.engine.Database.<init>(Database.java:324)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:92)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:222)
+	at com.h2database@2.2.220/org.h2.engine.Engine.createSession(Engine.java:201)
+	at com.h2database@2.2.220/org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at com.h2database@2.2.220/org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:682)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.utils.DatabaseConnection.getConnection(DatabaseConnection.java:16)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.ClientDAOImpl.update(ClientDAOImpl.java:99)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.HelloApplication.main(HelloApplication.java:29)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1164)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 27 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]
+	at com.h2database@2.2.220/org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:286)
+	... 21 more
+2025-04-15 09:35:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "1985-12-12" non trouvée
+Column "1985-12-12" not found; SQL statement:
+select * from client WHERE datenaissance > "1985-12-12" [42122-220]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.expression.condition.Comparison.optimize(Comparison.java:148)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1177)
+	at org.h2.command.query.Query.prepare(Query.java:218)
+	at org.h2.command.Parser.prepareCommand(Parser.java:583)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:634)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:557)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1109)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1096)
+	at org.h2.server.web.WebThread.process(WebThread.java:188)
+	at org.h2.server.web.WebThread.run(WebThread.java:101)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+2025-04-15 09:48:52 database: flush
+org.h2.message.DbException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:212)
+	at com.h2database@2.2.220/org.h2.message.DbException.convert(DbException.java:407)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.handleException(MVStore.java:1547)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.panic(MVStore.java:371)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:291)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore$Builder.open(MVStore.java:2036)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.<init>(Store.java:133)
+	at com.h2database@2.2.220/org.h2.engine.Database.<init>(Database.java:324)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:92)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:222)
+	at com.h2database@2.2.220/org.h2.engine.Engine.createSession(Engine.java:201)
+	at com.h2database@2.2.220/org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at com.h2database@2.2.220/org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:682)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.utils.DatabaseConnection.getConnection(DatabaseConnection.java:16)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.ClientDAOImpl.update(ClientDAOImpl.java:99)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.HelloApplication.main(HelloApplication.java:29)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1164)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 27 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]
+	at com.h2database@2.2.220/org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:286)
+	... 21 more
+2025-04-15 10:21:22 database: flush
+org.h2.message.DbException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:212)
+	at com.h2database@2.2.220/org.h2.message.DbException.convert(DbException.java:407)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.handleException(MVStore.java:1547)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.panic(MVStore.java:371)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:291)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore$Builder.open(MVStore.java:2036)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.<init>(Store.java:133)
+	at com.h2database@2.2.220/org.h2.engine.Database.<init>(Database.java:324)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:92)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:222)
+	at com.h2database@2.2.220/org.h2.engine.Engine.createSession(Engine.java:201)
+	at com.h2database@2.2.220/org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at com.h2database@2.2.220/org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:682)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.utils.DatabaseConnection.getConnection(DatabaseConnection.java:16)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.UtilisateurDAOImpl.save(UtilisateurDAOImpl.java:62)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.HelloApplication.main(HelloApplication.java:31)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1164)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 27 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]
+	at com.h2database@2.2.220/org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:286)
+	... 21 more
+2025-04-15 11:24:31 database: flush
+org.h2.message.DbException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:212)
+	at com.h2database@2.2.220/org.h2.message.DbException.convert(DbException.java:407)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.handleException(MVStore.java:1547)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.panic(MVStore.java:371)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:291)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore$Builder.open(MVStore.java:2036)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.<init>(Store.java:133)
+	at com.h2database@2.2.220/org.h2.engine.Database.<init>(Database.java:324)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:92)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:222)
+	at com.h2database@2.2.220/org.h2.engine.Engine.createSession(Engine.java:201)
+	at com.h2database@2.2.220/org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at com.h2database@2.2.220/org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:682)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.utils.DatabaseConnection.getConnection(DatabaseConnection.java:16)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.UtilisateurDAOImpl.findByLogin(UtilisateurDAOImpl.java:166)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.controller.LoginController.authentifierUtilisateur(LoginController.java:36)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.controller.LoginController.lambda$initialize$0(LoginController.java:27)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:234)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8792)
+	at javafx.controls/javafx.scene.control.Button.fire(Button.java:203)
+	at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:208)
+	at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:234)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics/javafx.scene.Scene$MouseHandler.process(Scene.java:3897)
+	at javafx.graphics/javafx.scene.Scene.processMouseEvent(Scene.java:1878)
+	at javafx.graphics/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2623)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
+	at javafx.graphics/com.sun.glass.ui.View.handleMouseEvent(View.java:557)
+	at javafx.graphics/com.sun.glass.ui.View.notifyMouse(View.java:943)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 66 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]
+	at com.h2database@2.2.220/org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:286)
+	... 60 more

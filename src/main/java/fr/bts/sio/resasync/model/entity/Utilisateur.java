@@ -16,6 +16,15 @@ public class Utilisateur {
         this.prenom = prenom;
         this.idNiveau = idNiveau;
     }
+
+    public Utilisateur(String login, String pwd, String nom, String prenom, int idNiveau) {
+        this.login = login;
+        this.pwd = pwd;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.idNiveau = idNiveau;
+    }
+
     // Getters and Setters
 
     public int getId() {
@@ -67,4 +76,15 @@ public class Utilisateur {
     }
 
 
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "idUtilisateur=" + idUtilisateur +
+                ", login='" + login + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", idNiveau=" + idNiveau +
+                '}';
+    }
 }

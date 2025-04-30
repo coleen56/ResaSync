@@ -1,6 +1,6 @@
 package fr.bts.sio.resasync.model.entity;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Client {
     private int idClient;
@@ -8,19 +8,30 @@ public class Client {
     private String prenom;
     private String tel;
     private String email;
-    private LocalDate dateNaissance;
+    private String dateNaissance;
     private int idEntreprise;
     private int idAdresseFacturation;
 
-    public Client (int idClient, String nom, String prenom, String tel, String email,LocalDate dateNaissance, int idEntreprise, int idAdresseFacturation){
+    public Client (int idClient, String nom, String prenom, String tel, String email,String dateNaissance, int idEntreprise, int idAdresseFacturation){
         this.idClient = idClient;
         this.nom = nom;
+        this.prenom = prenom;
         this.tel = tel;
         this.email = email;
         this.dateNaissance = dateNaissance;
         this.idEntreprise = idEntreprise;
         this.idAdresseFacturation = idAdresseFacturation;
     }
+
+    public Client(String nom, String prenom, String tel, String email, String dateNaissance) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.tel = tel;
+        this.email = email;
+        this.dateNaissance = dateNaissance;
+    }
+
+
 
     //getters and setters
 
@@ -64,11 +75,11 @@ public class Client {
         this.email = email;
     }
 
-    public LocalDate getDateNaissance() {
+    public String getDateNaissance() {
         return dateNaissance;
     }
 
-    public void setDateNaissance(LocalDate dateNaissance) {
+    public void setDateNaissance(String dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
@@ -80,11 +91,11 @@ public class Client {
         this.idEntreprise = idEntreprise;
     }
 
-    public int getIdNiveau() {
+    public int getIdAdresseFacturation() {
         return idAdresseFacturation;
     }
 
-    public void setIdNiveau(int idNiveau) {
+    public void setIdAdresseFacturation(int idAdresseFacturation) {
         this.idAdresseFacturation = idAdresseFacturation;
     }
 
@@ -100,7 +111,7 @@ public class Client {
                 ", email='" + email + '\'' +
                 ", dateNaissance=" + dateNaissance +
                 ", idEntreprise=" + idEntreprise +
-                ", idNiveau=" + idAdresseFacturation +
+                ", idAdresseFacturation=" + idAdresseFacturation +
                 '}';
     }
 }

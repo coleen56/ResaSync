@@ -10,6 +10,7 @@ public class TestConnexion {
             if (conn != null && !conn.isClosed()) {
                 System.out.println("Connexion à la base H2 réussie !");
             }
+            conn.close();
         } catch (SQLException e) {
             System.out.println("Erreur de connexion : " + e.getMessage());
             e.printStackTrace();
