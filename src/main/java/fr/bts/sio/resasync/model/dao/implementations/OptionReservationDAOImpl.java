@@ -1,26 +1,22 @@
 package fr.bts.sio.resasync.model.dao.implementations;
 
-import fr.bts.sio.resasync.model.dao.interfaces.AdresseFacturationDAO;
-import fr.bts.sio.resasync.model.entity.AdresseFacturation;
+import fr.bts.sio.resasync.model.dao.interfaces.OptionReservationDAO;
+import fr.bts.sio.resasync.model.entity.OptionReservation;
 import fr.bts.sio.resasync.model.entity.Utilisateur;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
-    private Connection connection;
-
-    public AdresseFacturationDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
+public class OptionReservationDAOImpl implements OptionReservationDAO {
 
     @Override
-    public AdresseFacturation findById(int id) {
-        String sql = "SELECT * FROM adressefacturation WHERE idadressefacturation = ?";
-        AdresseFacturation adresseFact = null;
+    public OptionReservation findById(int id) {
+        String sql = "SELECT * FROM OptionReservation WHERE idOption = ?";
+        OptionReservation option = null;
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -33,9 +29,7 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                adresseFact = new AdresseFacturation(rs.getInt("idadressefacturation"), rs.getString("numero"),
-                        rs.getString("voie"), rs.getString("codepostal"), rs.getString("ville"),
-                        rs.getString("pays"));
+                option = new OptionReservation(rs.getDouble("prixUnitaire"), rs.getString("libelle"), rs.getInt("idOption"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -52,13 +46,13 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
                 e.printStackTrace();
             }
         }
-        return adresseFact;
+        return option;
     }
 
     @Override
-    public void save(AdresseFacturation adresseFacturation) {
-        String sql = "INSERT INTO adressefacturation(numero, voie, codepostal, ville, pays) " +
-                "values (?, ?, ?, ?, ?)";
+    public void save(OptionReservation option) {
+        String sql = "INSERT INTO optionreservation(prixUnitaire, libelle)" +
+                "values (?, ?)";
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -67,14 +61,11 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, adresseFacturation.getNumero());
-            stmt.setString(2, adresseFacturation.getVoie());
-            stmt.setString(3, adresseFacturation.getCodePostal());
-            stmt.setString(4, adresseFacturation.getVille());
-            stmt.setString(5, adresseFacturation.getPays());
+            stmt.setDouble(1, option.getPrixUnitaire());
+            stmt.setString(2, option.getLibelle());
 
             stmt.executeUpdate();
-            System.out.println("Client bien inséré en BDD");
+            System.out.println("option bien insérée en BDD");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,8 +85,8 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
     }
 
     @Override
-    public void update(AdresseFacturation adresseFacturation) {
-        String sql = "UPDATE adressefacturation SET numero = ?, voie = ?, codepostal = ?, ville = ?, pays = ? WHERE idadressefacturation = ?;\n";
+    public void update(OptionReservation option) {
+        String sql = "UPDATE optionreservation SET libelle = ?, prixUnitaire = ? where idOption = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -103,13 +94,10 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, adresseFacturation.getNumero());
-            stmt.setString(2, adresseFacturation.getVoie());
-            stmt.setString(3, adresseFacturation.getCodePostal());
-            stmt.setString(4, adresseFacturation.getVille());
-            stmt.setString(5, adresseFacturation.getPays());
+            stmt.setString(1, option.getLibelle());
+            stmt.setDouble(2, option.getPrixUnitaire());
 
-            stmt.setInt(6, adresseFacturation.getIdAdresseFacturation());
+            stmt.setInt(3, option.getIdOption());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -130,8 +118,8 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
     }
 
     @Override
-    public void delete(AdresseFacturation adresseFacturation) {
-        String sql = "DELETE FROM adressefacturation WHERE idadressefacturation = ?;";
+    public void delete(OptionReservation option) {
+        String sql = "DELETE FROM optionreservation WHERE idoption = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -139,7 +127,7 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, adresseFacturation.getIdAdresseFacturation());
+            stmt.setInt(1, option.getIdOption());
 
             stmt.executeUpdate();
         } catch (SQLException e) {

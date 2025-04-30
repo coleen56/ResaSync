@@ -106,6 +106,7 @@ public class ClientDAOImpl implements ClientDAO {
             stmt.setString(5, client.getDateNaissance());
             stmt.setInt(6, client.getIdEntreprise());
             stmt.setInt(7, client.getIdAdresseFacturation());
+
             stmt.setInt(8, client.getIdClient());
 
             stmt.executeUpdate();

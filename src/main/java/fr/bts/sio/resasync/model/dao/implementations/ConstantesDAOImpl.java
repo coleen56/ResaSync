@@ -1,26 +1,26 @@
 package fr.bts.sio.resasync.model.dao.implementations;
 
-import fr.bts.sio.resasync.model.dao.interfaces.AdresseFacturationDAO;
-import fr.bts.sio.resasync.model.entity.AdresseFacturation;
-import fr.bts.sio.resasync.model.entity.Utilisateur;
+import fr.bts.sio.resasync.model.dao.interfaces.ConstantesDAO;
+import fr.bts.sio.resasync.model.entity.Constantes;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
-
+import java.sql.Date;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import fr.bts.sio.resasync.util.Methods;
 
-public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
+public class ConstantesDAOImpl implements ConstantesDAO {
     private Connection connection;
 
-    public AdresseFacturationDAOImpl(Connection connection) {
+    public ConstantesDAOImpl(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public AdresseFacturation findById(int id) {
-        String sql = "SELECT * FROM adressefacturation WHERE idadressefacturation = ?";
-        AdresseFacturation adresseFact = null;
+    public Constantes findById(int idConstantes) {
+        String sql = "SELECT * FROM constantes WHERE idconstantes = ?";
+        Constantes constantes = null;
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -29,13 +29,12 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, id);
+            stmt.setInt(1, idConstantes);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                adresseFact = new AdresseFacturation(rs.getInt("idadressefacturation"), rs.getString("numero"),
-                        rs.getString("voie"), rs.getString("codepostal"), rs.getString("ville"),
-                        rs.getString("pays"));
+                constantes = new Constantes(rs.getInt("idconstantes"), rs.getString("libelle"),
+                        rs.getString("valeur"), rs.getDate("datedebut").toLocalDate(), rs.getDate("datefin").toLocalDate());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -52,13 +51,13 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
                 e.printStackTrace();
             }
         }
-        return adresseFact;
+        return constantes;
     }
 
     @Override
-    public void save(AdresseFacturation adresseFacturation) {
-        String sql = "INSERT INTO adressefacturation(numero, voie, codepostal, ville, pays) " +
-                "values (?, ?, ?, ?, ?)";
+    public void save(Constantes constantes) {
+        String sql = "INSERT INTO constantes(libelle, valeur, datedebut,datefin) " +
+                "values (?, ?, ?, ?)";
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -67,14 +66,14 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, adresseFacturation.getNumero());
-            stmt.setString(2, adresseFacturation.getVoie());
-            stmt.setString(3, adresseFacturation.getCodePostal());
-            stmt.setString(4, adresseFacturation.getVille());
-            stmt.setString(5, adresseFacturation.getPays());
+            stmt.setString(1, constantes.getLibelle());
+            stmt.setString(2, constantes.getValeur());
+            stmt.setDate(3, Date.valueOf(constantes.getDateDebut()));
+            stmt.setDate(4, Date.valueOf(constantes.getDateFin()));
+
 
             stmt.executeUpdate();
-            System.out.println("Client bien inséré en BDD");
+            System.out.println("Constantes bien insérées en BDD");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,8 +93,8 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
     }
 
     @Override
-    public void update(AdresseFacturation adresseFacturation) {
-        String sql = "UPDATE adressefacturation SET numero = ?, voie = ?, codepostal = ?, ville = ?, pays = ? WHERE idadressefacturation = ?;\n";
+    public void update(Constantes constantes) {
+        String sql = "UPDATE constantes SET libelle = ?, valeur = ?, datedebut = ?, datefin = ? WHERE idconstantes = ?;\n";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -103,13 +102,11 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, adresseFacturation.getNumero());
-            stmt.setString(2, adresseFacturation.getVoie());
-            stmt.setString(3, adresseFacturation.getCodePostal());
-            stmt.setString(4, adresseFacturation.getVille());
-            stmt.setString(5, adresseFacturation.getPays());
-
-            stmt.setInt(6, adresseFacturation.getIdAdresseFacturation());
+            stmt.setString(1, constantes.getLibelle());
+            stmt.setString(2, constantes.getValeur());
+            stmt.setDate(3, Date.valueOf(constantes.getDateDebut()));
+            stmt.setDate(4, Date.valueOf(constantes.getDateFin()));
+            stmt.setInt(5, constantes.getIdConstante());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -130,8 +127,8 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
     }
 
     @Override
-    public void delete(AdresseFacturation adresseFacturation) {
-        String sql = "DELETE FROM adressefacturation WHERE idadressefacturation = ?;";
+    public void delete(Constantes constantes) {
+        String sql = "DELETE FROM constantes WHERE idconstantes = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -139,7 +136,7 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, adresseFacturation.getIdAdresseFacturation());
+            stmt.setInt(1, constantes.getIdConstante());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -159,3 +156,5 @@ public class AdresseFacturationDAOImpl implements AdresseFacturationDAO {
         }
     }
 }
+
+

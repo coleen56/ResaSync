@@ -1,9 +1,10 @@
 package fr.bts.sio.resasync.controller;
 
-import fr.bts.sio.resasync.Main;
 import fr.bts.sio.resasync.model.dao.implementations.UtilisateurDAOImpl;
 import fr.bts.sio.resasync.model.dao.interfaces.UtilisateurDAO;
+import fr.bts.sio.resasync.model.entity.Session;
 import fr.bts.sio.resasync.model.entity.Utilisateur;
+import fr.bts.sio.resasync.util.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,8 +20,10 @@ import java.io.IOException;
 
 public class LoginController {
 
+    private Session session;
+
     @FXML
-    private TextField loginField;
+    private TextField loginField; // récupération des champs de saisie du formulaire de connexion + bouton
 
     @FXML
     private PasswordField passwordField;
@@ -28,27 +31,20 @@ public class LoginController {
     @FXML
     private Button loginButton;
 
-    @FXML
-    private Label loginError;
-
-    private UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl(); // Ou injecte-le si besoin
+    private UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl(); // instance de utilisateurdaoimpl
 
     @FXML
     private void initialize() {
-        loginButton.setOnAction(event -> {
-            try {
-                authentifierUtilisateur();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        loginButton.setOnAction(event -> authentifierUtilisateur()); // lancement de la fonction d'initialisation au clic du bouton de connexion
     }
 
-    private void authentifierUtilisateur() throws IOException {
+    @FXML
+    private Label loginError;
+
+    private void authentifierUtilisateur() {
         String login = loginField.getText();
         String pwd = passwordField.getText();
-        //loginError.setText("");
-        String logErrorInfo = "";
+        String text ="";
 
         Utilisateur utilisateur = null;
         if (login != null && !login.isEmpty()) {
@@ -57,23 +53,24 @@ public class LoginController {
 
         if (utilisateur != null && BCrypt.checkpw(pwd, utilisateur.getPwd())) {
             System.out.println("Connexion réussie. Redirection ...");
-            logErrorInfo = "Connexion réussie. Redirection ...";
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("Dashboard.fxml"));
-            Scene scene = new Scene(loader.load());
+            text = "Connexion réussie. Redirection ...";
+            session = new Session(login, utilisateur.getIdNiveau());
+            System.out.println(session);
+            // Rediriger vers l'application principale (changer de scène par exemple)
+            // Appel à la classe utilitaire pour charger la vue
             Stage stage = (Stage) loginButton.getScene().getWindow();
-            stage.setTitle("Dashboard");
-            stage.setScene(scene);
-            stage.show();
+            Methods.chargerVue("Dashboard.fxml", stage);
+
 
         } else if (utilisateur == null){
             System.out.println("Échec de l'authentification : l'utilisateur n'existe pas.");
-            logErrorInfo = "Échec de l'authentification : l'utilisateur n'existe pas.";
+            text = "Échec de l'authentification : l'utilisateur n'existe pas.";
+            // Afficher un message d'erreur dans la vue
         } else if (!BCrypt.checkpw(pwd, utilisateur.getPwd())) {
             System.out.println("Mot de passe incorrect.");
-            logErrorInfo = "Mot de passe incorrect.";
+            text = "Mot de passe incorrect." ;
         }
-        loginError.setText(logErrorInfo);
+        loginError.setText(text);
     }
 }
 

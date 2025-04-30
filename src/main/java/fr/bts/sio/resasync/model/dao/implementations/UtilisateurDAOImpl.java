@@ -15,7 +15,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
     @Override
     public Utilisateur findById(int idUtilisateur) {
-        String sql = "SELECT * FROM Client WHERE idClient = ?";
+        String sql = "SELECT * FROM utilisateur WHERE idutilisateur = ?";
         Utilisateur user = null;
 
         Connection conn = null;
@@ -91,7 +91,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
     @Override
     public void update(Utilisateur utilisateur) {
-        String sql = "UPDATE utilisateur SET login = ?, pwd = ?, nom = ?, prenom = ?, idniveau = ?;";
+        String sql = "UPDATE utilisateur SET login = ?, pwd = ?, nom = ?, prenom = ?, idniveau = ? where idutilisateur = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -104,6 +104,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
             stmt.setString(3, utilisateur.getNom());
             stmt.setString(4, utilisateur.getPrenom());
             stmt.setInt(5, utilisateur.getIdNiveau());
+
+            stmt.setInt(6, utilisateur.getId());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
