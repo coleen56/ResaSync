@@ -27,6 +27,13 @@ public class Chambre {
         this.statutChambreLibelle = statutChambreLibelle;
     }
 
+    public Chambre (int idChambre,int numChambre, String typeChambrelibelle, String statutChambreLibelle){
+        this.idChambre = idChambre;
+        this.numChambre = numChambre;
+        this.typeChambreLibelle = typeChambrelibelle;
+        this.statutChambreLibelle = statutChambreLibelle;
+    }
+
     public String getTypeChambreLibelle() {
         return typeChambreLibelle;
     }

@@ -13,4 +13,5 @@ public interface ChambreDAO {
     void ajouterChambre(Chambre chambre);
     ArrayList<Chambre> findAll();
     boolean findByNumeroChambre(int numChambre);
+    void supprimerChambreById(int idChambre);
 }
