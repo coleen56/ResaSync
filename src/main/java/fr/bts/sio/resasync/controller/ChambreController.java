@@ -159,10 +159,8 @@ public class ChambreController {
             int numeroChambre = Integer.parseInt(fieldNumChambre.getText());
             int typeIndex = comboTypeChambre.getSelectionModel().getSelectedIndex() + 1;
 
-            // Vérification pour éviter les doublons
-            List<Chambre> toutesChambres = chambreDAO.findAll();
-            boolean numeroExistant = toutesChambres.stream()
-                    .anyMatch(c -> c.getNumChambre() == numeroChambre);
+            // Vérification pour éviter les doublons avec la méthode optimisée
+            boolean numeroExistant = chambreDAO.findByNumeroChambre(numeroChambre);
 
             if (numeroExistant) {
                 ajouterChambreErreur.setText("Le numéro de chambre existe déjà.");
