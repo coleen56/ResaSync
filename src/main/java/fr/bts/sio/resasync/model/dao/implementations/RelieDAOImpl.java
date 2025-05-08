@@ -12,9 +12,6 @@ import java.sql.SQLException;
 public class RelieDAOImpl implements RelieDAO {
     private Connection connection;
 
-    public RelieDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
     public Relie findById(int idChambre, int idReservation) {

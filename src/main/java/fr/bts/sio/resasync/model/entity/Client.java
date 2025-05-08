@@ -9,21 +9,22 @@ public class Client {
     private String tel;
     private String email;
     private String dateNaissance;
-    private int idEntreprise;
-    private int idAdresseFacturation;
+    private Entreprise Entreprise;
+    private AdresseFacturation AdresseFacturation;
 
-    public Client (int idClient, String nom, String prenom, String tel, String email,String dateNaissance, int idEntreprise, int idAdresseFacturation){
+    public Client (int idClient, String nom, String prenom, String tel, String email,String dateNaissance, Entreprise Entreprise, AdresseFacturation AdresseFacturation){
         this.idClient = idClient;
         this.nom = nom;
         this.prenom = prenom;
         this.tel = tel;
         this.email = email;
         this.dateNaissance = dateNaissance;
-        this.idEntreprise = idEntreprise;
-        this.idAdresseFacturation = idAdresseFacturation;
+        this.Entreprise = Entreprise;
+        this.AdresseFacturation = AdresseFacturation;
     }
 
-    public Client(String nom, String prenom, String tel, String email, String dateNaissance) {
+    public Client(int idClient,String nom, String prenom, String tel, String email, String dateNaissance) {
+        this.idClient = idClient;
         this.nom = nom;
         this.prenom = prenom;
         this.tel = tel;
@@ -31,9 +32,16 @@ public class Client {
         this.dateNaissance = dateNaissance;
     }
 
+    public Client(String nom, String prenom, String tel, String email, String dateNaissance,Entreprise entreprise, AdresseFacturation adresseFacturation) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.tel = tel;
+        this.email = email;
+        this.dateNaissance = dateNaissance;
+        this.Entreprise = entreprise;
+        this.AdresseFacturation = adresseFacturation ;
+    }
 
-
-    //getters and setters
 
     public int getIdClient() {
         return idClient;
@@ -83,23 +91,21 @@ public class Client {
         this.dateNaissance = dateNaissance;
     }
 
-    public int getIdEntreprise() {
-        return idEntreprise;
+    public fr.bts.sio.resasync.model.entity.Entreprise getEntreprise() {
+        return Entreprise;
     }
 
-    public void setIdEntreprise(int idEntreprise) {
-        this.idEntreprise = idEntreprise;
+    public void setEntreprise(fr.bts.sio.resasync.model.entity.Entreprise entreprise) {
+        Entreprise = entreprise;
     }
 
-    public int getIdAdresseFacturation() {
-        return idAdresseFacturation;
+    public fr.bts.sio.resasync.model.entity.AdresseFacturation getAdresseFacturation() {
+        return AdresseFacturation;
     }
 
-    public void setIdAdresseFacturation(int idAdresseFacturation) {
-        this.idAdresseFacturation = idAdresseFacturation;
+    public void setAdresseFacturation(fr.bts.sio.resasync.model.entity.AdresseFacturation adresseFacturation) {
+        AdresseFacturation = adresseFacturation;
     }
-
-    // toString
 
     @Override
     public String toString() {
@@ -109,9 +115,9 @@ public class Client {
                 ", prenom='" + prenom + '\'' +
                 ", tel='" + tel + '\'' +
                 ", email='" + email + '\'' +
-                ", dateNaissance=" + dateNaissance +
-                ", idEntreprise=" + idEntreprise +
-                ", idAdresseFacturation=" + idAdresseFacturation +
+                ", dateNaissance='" + dateNaissance + '\'' +
+                ", Entreprise=" + Entreprise +
+                ", AdresseFacturation=" + AdresseFacturation +
                 '}';
     }
 }

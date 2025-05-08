@@ -1,88 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.paint.Color?>
 
-<AnchorPane prefHeight="857.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.bts.sio.resasync.controller.ClientController">
+<AnchorPane prefHeight="857.0" prefWidth="1280.0"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.bts.sio.resasync.controller.ClientController">
     <children>
-        <VBox prefHeight="857.0" prefWidth="1280.0">
+        <!-- Barre de navigation -->
+        <HBox prefHeight="79.0" prefWidth="1280.0" style="-fx-background-color: #d1f2eb;">
             <children>
-                <AnchorPane prefHeight="832.0" prefWidth="1280.0">
+                <AnchorPane prefWidth="200.0">
                     <children>
-                        <HBox prefHeight="79.0" prefWidth="1280.0" style="-fx-background-color: #d1f2eb;">
-                            <children>
-                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                                        <Hyperlink fx:id="lienDashboard" layoutX="36.0" layoutY="21.0" onAction="#allerADashboard" text="Dashboard">
-                                            <font>
-                                                <Font name="Segoe UI Bold" size="22.0" />
-                                            </font>
-                                        </Hyperlink>
-                           </children>
-                                </AnchorPane>
-                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                                        <Hyperlink fx:id="lienReservations" layoutX="27.0" layoutY="21.0" onAction="#allerAReservation" text="Réservations">
-                                            <font>
-                                                <Font name="Segoe UI Bold" size="22.0" />
-                                            </font>
-                                        </Hyperlink>
-                           </children>
-                                </AnchorPane>
-                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                                        <Hyperlink fx:id="lienChambres" layoutX="44.0" layoutY="21.0" onAction="#allerAChambre" text="Chambres">
-                                            <font>
-                                                <Font name="Segoe UI Bold" size="21.0" />
-                                            </font>
-                                        </Hyperlink>
-                           </children>
-                                </AnchorPane>
-                                <AnchorPane prefHeight="200.0" prefWidth="242.0">
-                                    <children>
-                                        <Hyperlink fx:id="lienConfiguration" disable="true" layoutX="46.0" layoutY="21.0" onAction="#allerAConfiguration" text="Configuration">
-                                            <font>
-                                                <Font name="Segoe UI Bold" size="21.0" />
-                                            </font>
-                                        </Hyperlink>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane prefHeight="0.0" prefWidth="442.0">
-                                    <children>
-                                        <Hyperlink fx:id="lienDeconnexion" layoutX="276.0" layoutY="21.0" text="Déconnexion" onAction="#Deconnexion">
-                                            <font>
-                                                <Font name="Segoe UI Bold" size="21.0" />
-                                            </font>
-                                        </Hyperlink>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND" />
-                            </cursor>
-                        </HBox>
-                        <Label layoutX="572.0" layoutY="114.0" text="Clients" textFill="#056861">
-                            <font>
-                                <Font name="Segoe UI" size="46.0" />
-                            </font>
-                            <cursor>
-                                <Cursor fx:constant="CROSSHAIR" />
-                            </cursor>
-                            <effect>
-                                <DropShadow>
-                                    <color>
-                                        <Color opacity="0.14885495603084564" />
-                                    </color>
-                                </DropShadow>
-                            </effect>
-                        </Label>
+                        <Hyperlink fx:id="lienDashboard" layoutX="36.0" layoutY="21.0" onAction="#allerADashboard" text="Dashboard">
+                            <font><Font name="Segoe UI Bold" size="22.0"/></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefWidth="200.0">
+                    <children>
+                        <Hyperlink layoutX="31.0" layoutY="21.0" onAction="#allerAReservation" text="Réservations">
+                            <font><Font name="Segoe UI Bold" size="21.0"/></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefWidth="200.0">
+                    <children>
+                        <Hyperlink layoutX="58.0" layoutY="21.0" onAction="#allerAChambre" text="Chambres">
+                            <font><Font name="Segoe UI Bold" size="22.0"/></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefWidth="242.0">
+                    <children>
+                        <Hyperlink layoutX="46.0" layoutY="21.0" onAction="#allerAConfiguration" text="Configuration">
+                            <font><Font name="Segoe UI Bold" size="21.0"/></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefWidth="442.0">
+                    <children>
+                        <Hyperlink layoutX="276.0" layoutY="21.0" onAction="#Deconnexion" text="Déconnexion">
+                            <font><Font name="Segoe UI Bold" size="21.0"/></font>
+                        </Hyperlink>
                     </children>
                 </AnchorPane>
             </children>
-        </VBox>
+        </HBox>
+
+        <!-- Titre -->
+        <Label layoutX="538.0" layoutY="102.0" text="Clients" textFill="#056861">
+            <font><Font name="Segoe UI" size="46.0"/></font>
+            <effect><DropShadow><color><Color opacity="0.15"/></color></DropShadow></effect>
+        </Label>
+
+        <!-- TableView des clients -->
+        <TableView fx:id="tableClients" layoutX="25.0" layoutY="170.0" prefHeight="385.0" prefWidth="808.0">
+            <columns>
+                <TableColumn fx:id="colNomClient" text="Nom"/>
+                <TableColumn fx:id="colPrenomClient" text="Prénom"/>
+                <TableColumn fx:id="colTelClient" text="Téléphone"/>
+                <TableColumn fx:id="colMailClient" text="Email"/>
+                <TableColumn fx:id="colEntreprise" text="Entreprise"/>
+                <TableColumn fx:id="colAdresse" text="Adresse de facturation"/>
+            </columns>
+        </TableView>
+
+        <!-- Gestion des clients via onglets -->
+        <TabPane layoutX="850.0" layoutY="170.0" prefHeight="385.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <!-- Onglet ajout -->
+                <Tab text="Ajouter un client">
+                    <content>
+                        <VBox spacing="15" style="-fx-padding: 15;">
+                            <children>
+                                <Label text="Nouveau client" textFill="#056861">
+                                    <font><Font name="Segoe UI" size="20.0"/></font>
+                                </Label>
+
+                                <TextField fx:id="fieldNomClientModif" promptText="Nom"/>
+                                <TextField fx:id="fieldPrenomClientModif" promptText="Prénom"/>
+                                <TextField fx:id="fieldTelClientModif" promptText="Téléphone"/>
+                                <TextField fx:id="fieldEmailClientModif" promptText="Email"/>
+                                <ComboBox fx:id="comboEntrepriseClientModif" promptText="Entreprise"/>
+                                <ComboBox fx:id="comboAdresseFacturationClientModif" promptText="Adresse de facturation"/>
+
+                                <Label fx:id="ajouterClientErreur" textFill="#bc0e0e"/>
+
+                                <Button text="Ajouter ce client" onAction="#gererAjouterClient"
+                                        style="-fx-background-color: #056861; -fx-text-fill: white;" maxWidth="Infinity"/>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+
+                <!-- Onglet modification/suppression -->
+                <Tab text="Gérer un client">
+                    <content>
+                        <VBox spacing="15" style="-fx-padding: 15;">
+                            <children>
+                                <Label text="Modifier/Supprimer le client sélectionné" textFill="#056861">
+                                    <font><Font name="Segoe UI" size="20.0"/></font>
+                                </Label>
+
+                                <Label fx:id="labelAucuneSelection" text="Aucun client sélectionné." textFill="#666666"/>
+
+                                <TextField fx:id="fieldNomClientModif" promptText="Nom"/>
+                                <TextField fx:id="fieldPrenomClientModif" promptText="Prénom"/>
+                                <TextField fx:id="fieldTelClientModif" promptText="Téléphone"/>
+                                <TextField fx:id="fieldEmailClientModif" promptText="Email"/>
+                                <ComboBox fx:id="comboEntrepriseClientModif" promptText="Entreprise"/>
+                                <ComboBox fx:id="comboAdresseFacturationClientModif" promptText="Adresse de facturation"/>
+
+                                <HBox spacing="10">
+                                    <Button fx:id="btnModifierClient" text="Modifier le client" onAction="#gererModifierClient"
+                                            style="-fx-background-color: #056861; -fx-text-fill: white;" maxWidth="Infinity"/>
+                                    <Button fx:id="btnSupprimerClient" text="Supprimer" onAction="#gererSupprimerClient"
+                                            style="-fx-background-color: #bc0e0e; -fx-text-fill: white;" maxWidth="Infinity"/>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
     </children>
 </AnchorPane>

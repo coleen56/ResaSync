@@ -20,6 +20,17 @@ public class Entreprise {
         this.idAdresseFacturation = idAdresseFacturation;
     }
 
+    public Entreprise(int idEntreprise, String raisonSociale, String tel, String numSiret, String email) {
+        this.idEntreprise = idEntreprise;
+        this.raisonSociale = raisonSociale;
+        this.tel = tel;
+        this.numSiret = numSiret;
+        this.email = email;
+
+    }
+
+
+
     public int getIdEntreprise() {
         return idEntreprise;
     }

@@ -12,9 +12,6 @@ import java.sql.SQLException;
 public class StatutChambreDAOImpl implements StatutChambreDAO {
     private Connection connection;
 
-    public StatutChambreDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
     public StatutChambre findById(int idStatutChambre) {
