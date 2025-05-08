@@ -15,7 +15,7 @@ public class Session {
         this.dateConnexion = dateConnexion;
     }
 
-    // Factory method pour créer une session
+    // méthode qui permet la création de la session + stockage dans instance
     public static void creerSession(String login, int niveau) {
         instance = new Session(login, niveau, LocalDateTime.now());
     }

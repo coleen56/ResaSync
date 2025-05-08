@@ -13,6 +13,13 @@ public class DashboardController {
     @FXML private Hyperlink lienConfiguration;
 
     @FXML
+    public void initialize() {
+        if(Session.getInstance().isAdmin()) {
+            lienConfiguration.setDisable(false);
+        }
+    }
+
+    @FXML
     public void allerAReservation() {
         chargerVue("Reservation.fxml");
     }
@@ -46,13 +53,6 @@ public class DashboardController {
             Methods.chargerVue(fichierFxml, stage); // Appel direct à la méthode utilitaire
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void initialize() {
-        if(Session.getInstance().isAdmin()) {
-            lienConfiguration.setDisable(false);
         }
     }
 }

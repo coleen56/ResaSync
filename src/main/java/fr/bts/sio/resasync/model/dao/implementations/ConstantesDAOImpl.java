@@ -131,7 +131,7 @@ public class ConstantesDAOImpl implements ConstantesDAO {
 
     @Override
     public void delete(Constantes constantes) {
-        String sql = "DELETE FROM constantes WHERE idconstantes = ?;";
+        String sql = "DELETE FROM constante WHERE idconstante = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -163,7 +163,7 @@ public class ConstantesDAOImpl implements ConstantesDAO {
     public void updateLastConstante(String libelle) {
         LocalDate today = LocalDate.now();
         java.sql.Date date = Methods.convertLocalDateToDate(today);
-        String sql = "UPDATE constantes SET datefin = ? WHERE libelle = ? AND datefin is null;";
+        String sql = "UPDATE constante SET datefin = ? WHERE libelle = ? AND datefin is null;";
         Connection conn = null;
         PreparedStatement stmt = null;
 

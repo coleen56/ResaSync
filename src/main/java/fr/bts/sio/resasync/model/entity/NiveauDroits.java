@@ -9,6 +9,10 @@ public class NiveauDroits {
         this.libelle = libelle;
     }
 
+    public NiveauDroits(String libelle) {
+        this.libelle = libelle;
+    }
+
     //Getters and Setters
 
     public int getIdNiveau() {

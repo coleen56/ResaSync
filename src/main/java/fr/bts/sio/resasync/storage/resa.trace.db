@@ -5370,3 +5370,317 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/I
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "DELETE [*]* from constantes"; attendu "identifier"
 Syntax error in SQL statement "DELETE [*]* from constantes"; expected "identifier"; SQL statement:
 DELETE * from constantes [42001-220]
+2025-05-04 16:19:23 database: flush
+org.h2.message.DbException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:212)
+	at com.h2database@2.2.220/org.h2.message.DbException.convert(DbException.java:407)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.handleException(MVStore.java:1547)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.panic(MVStore.java:371)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:291)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore$Builder.open(MVStore.java:2036)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.<init>(Store.java:133)
+	at com.h2database@2.2.220/org.h2.engine.Database.<init>(Database.java:324)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:92)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:222)
+	at com.h2database@2.2.220/org.h2.engine.Engine.createSession(Engine.java:201)
+	at com.h2database@2.2.220/org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at com.h2database@2.2.220/org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:682)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.utils.DatabaseConnection.getConnection(DatabaseConnection.java:16)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.UtilisateurDAOImpl.findByLogin(UtilisateurDAOImpl.java:168)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.controller.LoginController.authentifierUtilisateur(LoginController.java:54)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.controller.LoginController.lambda$initialize$0(LoginController.java:41)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:234)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8792)
+	at javafx.controls/javafx.scene.control.Button.fire(Button.java:203)
+	at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.keyReleased(ButtonBehavior.java:163)
+	at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:234)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics/javafx.scene.Scene$KeyHandler.process(Scene.java:4105)
+	at javafx.graphics/javafx.scene.Scene.processKeyEvent(Scene.java:2156)
+	at javafx.graphics/javafx.scene.Scene$ScenePeerListener.keyEvent(Scene.java:2630)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.run(GlassViewEventHandler.java:218)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.run(GlassViewEventHandler.java:150)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleKeyEvent$1(GlassViewEventHandler.java:250)
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleKeyEvent(GlassViewEventHandler.java:249)
+	at javafx.graphics/com.sun.glass.ui.View.handleKeyEvent(View.java:548)
+	at javafx.graphics/com.sun.glass.ui.View.notifyKey(View.java:972)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 66 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]
+	at com.h2database@2.2.220/org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:286)
+	... 60 more
+2025-05-08 15:10:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "DROP [*]ALL TABLE"; attendu "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, MATERIALIZED, VIEW, ROLE, ALIAS, SCHEMA, ALL OBJECTS, DOMAIN, TYPE, DATATYPE, AGGREGATE, SYNONYM"
+Syntax error in SQL statement "DROP [*]ALL TABLE"; expected "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, MATERIALIZED, VIEW, ROLE, ALIAS, SCHEMA, ALL OBJECTS, DOMAIN, TYPE, DATATYPE, AGGREGATE, SYNONYM"; SQL statement:
+DROP ALL TABLE [42001-220]
+2025-05-08 15:11:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Le schéma "PUBLIC" ne peut pas être supprimé
+Schema "PUBLIC" cannot be dropped; SQL statement:
+DROP SCHEMA PUBLIC CASCADE [90090-220]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.DropSchema.update(DropSchema.java:49)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1109)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1096)
+	at org.h2.server.web.WebThread.process(WebThread.java:188)
+	at org.h2.server.web.WebThread.run(WebThread.java:101)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+2025-05-08 15:11:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Le schéma "PUBLIC" existe déjà
+Schema "PUBLIC" already exists; SQL statement:
+CREATE SCHEMA PUBLIC [90078-220]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSchema.update(CreateSchema.java:48)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1109)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1096)
+	at org.h2.server.web.WebThread.process(WebThread.java:188)
+	at org.h2.server.web.WebThread.run(WebThread.java:101)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+2025-05-08 15:11:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "DROP TABLE ADRESSEFACTURATION .[*]"; attendu "identifier"
+Syntax error in SQL statement "DROP TABLE ADRESSEFACTURATION .[*]"; expected "identifier"; SQL statement:
+DROP TABLE ADRESSEFACTURATION . [42001-220]
+2025-05-08 15:11:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Impossible de supprimer "ADRESSEFACTURATION" car "ENTREPRISE_IBFK_1" dépend de lui
+Cannot drop "ADRESSEFACTURATION" because "ENTREPRISE_IBFK_1" depends on it; SQL statement:
+DROP TABLE ADRESSEFACTURATION [90107-220]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.command.ddl.DropTable.prepareDrop(DropTable.java:108)
+	at org.h2.command.ddl.DropTable.update(DropTable.java:133)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1109)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1096)
+	at org.h2.server.web.WebThread.process(WebThread.java:188)
+	at org.h2.server.web.WebThread.run(WebThread.java:101)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+2025-05-08 15:12:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "UTILISATEURTYPECHAMBRE" non trouvée
+Table "UTILISATEURTYPECHAMBRE" not found; SQL statement:
+DROP TABLE UTILISATEURTYPECHAMBRE [42102-220]
+2025-05-08 15:12:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TYPEPAIEMENT" non trouvée
+Table "TYPEPAIEMENT" not found; SQL statement:
+DROP TABLE TYPEPAIEMENT [42102-220]
+2025-05-08 15:13:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CONSTANTESFACTURATION" non trouvée
+Table "CONSTANTESFACTURATION" not found; SQL statement:
+DROP TABLE CONSTANTESFACTURATION [42102-220]
+2025-05-08 15:21:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ADRESSEFACTURATIONINSERT" non trouvée
+Table "ADRESSEFACTURATIONINSERT" not found; SQL statement:
+select * from adressefacturationINSERT INTO Client (nom, prenom, tel, email, dateNaissance, idAdresseFacturation)
+VALUES ('Durand', 'Sophie', '0612345678', 'sophie.durand@example.com', '1985-04-12', 1) [42102-220]
+2025-05-08 15:23:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "STATUTFACTURATION" non trouvée
+Table "STATUTFACTURATION" not found; SQL statement:
+INSERT INTO statutfacturation (libelle)
+VALUES ('En cours'), ('Annulée') [42102-220]
+2025-05-08 15:45:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "UTILISATEUR" non trouvée
+Table "UTILISATEUR" not found; SQL statement:
+SELECT * FROM UTILISATEUR where login = ? [42102-220]
+2025-05-08 15:51:00 database: flush
+org.h2.message.DbException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:212)
+	at com.h2database@2.2.220/org.h2.message.DbException.convert(DbException.java:407)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.handleException(MVStore.java:1547)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.panic(MVStore.java:371)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:291)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore$Builder.open(MVStore.java:2036)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.<init>(Store.java:133)
+	at com.h2database@2.2.220/org.h2.engine.Database.<init>(Database.java:324)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:92)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:222)
+	at com.h2database@2.2.220/org.h2.engine.Engine.createSession(Engine.java:201)
+	at com.h2database@2.2.220/org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at com.h2database@2.2.220/org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:682)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.utils.DatabaseConnection.getConnection(DatabaseConnection.java:16)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.UtilisateurDAOImpl.save(UtilisateurDAOImpl.java:63)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.ResaSyncMain.main(ResaSyncMain.java:29)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1164)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 27 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]
+	at com.h2database@2.2.220/org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:286)
+	... 21 more
+2025-05-08 15:53:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "NIVEAUDROITS" non trouvée
+Table "NIVEAUDROITS" not found; SQL statement:
+INSERT INTO niveaudroits(idniveau, libelle) values (?, ?) [42102-220]
+2025-05-08 15:55:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "ID" non trouvée
+Column "ID" not found; SQL statement:
+update niveaudroit set id = 1 where libelle = 'administrateur' [42122-220]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:759)
+	at org.h2.command.Parser.readTableColumn(Parser.java:1094)
+	at org.h2.command.Parser.readUpdateSetClause(Parser.java:1181)
+	at org.h2.command.Parser.parseUpdate(Parser.java:1134)
+	at org.h2.command.Parser.parsePrepared(Parser.java:868)
+	at org.h2.command.Parser.parse(Parser.java:697)
+	at org.h2.command.Parser.parse(Parser.java:669)
+	at org.h2.command.Parser.prepareCommand(Parser.java:577)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:634)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:557)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1109)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1096)
+	at org.h2.server.web.WebThread.process(WebThread.java:188)
+	at org.h2.server.web.WebThread.run(WebThread.java:101)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+2025-05-08 15:56:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "idutilisateur" non trouvée
+Column "idutilisateur" not found [42122-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:223)
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:199)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3492)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.UtilisateurDAOImpl.findByLogin(UtilisateurDAOImpl.java:175)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.controller.LoginController.authentifierUtilisateur(LoginController.java:54)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.controller.LoginController.lambda$initialize$0(LoginController.java:41)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:234)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8792)
+	at javafx.controls/javafx.scene.control.Button.fire(Button.java:203)
+	at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.keyReleased(ButtonBehavior.java:163)
+	at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:234)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics/javafx.scene.Scene$KeyHandler.process(Scene.java:4105)
+	at javafx.graphics/javafx.scene.Scene.processKeyEvent(Scene.java:2156)
+	at javafx.graphics/javafx.scene.Scene$ScenePeerListener.keyEvent(Scene.java:2630)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.run(GlassViewEventHandler.java:218)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.run(GlassViewEventHandler.java:150)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleKeyEvent$1(GlassViewEventHandler.java:250)
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleKeyEvent(GlassViewEventHandler.java:249)
+	at javafx.graphics/com.sun.glass.ui.View.handleKeyEvent(View.java:548)
+	at javafx.graphics/com.sun.glass.ui.View.notifyKey(View.java:972)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+2025-05-08 15:59:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "create table utilisateur(idutilisateur INT PRIMARY KEY, login varchar(50), pwd varchar(255), nom varchar(50), prenom varchar(50), idNiveau int, FOREIGN KEY (idniveau) references (Niveaudroit[*](idniveau))"; attendu "ASC, DESC, NULLS, ,, )"
+Syntax error in SQL statement "create table utilisateur(idutilisateur INT PRIMARY KEY, login varchar(50), pwd varchar(255), nom varchar(50), prenom varchar(50), idNiveau int, FOREIGN KEY (idniveau) references (Niveaudroit[*](idniveau))"; expected "ASC, DESC, NULLS, ,, )"; SQL statement:
+create table utilisateur(idutilisateur INT PRIMARY KEY, login varchar(50), pwd varchar(255), nom varchar(50), prenom varchar(50), idNiveau int, FOREIGN KEY (idniveau) references (Niveaudroit(idniveau)) [42001-220]
+2025-05-08 16:00:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "create table utilisateur(idutilisateur INT PRIMARY KEY, login varchar(50), pwd varchar(255), nom varchar(50), prenom varchar(50), idNiveau int, FOREIGN KEY (idniveau) references (Niveaudroit[*](idniveau)))"; attendu "ASC, DESC, NULLS, ,, )"
+Syntax error in SQL statement "create table utilisateur(idutilisateur INT PRIMARY KEY, login varchar(50), pwd varchar(255), nom varchar(50), prenom varchar(50), idNiveau int, FOREIGN KEY (idniveau) references (Niveaudroit[*](idniveau)))"; expected "ASC, DESC, NULLS, ,, )"; SQL statement:
+create table utilisateur(idutilisateur INT PRIMARY KEY, login varchar(50), pwd varchar(255), nom varchar(50), prenom varchar(50), idNiveau int, FOREIGN KEY (idniveau) references (Niveaudroit(idniveau))) [42001-220]
