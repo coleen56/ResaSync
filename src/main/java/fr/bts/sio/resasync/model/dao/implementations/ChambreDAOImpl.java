@@ -2,6 +2,8 @@ package fr.bts.sio.resasync.model.dao.implementations;
 
 import fr.bts.sio.resasync.model.dao.interfaces.ChambreDAO;
 import fr.bts.sio.resasync.model.entity.Chambre;
+import fr.bts.sio.resasync.model.entity.StatutChambre;
+import fr.bts.sio.resasync.model.entity.TypeChambre;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
 
 import java.sql.Connection;
@@ -13,10 +15,12 @@ import java.util.ArrayList;
 public class ChambreDAOImpl implements ChambreDAO {
     private Connection connection;
 
-
     @Override
     public Chambre findById(int id) {
-        String sql = "SELECT * FROM chambre WHERE idchambre = ?";
+        String sql = "SELECT * FROM chambre c " +
+                "JOIN statutchambre s ON c.idstatutchambre = s.idstatutchambre " +
+                "JOIN typechambre t ON c.idtypechambre = t.idtypechambre " +
+                "WHERE c.idchambre = ?";
         Chambre chambre = null;
 
         Connection conn = null;
@@ -25,25 +29,23 @@ public class ChambreDAOImpl implements ChambreDAO {
         try {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
-
             stmt.setInt(1, id);
+
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                chambre = new Chambre(rs.getInt("idchambre"), rs.getInt("numchambre"),
-                        rs.getInt("idtypechambre"), rs.getInt("idstatutchambre"));
+                // Création des objets StatutChambre et TypeChambre
+                StatutChambre statutChambre = new StatutChambre(rs.getInt("idstatutchambre"), rs.getString("libelle_statut"));
+                TypeChambre typeChambre = new TypeChambre(rs.getInt("idtypechambre"), rs.getString("libelle_type"));
+
+                chambre = new Chambre(rs.getInt("idchambre"), rs.getInt("numchambre"), typeChambre, statutChambre);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            // Ferme les ressources
             try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -53,8 +55,7 @@ public class ChambreDAOImpl implements ChambreDAO {
 
     @Override
     public void save(Chambre chambre) {
-        String sql = "INSERT INTO chambre(numchambre, idtypechambre, idstatutchambre) " +
-                "values (?, ?, ?)";
+        String sql = "INSERT INTO chambre (numchambre, idtypechambre, idstatutchambre) VALUES (?, ?, ?)";
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -64,23 +65,18 @@ public class ChambreDAOImpl implements ChambreDAO {
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, chambre.getNumChambre());
-            stmt.setInt(2, chambre.getIdTypeChambre());
-            stmt.setInt(3, chambre.getIdStatutChambre());
+            stmt.setInt(2, chambre.getTypeChambre().getIdTypeChambre());  // Utilisation de l'objet TypeChambre
+            stmt.setInt(3, chambre.getStatutChambre().getIdStatutChambre());  // Utilisation de l'objet StatutChambre
 
             stmt.executeUpdate();
-            System.out.println("chambre bien insérée en BDD");
+            System.out.println("Chambre bien insérée en BDD");
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            // Ferme les ressources
             try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -89,7 +85,8 @@ public class ChambreDAOImpl implements ChambreDAO {
 
     @Override
     public void update(Chambre chambre) {
-        String sql = "UPDATE chambre SET numchambre = ?, idtypechambre = ?, idstatutchambre = ? where idchambre = ?;";
+        String sql = "UPDATE chambre SET numchambre = ?, idtypechambre = ?, idstatutchambre = ? WHERE idchambre = ?";
+
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -98,24 +95,18 @@ public class ChambreDAOImpl implements ChambreDAO {
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, chambre.getNumChambre());
-            stmt.setInt(2, chambre.getIdTypeChambre());
-            stmt.setInt(3, chambre.getIdStatutChambre());
+            stmt.setInt(2, chambre.getTypeChambre().getIdTypeChambre());  // Utilisation de l'objet TypeChambre
+            stmt.setInt(3, chambre.getStatutChambre().getIdStatutChambre());  // Utilisation de l'objet StatutChambre
 
             stmt.setInt(4, chambre.getIdChambre());
-
 
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            // Ferme les ressources
             try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -124,7 +115,8 @@ public class ChambreDAOImpl implements ChambreDAO {
 
     @Override
     public void delete(Chambre chambre) {
-        String sql = "DELETE FROM chambre WHERE idchambre = ?;";
+        String sql = "DELETE FROM chambre WHERE idchambre = ?";
+
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -138,45 +130,9 @@ public class ChambreDAOImpl implements ChambreDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            // Ferme les ressources
             try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void ajouterChambre(Chambre chambre) {
-        String sql = "INSERT INTO chambre(numchambre, idtypechambre, idstatutchambre) VALUES (?, ?, ?)";
-        Connection conn = null;
-        PreparedStatement stmt = null;
-
-        try {
-            conn = DatabaseConnection.getConnection();
-            stmt = conn.prepareStatement(sql);
-
-            stmt.setInt(1, chambre.getNumChambre());
-            stmt.setInt(2, chambre.getIdTypeChambre());
-            stmt.setInt(3, chambre.getIdStatutChambre());
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Ferme les ressources
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -184,11 +140,11 @@ public class ChambreDAOImpl implements ChambreDAO {
     }
 
     public ArrayList<Chambre> findAll() {
-        String sql = "SELECT c.idchambre, c.numchambre, c.idtypechambre, c.idstatutchambre, s.libelle AS libelle_statut, t.libelle AS libelle_type "
-                + "FROM chambre c "
-                + "JOIN statutchambre s ON c.idstatutchambre = s.idstatutchambre "
-                + "JOIN typechambre t ON c.idtypechambre = t.idtypechambre";
-        ArrayList<Chambre> chambres = new ArrayList<>(); // Créer une ArrayList pour stocker les chambres
+        String sql = "SELECT c.idchambre, c.numchambre, c.idtypechambre, c.idstatutchambre, s.libelle AS libelle_statut, t.libelle AS libelle_type " +
+                "FROM chambre c " +
+                "JOIN statutchambre s ON c.idstatutchambre = s.idstatutchambre " +
+                "JOIN typechambre t ON c.idtypechambre = t.idtypechambre";
+        ArrayList<Chambre> chambres = new ArrayList<>();
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -198,30 +154,21 @@ public class ChambreDAOImpl implements ChambreDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int idChambre = rs.getInt("idchambre");
-                int numChambre = rs.getInt("numchambre");
-                int idTypeChambre = rs.getInt("idtypechambre");
-                int idStatutChambre = rs.getInt("idstatutchambre");
-                String libelleType = rs.getString("libelle_type");
-                String libelleStatut = rs.getString("libelle_statut");
+                // Création des objets StatutChambre et TypeChambre
+                StatutChambre statutChambre = new StatutChambre(rs.getInt("idstatutchambre"), rs.getString("libelle_statut"));
+                TypeChambre typeChambre = new TypeChambre(rs.getInt("idtypechambre"), rs.getString("libelle_type"));
 
-                Chambre chambre = new Chambre(idChambre, numChambre, idTypeChambre, idStatutChambre);
-                chambre.setTypeChambreLibelle(libelleType);
-                chambre.setStatutChambreLibelle(libelleStatut);
+                // Création de la chambre avec les objets StatutChambre et TypeChambre
+                Chambre chambre = new Chambre(rs.getInt("idchambre"), rs.getInt("numchambre"), typeChambre, statutChambre);
 
                 chambres.add(chambre);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            // Ferme les ressources
             try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -249,14 +196,9 @@ public class ChambreDAOImpl implements ChambreDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            // Ferme les ressources
             try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -265,7 +207,8 @@ public class ChambreDAOImpl implements ChambreDAO {
     }
 
     public void supprimerChambreById(int idChambre) {
-        String sql = "DELETE FROM chambre WHERE idchambre = ?;";
+        String sql = "DELETE FROM chambre WHERE idchambre = ?";
+
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -279,14 +222,9 @@ public class ChambreDAOImpl implements ChambreDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            // Ferme les ressources
             try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

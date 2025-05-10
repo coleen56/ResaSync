@@ -1,6 +1,7 @@
 package fr.bts.sio.resasync.model.entity;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Client {
     private int idClient;
@@ -8,22 +9,20 @@ public class Client {
     private String prenom;
     private String tel;
     private String email;
-    private String dateNaissance;
-    private Entreprise Entreprise;
+    private LocalDate dateNaissance;
     private AdresseFacturation AdresseFacturation;
 
-    public Client (int idClient, String nom, String prenom, String tel, String email,String dateNaissance, Entreprise Entreprise, AdresseFacturation AdresseFacturation){
+    public Client (int idClient, String nom, String prenom, String tel, String email,LocalDate dateNaissance, AdresseFacturation AdresseFacturation){
         this.idClient = idClient;
         this.nom = nom;
         this.prenom = prenom;
         this.tel = tel;
         this.email = email;
         this.dateNaissance = dateNaissance;
-        this.Entreprise = Entreprise;
         this.AdresseFacturation = AdresseFacturation;
     }
 
-    public Client(int idClient,String nom, String prenom, String tel, String email, String dateNaissance) {
+    public Client(int idClient,String nom, String prenom, String tel, String email, LocalDate dateNaissance) {
         this.idClient = idClient;
         this.nom = nom;
         this.prenom = prenom;
@@ -32,13 +31,12 @@ public class Client {
         this.dateNaissance = dateNaissance;
     }
 
-    public Client(String nom, String prenom, String tel, String email, String dateNaissance,Entreprise entreprise, AdresseFacturation adresseFacturation) {
+    public Client(String nom, String prenom, String tel, String email, LocalDate dateNaissance,AdresseFacturation adresseFacturation) {
         this.nom = nom;
         this.prenom = prenom;
         this.tel = tel;
         this.email = email;
         this.dateNaissance = dateNaissance;
-        this.Entreprise = entreprise;
         this.AdresseFacturation = adresseFacturation ;
     }
 
@@ -83,20 +81,12 @@ public class Client {
         this.email = email;
     }
 
-    public String getDateNaissance() {
+    public LocalDate getDateNaissance() {
         return dateNaissance;
     }
 
-    public void setDateNaissance(String dateNaissance) {
+    public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
-    }
-
-    public fr.bts.sio.resasync.model.entity.Entreprise getEntreprise() {
-        return Entreprise;
-    }
-
-    public void setEntreprise(fr.bts.sio.resasync.model.entity.Entreprise entreprise) {
-        Entreprise = entreprise;
     }
 
     public fr.bts.sio.resasync.model.entity.AdresseFacturation getAdresseFacturation() {
@@ -116,7 +106,6 @@ public class Client {
                 ", tel='" + tel + '\'' +
                 ", email='" + email + '\'' +
                 ", dateNaissance='" + dateNaissance + '\'' +
-                ", Entreprise=" + Entreprise +
                 ", AdresseFacturation=" + AdresseFacturation +
                 '}';
     }

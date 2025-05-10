@@ -67,13 +67,8 @@ public class AdresseFacturation {
 
     @Override
     public String toString() {
-        return "AdresseFacturation{" +
-                "idAdresseFacturation=" + idAdresseFacturation +
-                ", numero='" + numero + '\'' +
-                ", voie='" + voie + '\'' +
-                ", codePostal='" + codePostal + '\'' +
-                ", ville='" + ville + '\'' +
-                ", pays='" + pays + '\'' +
-                '}';
+        return numero +' '+ voie + ' ' +
+                codePostal + ' ' + ville + ' ' +
+                pays;
     }
 }
