@@ -6,10 +6,7 @@ import fr.bts.sio.resasync.model.entity.AdresseFacturation;
 import fr.bts.sio.resasync.model.entity.Entreprise;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class EntrepriseDAOImpl implements EntrepriseDAO {

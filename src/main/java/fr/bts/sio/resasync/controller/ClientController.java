@@ -24,6 +24,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -84,17 +85,20 @@ public class ClientController {
     @FXML private TableColumn<Client, String> colDateNaissClientParticulier;
 
     // Informations personnelles Client --> GridPane
+
     @FXML private Label labelNomClientParticulierDetail ;
     @FXML private Label labelPrenomClientParticulierDetail ;
     @FXML private Label labelTelClientParticulierDetail ;
     @FXML private Label labelEmailClientParticulierDetail ;
     @FXML private Label labelAdresseClientParticulierDetail ;
+    @FXML private Label labelDateNaissanceClientParticulierDetail;
     @FXML private Button btnModifierClientParticulier;
     @FXML private Button btnSupprimerClientParticulier;
     @FXML private TextField fieldNomClientParticulier;
     @FXML private TextField fieldPrenomClientParticulier;
     @FXML private TextField fieldTelClientParticulier;
     @FXML private TextField fieldEmailClientParticulier;
+    @FXML private DatePicker datePickerDateNaissanceClientParticulier;
     @FXML private TextField fieldNumeroClientParticulier;
     @FXML private TextField fieldVoieClientParticulier;
     @FXML private TextField fieldCodePostalClientParticulier;
@@ -154,6 +158,7 @@ public class ClientController {
                 labelPrenomClientParticulierDetail.setText(nouvelleValeur.getPrenom());
                 labelTelClientParticulierDetail.setText(nouvelleValeur.getTel());
                 labelEmailClientParticulierDetail.setText(nouvelleValeur.getEmail());
+                labelDateNaissanceClientParticulierDetail.setText(nouvelleValeur.getDateNaissance().toString());
                 labelAdresseClientParticulierDetail.setText(nouvelleValeur.getAdresseFacturation().toString());
 
                 fieldNomClientParticulier.setText(nouvelleValeur.getNom());
@@ -225,6 +230,46 @@ public class ClientController {
     public void gererAjouterClientParticulier () {
         System.out.println("gererEnregistrerParticulier");
 
+        try {
+            //Récupération des valeurs du formulaire d'ajout
+            String nomClient = fieldNomClientParticulier.getText();
+            String prenomClient = fieldPrenomClientParticulier.getText();
+            String telClient = fieldTelClientParticulier.getText();
+            String emailClient = fieldEmailClientParticulier.getText();
+            LocalDate dateNaissanceClient = datePickerDateNaissanceClientParticulier.getValue();
+            String numAdresseFacturationClient = fieldNumeroClientParticulier.getText();
+            String voieAdresseFacturationClient = fieldVoieClientParticulier.getText();
+            String codePostalAdresseFacturationClient = fieldCodePostalClientParticulier.getText();
+            String villeAdresseFacturationClient = fieldVilleClientParticulier.getText();
+            String paysAdresseFacturationClient = fieldPaysClientParticulier.getText();
+
+            // Vérification que le mail ainsi que le numéro de téléphone n'existent pas déjà
+            boolean telExiste = clientDAO.telExiste(telClient);
+            boolean mailExiste = clientDAO.mailExiste(emailClient);
+
+            if (telExiste) {
+                // Afficher une alerte ou message d'erreur
+                System.out.println("Email déjà utilisé");
+                return;
+            }
+
+            if (mailExiste) {
+                // Afficher une alerte ou message d'erreur
+                System.out.println("Numéro de téléphone déjà utilisé");
+                return;
+            }
+
+            //Création de l'adresse du client
+            AdresseFacturation adresseFacturationClient = new AdresseFacturation(0,numAdresseFacturationClient,voieAdresseFacturationClient,codePostalAdresseFacturationClient,villeAdresseFacturationClient,paysAdresseFacturationClient);
+            adresseDAO.save(adresseFacturationClient);
+            int idAdresseFacturation = adresseFacturationClient.getIdAdresseFacturation();
+            Client nouveauClient = new Client(0,nomClient,prenomClient,telClient,emailClient, dateNaissanceClient,adresseFacturationClient);
+            clientDAO.save(nouveauClient);
+        }
+        catch (Exception e){
+        e.printStackTrace();
+        }
+
     }
 
     public void gererModifierClientParticulier () {
@@ -255,6 +300,7 @@ public class ClientController {
 
     public void gererAjouterEntreprise () {
         System.out.println("gererEnregistrerEntreprise");
+
     }
 
     public void gererModifierEntreprise () {

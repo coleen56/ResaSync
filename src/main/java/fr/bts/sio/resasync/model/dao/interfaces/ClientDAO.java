@@ -11,4 +11,6 @@ public interface ClientDAO {
     void delete(Client client);
 
     List<Client> findAll();
+    boolean telExiste(String tel);
+    boolean mailExiste(String email);
 }

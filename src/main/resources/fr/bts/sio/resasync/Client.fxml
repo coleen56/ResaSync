@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="857.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.bts.sio.resasync.controller.ClientController">
+<AnchorPane prefHeight="857.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.bts.sio.resasync.controller.ClientController">
     <children>
         <!-- Barre de navigation -->
         <HBox prefHeight="79.0" prefWidth="1280.0" style="-fx-background-color: #d1f2eb;">
@@ -124,6 +108,9 @@
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                                                                                            <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                                                                     <RowConstraints />
+                                                                     <RowConstraints />
                                                                                         </rowConstraints>
                                                                                         <Label text="Nom:" GridPane.rowIndex="0" />
                                                                                         <Label fx:id="labelNomClientParticulierDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -133,8 +120,11 @@
                                                                                         <Label fx:id="labelTelClientParticulierDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                                                         <Label text="Email:" GridPane.rowIndex="3" />
                                                                                         <Label fx:id="labelEmailClientParticulierDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                                                        <Label text="Adresse:" GridPane.rowIndex="4" />
-                                                                                        <Label fx:id="labelAdresseClientParticulierDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                                                        <Label text="Date de naissance :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                                                                        <Label fx:id="labelDateNaissanceClientParticulierDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                                                        <Label text="Adresse:" GridPane.rowIndex="5" />
+                                                                                        <Label fx:id="labelAdresseClientParticulierDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
                                                                                     </GridPane>
                                                                                 </VBox>
                                                                             </TitledPane>
@@ -172,16 +162,22 @@
                                                                                                 <rowConstraints>
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                                                                                                    <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                                                                           <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                                                                           <RowConstraints />
+                                                                           <RowConstraints />
+                                                                           <RowConstraints />
                                                                                                 </rowConstraints>
                                                                                                 <TextField fx:id="fieldNomClientParticulier" promptText="Nom *" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                                                                                 <TextField fx:id="fieldPrenomClientParticulier" promptText="Prénom *" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                                                                                 <TextField fx:id="fieldTelClientParticulier" promptText="Téléphone *" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                                                                                 <TextField fx:id="fieldEmailClientParticulier" promptText="Email *" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                                                                <TextField fx:id="fieldNumeroClientParticulier" promptText="Numero *" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                                                                                                <TextField fx:id="fieldVoieClientParticulier" promptText="Voie *" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                                                                <TextField fx:id="fieldCodePostalClientParticulier" promptText="Code Postal *" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                                                                                                <TextField fx:id="fieldVilleClientParticulier" promptText="Ville*" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                                                                <TextField fx:id="fieldPaysClientParticulier" promptText="Pays *" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                                                                                <TextField fx:id="fieldNumeroClientParticulier" promptText="Numero *" GridPane.rowIndex="3" />
+                                                                                                <TextField fx:id="fieldVoieClientParticulier" promptText="Voie *" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                                                                <TextField fx:id="fieldCodePostalClientParticulier" promptText="Code Postal *" GridPane.rowIndex="4" />
+                                                                                                <TextField fx:id="fieldVilleClientParticulier" promptText="Ville*" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                                                                <TextField fx:id="fieldPaysClientParticulier" promptText="Pays *" GridPane.rowIndex="5" />
+                                                                                                <DatePicker fx:id="datePickerDateNaissanceClientParticulier" promptText="jj/mm/aaaa" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                                                             </GridPane>
                                                                                         </VBox>
                                                                                     </TitledPane>
@@ -258,6 +254,7 @@
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                                                                     <RowConstraints />
                                                                                         </rowConstraints>
                                                                                         <Label text="Raison sociale:" GridPane.rowIndex="0" />
                                                                                         <Label fx:id="labelRaisonSocialeDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -268,7 +265,7 @@
                                                                                         <Label text="Email:" GridPane.rowIndex="3" />
                                                                                         <Label fx:id="labelEmailEntrepriseDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                                                         <Label text="Adresse:" GridPane.rowIndex="4" />
-                                                                                        <Label fx:id="labelAdresseEntrepriseDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                                                        <Label fx:id="labelAdresseEntrepriseDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                                                                     </GridPane>
                                                                                 </VBox>
                                                                             </TitledPane>
@@ -320,6 +317,9 @@
                                                                                                 <rowConstraints>
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                                                                           <RowConstraints />
+                                                                           <RowConstraints />
+                                                                           <RowConstraints />
                                                                                                 </rowConstraints>
                                                                                                 <TextField fx:id="fieldRaisonSocialeEntreprise" promptText="Raison sociale *" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                                                                                 <TextField fx:id="fieldSiretEntreprise" promptText="SIRET *" GridPane.columnIndex="1" GridPane.rowIndex="0" />

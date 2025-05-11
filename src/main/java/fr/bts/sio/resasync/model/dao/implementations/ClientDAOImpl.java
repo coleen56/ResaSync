@@ -69,6 +69,7 @@ public class ClientDAOImpl implements ClientDAO {
         }
     }
 
+
     @Override
     public void update(Client client) {
         String sql = "UPDATE Client SET nom = ?, prenom = ?, tel = ?, email = ?, datenaissance = ?, " +
@@ -116,34 +117,67 @@ public class ClientDAOImpl implements ClientDAO {
 
         ArrayList<Client> clients = new ArrayList<>();
 
-        try (
-                Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                ResultSet rs = stmt.executeQuery()
-        ) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
             while (rs.next()) {
-                int idClient = rs.getInt("idclient");
-                String nom = rs.getString("nom");
-                String prenom = rs.getString("prenom");
-                String tel = rs.getString("tel");
-                String email = rs.getString("email");
-                LocalDate dateNaissance = rs.getDate("datenaissance").toLocalDate();
+                AdresseFacturation adresseFacturation = new AdresseFacturation(
+                        rs.getInt("idadressefacturation"),
+                        rs.getString("numero"),
+                        rs.getString("voie"),
+                        rs.getString("codepostal"),
+                        rs.getString("ville"),
+                        rs.getString("pays")
+                );
 
-                int idAdresse = rs.getInt("idadressefacturation");
-                String numero = rs.getString("numero");
-                String voie = rs.getString("voie");
-                String codePostal = rs.getString("codepostal");
-                String ville = rs.getString("ville");
-                String pays = rs.getString("pays");
+                Client client = new Client(
+                        rs.getInt("idclient"),
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getString("tel"),
+                        rs.getString("email"),
+                        rs.getDate("datenaissance").toLocalDate(),
+                        adresseFacturation
+                );
 
-                AdresseFacturation adresse = new AdresseFacturation(idAdresse, numero, voie, codePostal, ville, pays);
-                Client client = new Client(idClient, nom, prenom, tel, email, dateNaissance, adresse);
                 clients.add(client);
             }
+
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de la récupération des clients", e);
         }
 
         return clients;
+    }
+
+    public boolean mailExiste(String email) {
+        String sql = "SELECT COUNT(*) FROM client WHERE email = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  // À remplacer par une vraie gestion d'erreur si besoin
+        }
+        return false;
+    }
+
+    public boolean telExiste(String tel) {
+        String sql = "SELECT COUNT(*) FROM client WHERE tel = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, tel);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

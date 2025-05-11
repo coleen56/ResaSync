@@ -180,7 +180,7 @@ public class ChambreController {
                     break;
             }
 
-            // Vérification pour éviter les doublons avec la méthode optimisée
+            // Vérification que le numéro de chambre n'existe pas déjà
             boolean numeroExistant = chambreDAO.findByNumeroChambre(numeroChambre);
 
             if (numeroExistant) {
@@ -189,13 +189,10 @@ public class ChambreController {
             }
 
             // Création de l'objet StatutChambre avec un statut 1 (par défaut)
-            // Je suppose que le statut 1 correspond à "Disponible"
             StatutChambre statutChambre = new StatutChambre(1, "Disponible");
 
             // Création de la nouvelle chambre avec un statut disponible par défaut
             Chambre nouvelleChambre = new Chambre(0, numeroChambre, typeChambre, statutChambre);
-
-            // Sauvegarde dans la base de données
             chambreDAO.save(nouvelleChambre);
 
             // Rafraîchir la table et réinitialiser le formulaire
