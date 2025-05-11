@@ -1,62 +1,37 @@
 package fr.bts.sio.resasync.controller;
 
-import com.lowagie.text.pdf.ColumnText;
 import fr.bts.sio.resasync.model.dao.implementations.ClientDAOImpl;
 import fr.bts.sio.resasync.model.dao.interfaces.ClientDAO;
+import fr.bts.sio.resasync.model.dao.implementations.EntrepriseDAOImpl;
+import fr.bts.sio.resasync.model.dao.interfaces.EntrepriseDAO;
+import fr.bts.sio.resasync.model.dao.implementations.AdresseFacturationDAOImpl;
+import fr.bts.sio.resasync.model.dao.interfaces.AdresseFacturationDAO;
 import fr.bts.sio.resasync.model.entity.AdresseFacturation;
-import fr.bts.sio.resasync.model.entity.Chambre;
 import fr.bts.sio.resasync.model.entity.Client;
 import fr.bts.sio.resasync.model.entity.Entreprise;
 import fr.bts.sio.resasync.util.Methods;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ClientController {
 
-    private ClientDAO clientDAO = new ClientDAOImpl();
-
-    // Déclarez la variable TableView avec l'annotation @FXML pour la lier à l'élément dans le FXML
-    @FXML
-    private TableView<Client> tableClients;
-
-    // Déclarez les autres éléments de l'interface
-    @FXML
-    private TextField fieldNomClientModif;
-    @FXML
-    private TextField fieldPrenomClientModif;
-    @FXML
-    private TextField fieldTelClientModif;
-    @FXML
-    private TextField fieldEmailClientModif;
-    @FXML
-    private ComboBox<Entreprise> comboEntrepriseClientModif;
-    @FXML
-    private ComboBox<AdresseFacturation> comboAdresseFacturationClientModif;
-    @FXML
-    private TableColumn<Client, String> colNomClient;
-    @FXML
-    private TableColumn<Client, String> colPrenomClient;
-    @FXML
-    private TableColumn<Client, String> colTelClient;
-    @FXML
-    private TableColumn<Client, String> colMailClient;
-    @FXML
-    private TableColumn<Client, String> colEntreprise;
-    @FXML
-    private TableColumn<Client, String> colAdresse;
-
-
-    @FXML
-    private Button btnModifierClient;
-    @FXML
-    private Button btnSupprimerClient;
-    @FXML
-    private Label labelAucuneSelection;
+    // Changer de page
 
     @FXML
     private Hyperlink lienDashboard;
@@ -95,83 +70,251 @@ public class ClientController {
         }
     }
 
-    @FXML
+    //
+
+
+    private ClientDAO clientDAO = new ClientDAOImpl();
+    private EntrepriseDAO entrepriseDAO = new EntrepriseDAOImpl();
+    private AdresseFacturationDAO adresseDAO = new AdresseFacturationDAOImpl();
+
+    // Tableau des clients
+    @FXML private TableView<Client> tableClients;
+    @FXML private TableColumn<Client, String> colNomClientParticulier;
+    @FXML private TableColumn<Client, String> colPrenomClientParticulier;
+    @FXML private TableColumn<Client, String> colTelClientParticulier;
+    @FXML private TableColumn<Client, String> colDateNaissClientParticulier;
+
+    // Informations personnelles Client --> GridPane
+
+    @FXML private Label labelNomClientParticulierDetail ;
+    @FXML private Label labelPrenomClientParticulierDetail ;
+    @FXML private Label labelTelClientParticulierDetail ;
+    @FXML private Label labelEmailClientParticulierDetail ;
+    @FXML private Label labelAdresseClientParticulierDetail ;
+    @FXML private Label labelDateNaissanceClientParticulierDetail;
+    @FXML private Button btnModifierClientParticulier;
+    @FXML private Button btnSupprimerClientParticulier;
+    @FXML private TextField fieldNomClientParticulier;
+    @FXML private TextField fieldPrenomClientParticulier;
+    @FXML private TextField fieldTelClientParticulier;
+    @FXML private TextField fieldEmailClientParticulier;
+    @FXML private DatePicker datePickerDateNaissanceClientParticulier;
+    @FXML private TextField fieldNumeroClientParticulier;
+    @FXML private TextField fieldVoieClientParticulier;
+    @FXML private TextField fieldCodePostalClientParticulier;
+    @FXML private TextField fieldVilleClientParticulier;
+    @FXML private TextField fieldPaysClientParticulier;
+    @FXML private ComboBox comboAdresseClientParticulier;
+
+    // Tableau des entreprises
+    @FXML private TableView <Entreprise> tableEntreprises;
+    @FXML private TableColumn colRaisonSocialeEntreprise;
+    @FXML private TableColumn colSiretEntreprise;
+    @FXML private TableColumn colTelEntreprise;
+    @FXML private TableColumn colMailEntreprise;
+
+    // Informations personnelles Client --> GridPane
+    @FXML private Label labelRaisonSocialeDetail;
+    @FXML private Label labelSiretDetail;
+    @FXML private Label labelTelEntrepriseDetail;
+    @FXML private Label labelEmailEntrepriseDetail;
+    @FXML private Label labelAdresseEntrepriseDetail;
+    @FXML private TextField fieldRaisonSocialeEntreprise;
+    @FXML private TextField fieldSiretEntreprise;
+    @FXML private TextField fieldTelEntreprise;
+    @FXML private TextField fieldEmailEntreprise;
+    @FXML private TextField fieldNumeroEntreprise;
+    @FXML private TextField fieldVoieEntreprise;
+    @FXML private TextField fieldCodePostalEntreprise;
+    @FXML private TextField fieldVilleEntreprise;
+    @FXML private TextField fieldPaysEntreprise;
+
+    @FXML private ComboBox comboAdresseEntreprise;
+    @FXML private Button btnModifierEntreprise;
+    @FXML private Button btnSupprimerEntreprise;
+
+
     public void initialize() {
-        // Initialisez les ComboBox et autres éléments, puis affichez les clients
-        afficherClients();
-//        chargerEntreprises();
-//        chargerAdresses();
-    }
+        // Initialiser les colonnes du tableau Clients Particulier
+        colNomClientParticulier.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        colPrenomClientParticulier.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+        colTelClientParticulier.setCellValueFactory(new PropertyValueFactory<>("tel"));
+        colDateNaissClientParticulier.setCellValueFactory(new PropertyValueFactory<>("dateNaissance"));
 
-//    private void chargerEntreprises() {
-//        List<Entreprise> entreprises = ... // via EntrepriseDAO
-//        comboEntrepriseClientModif.setItems(FXCollections.observableArrayList(entreprises));
-//    }
-//
-//    private void chargerAdresses() {
-//        List<AdresseFacturation> adresses = ... // via AdresseFacturationDAO
-//        comboAdresseFacturationClientModif.setItems(FXCollections.observableArrayList(adresses));
-//    }
-    public void afficherClients() {
-        // Récupérer la liste des clients et la lier à la TableView
-        List<Client> clients = clientDAO.findAll();
+        // Initialiser les colonnes du tableau Entreprise
+        colRaisonSocialeEntreprise.setCellValueFactory(new PropertyValueFactory<>("raisonSociale"));
+        colSiretEntreprise.setCellValueFactory(new PropertyValueFactory<>("numSiret"));
+        colTelEntreprise.setCellValueFactory(new PropertyValueFactory<>("tel"));
+        colMailEntreprise.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        // Charger les données
+        afficherClientsParticuliers();
+        afficherEntreprises();
+
+        // Listener pour la sélection d'une ligne dans le tableau des clients
+        tableClients.getSelectionModel().selectedItemProperty().addListener((obsClient , ancienneValeur, nouvelleValeur) -> {
+            if (nouvelleValeur != null) {
+                labelNomClientParticulierDetail.setText(nouvelleValeur.getNom());
+                labelPrenomClientParticulierDetail.setText(nouvelleValeur.getPrenom());
+                labelTelClientParticulierDetail.setText(nouvelleValeur.getTel());
+                labelEmailClientParticulierDetail.setText(nouvelleValeur.getEmail());
+                labelDateNaissanceClientParticulierDetail.setText(nouvelleValeur.getDateNaissance().toString());
+                labelAdresseClientParticulierDetail.setText(nouvelleValeur.getAdresseFacturation().toString());
+
+                fieldNomClientParticulier.setText(nouvelleValeur.getNom());
+                fieldPrenomClientParticulier.setText(nouvelleValeur.getPrenom());
+                fieldTelClientParticulier.setText(nouvelleValeur.getTel());
+                fieldEmailClientParticulier.setText(nouvelleValeur.getEmail());
+                fieldNumeroClientParticulier.setText(nouvelleValeur.getAdresseFacturation().getNumero());
+                fieldVoieClientParticulier.setText(nouvelleValeur.getAdresseFacturation().getVoie());
+                fieldCodePostalClientParticulier.setText(nouvelleValeur.getAdresseFacturation().getCodePostal());
+                fieldVilleClientParticulier.setText(nouvelleValeur.getAdresseFacturation().getVille());
+                fieldPaysClientParticulier.setText(nouvelleValeur.getAdresseFacturation().getPays());
+                comboAdresseClientParticulier.getSelectionModel().select(nouvelleValeur.getAdresseFacturation());
+
+                btnModifierClientParticulier.setDisable(false);
+                btnSupprimerClientParticulier.setDisable(false);
+            } else {
+                fieldNomClientParticulier.setDisable(true);
+                fieldPrenomClientParticulier.setDisable(true);
+                fieldTelClientParticulier.setDisable(true);
+                fieldEmailClientParticulier.setDisable(true);
+                comboAdresseClientParticulier.setDisable(true);
+                btnModifierClientParticulier.setDisable(true);
+                btnSupprimerClientParticulier.setDisable(true);
+            }
+        });
+
+        // Listener pour la sélection d'une ligne dans le tableau des entreprises
+        tableEntreprises.getSelectionModel().selectedItemProperty().addListener((obsEntreprise, ancienneValeurEntreprise, nouvelleValeurEntreprise) -> {
+            if (nouvelleValeurEntreprise != null) {
+                System.out.println(nouvelleValeurEntreprise);
+                labelRaisonSocialeDetail.setText(nouvelleValeurEntreprise.getRaisonSociale());
+                labelSiretDetail.setText(nouvelleValeurEntreprise.getNumSiret());
+                labelTelEntrepriseDetail.setText(nouvelleValeurEntreprise.getTel());
+                labelEmailEntrepriseDetail.setText(nouvelleValeurEntreprise.getEmail());
+                labelAdresseEntrepriseDetail.setText(nouvelleValeurEntreprise.getAdresseFacturationEntreprise().toString());
+
+                fieldRaisonSocialeEntreprise.setText(nouvelleValeurEntreprise.getRaisonSociale());
+                fieldSiretEntreprise.setText(nouvelleValeurEntreprise.getNumSiret());
+                fieldTelEntreprise.setText(nouvelleValeurEntreprise.getTel());
+                fieldEmailEntreprise.setText(nouvelleValeurEntreprise.getEmail());
+                fieldNumeroEntreprise.setText(nouvelleValeurEntreprise.getAdresseFacturationEntreprise().getNumero());
+                fieldVoieEntreprise.setText(nouvelleValeurEntreprise.getAdresseFacturationEntreprise().getVoie());
+                fieldCodePostalEntreprise.setText(nouvelleValeurEntreprise.getAdresseFacturationEntreprise().getCodePostal());
+                fieldVilleEntreprise.setText(nouvelleValeurEntreprise.getAdresseFacturationEntreprise().getVille());
+                fieldPaysEntreprise.setText(nouvelleValeurEntreprise.getAdresseFacturationEntreprise().getPays());
+                comboAdresseEntreprise.getSelectionModel().select(nouvelleValeurEntreprise.getAdresseFacturationEntreprise());
+
+                btnModifierEntreprise.setDisable(false);
+                btnSupprimerEntreprise.setDisable(false);
+            } else {
+                fieldRaisonSocialeEntreprise.setDisable(true);
+                fieldSiretEntreprise.setDisable(true);
+                fieldTelEntreprise.setDisable(true);
+                fieldEmailEntreprise.setDisable(true);
+                comboAdresseEntreprise.setDisable(true);
+                btnModifierEntreprise.setDisable(true);
+                btnSupprimerEntreprise.setDisable(true);
+            }
+        });
+    }
+    public void afficherClientsParticuliers() {
+        // Appel à l'instance de ClientDAO pour récupérer tous les clients
+        ArrayList<Client> clients = (ArrayList<Client>) clientDAO.findAll();
+        // Remplir la TableView avec les clients récupérés
         tableClients.setItems(FXCollections.observableArrayList(clients));
-        // Initialisation des colonnes du tableau
-        colNomClient.setCellValueFactory(new PropertyValueFactory<>("Nom"));
-        colPrenomClient.setCellValueFactory(new PropertyValueFactory<>("Prenom"));
-        colTelClient.setCellValueFactory(new PropertyValueFactory<>("Tel"));
-        colMailClient.setCellValueFactory(new PropertyValueFactory<>("Email"));
-        colEntreprise.setCellValueFactory(new PropertyValueFactory<>("Entreprise"));
-        colAdresse.setCellValueFactory(new PropertyValueFactory<>("AdresseFacturation"));
+
     }
 
-    private Client getSelectedClient() {
-        // Récupérer le client sélectionné dans la TableView
-        return tableClients.getSelectionModel().getSelectedItem();
-    }
+    public void gererAjouterClientParticulier () {
+        System.out.println("gererEnregistrerParticulier");
 
-    @FXML
-    private void gererAjouterClient() {
-        String nom = fieldNomClientModif.getText();
-        String prenom = fieldPrenomClientModif.getText();
-        String tel = fieldTelClientModif.getText();
-        String email = fieldEmailClientModif.getText();
-        String dateNaissance = "2000-01-01"; // ou via un DatePicker
-        Entreprise entreprise = comboEntrepriseClientModif.getValue();
-        AdresseFacturation adresse = comboAdresseFacturationClientModif.getValue();
+        try {
+            //Récupération des valeurs du formulaire d'ajout
+            String nomClient = fieldNomClientParticulier.getText();
+            String prenomClient = fieldPrenomClientParticulier.getText();
+            String telClient = fieldTelClientParticulier.getText();
+            String emailClient = fieldEmailClientParticulier.getText();
+            LocalDate dateNaissanceClient = datePickerDateNaissanceClientParticulier.getValue();
+            String numAdresseFacturationClient = fieldNumeroClientParticulier.getText();
+            String voieAdresseFacturationClient = fieldVoieClientParticulier.getText();
+            String codePostalAdresseFacturationClient = fieldCodePostalClientParticulier.getText();
+            String villeAdresseFacturationClient = fieldVilleClientParticulier.getText();
+            String paysAdresseFacturationClient = fieldPaysClientParticulier.getText();
 
-        if (entreprise != null && adresse != null) {
-            Client nouveauClient = new Client(nom, prenom, tel, email, dateNaissance, entreprise, adresse);
+            // Vérification que le mail ainsi que le numéro de téléphone n'existent pas déjà
+            boolean telExiste = clientDAO.telExiste(telClient);
+            boolean mailExiste = clientDAO.mailExiste(emailClient);
+
+            if (telExiste) {
+                // Afficher une alerte ou message d'erreur
+                System.out.println("Email déjà utilisé");
+                return;
+            }
+
+            if (mailExiste) {
+                // Afficher une alerte ou message d'erreur
+                System.out.println("Numéro de téléphone déjà utilisé");
+                return;
+            }
+
+            //Création de l'adresse du client
+            AdresseFacturation adresseFacturationClient = new AdresseFacturation(0,numAdresseFacturationClient,voieAdresseFacturationClient,codePostalAdresseFacturationClient,villeAdresseFacturationClient,paysAdresseFacturationClient);
+            adresseDAO.save(adresseFacturationClient);
+            int idAdresseFacturation = adresseFacturationClient.getIdAdresseFacturation();
+            Client nouveauClient = new Client(0,nomClient,prenomClient,telClient,emailClient, dateNaissanceClient,adresseFacturationClient);
             clientDAO.save(nouveauClient);
-            afficherClients();
-        } else {
-            // afficher message erreur
         }
+        catch (Exception e){
+        e.printStackTrace();
+        }
+
     }
 
-    @FXML
-    public void gererModifierClient() {
-        Client selectedClient = getSelectedClient();
-        if (selectedClient != null) {
-            // Logique pour modifier le client sélectionné
-            fieldNomClientModif.setText(selectedClient.getNom());
-            fieldPrenomClientModif.setText(selectedClient.getPrenom());
-            fieldTelClientModif.setText(selectedClient.getTel());
-            fieldEmailClientModif.setText(selectedClient.getEmail());
-            // etc.
-        } else {
-            labelAucuneSelection.setVisible(true);
-        }
+    public void gererModifierClientParticulier () {
+        System.out.println("gérer modifier Particulier");
+
     }
 
-    @FXML
-    public void gererSupprimerClient() {
-        Client selectedClient = getSelectedClient();
-        if (selectedClient != null) {
-            clientDAO.delete(selectedClient);
-            afficherClients(); // rafraîchir la table
-        } else {
-            labelAucuneSelection.setVisible(true);
-        }
+    public void gererSupprimerClientParticulier () {
+        System.out.println("gérer Supprimer Particulier");
     }
+
+    public void ouvrirDialogueNouvelleAdresse (){
+        System.out.println("ouvrirDialogueNouvelleAdresse");
+
+    }
+
+
+
+    // Méthodes Entreprise
+
+    public void afficherEntreprises() {
+        // Appel à l'instance de ClientDAO pour récupérer tous les clients
+        ArrayList<Entreprise> entreprises = entrepriseDAO.findAll();
+        // Remplir la TableView avec les clients récupérés
+        tableEntreprises.setItems(FXCollections.observableArrayList(entreprises));
+
+    }
+
+    public void gererAjouterEntreprise () {
+        System.out.println("gererEnregistrerEntreprise");
+
+    }
+
+    public void gererModifierEntreprise () {
+        System.out.println("gererModifierEntreprise");
+    }
+
+    public void gererSupprimerEntreprise () {
+        System.out.println("gererSupprimerEntreprise");
+    }
+
+    public void ouvrirDialogueNouvelleAdresseEntreprise (){
+        System.out.println("ouvrirDialogueNouvelleAdresseEntreprise");
+    }
+
+
+
 }

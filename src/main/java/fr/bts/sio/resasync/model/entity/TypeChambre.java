@@ -9,6 +9,10 @@ public class TypeChambre {
         this.libelle = libelle;
     }
 
+    public TypeChambre() {
+
+    }
+
     public int getIdTypeChambre() {
         return idTypeChambre;
     }

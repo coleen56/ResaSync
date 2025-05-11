@@ -11,4 +11,7 @@ public interface EntrepriseDAO {
     void delete(Entreprise entreprise);
 
     ArrayList<Entreprise> findAll();
+
+    public class findAll extends ArrayList<Entreprise> {
+    }
 }
