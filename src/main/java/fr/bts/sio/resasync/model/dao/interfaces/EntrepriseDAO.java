@@ -12,6 +12,12 @@ public interface EntrepriseDAO {
 
     ArrayList<Entreprise> findAll();
 
+    boolean telExiste(String numTelEntreprise);
+
+    boolean mailExiste(String emailEntreprise);
+
+    boolean numSiretExiste(String numSiretEntreprise);
+
     public class findAll extends ArrayList<Entreprise> {
     }
 }
