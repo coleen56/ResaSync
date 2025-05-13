@@ -9,25 +9,27 @@ public class Reservation {
     private LocalDate dateReservation;
     private LocalDate dateDebut;
     private LocalDate dateFin;
-    private String nbrPersonnes;
+    private int nbrPersonnes;
     private int nbrChambre;
-    private int idStatutResa;
-    private int idClient;
+    private String statutReservation;
+    private String nomPrenomClient;
     private int idFacture;
     private int idResp;
 
-    public Reservation(int idReservation, LocalDate dateReservation, LocalDate dateDebut, LocalDate dateFin, String nbrPersonnes, int nbrChambre, int idStatusResa, int idClient, int idFacture, int idResp) {
+
+    public Reservation(int idReservation, LocalDate dateReservation, LocalDate dateDebut, LocalDate dateFin, int nbrPersonnes, int nbrChambre, String statutReservation, String nomPrenomClient, int idFacture, int idResp) {
         this.idReservation = idReservation;
         this.dateReservation = dateReservation;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.nbrPersonnes = nbrPersonnes;
         this.nbrChambre = nbrChambre;
-        this.idStatutResa = idStatutResa;
-        this.idClient = idClient;
+        this.statutReservation = statutReservation;
+        this.nomPrenomClient = nomPrenomClient;
         this.idFacture = idFacture;
         this.idResp = idResp;
     }
+
 
     public int getIdReservation() {
         return idReservation;
@@ -61,11 +63,11 @@ public class Reservation {
         this.dateFin = dateFin;
     }
 
-    public String getNbrPersonnes() {
+    public int getNbrPersonnes() {
         return nbrPersonnes;
     }
 
-    public void setNbrPersonnes(String nbrPersonnes) {
+    public void setNbrPersonnes(int nbrPersonnes) {
         this.nbrPersonnes = nbrPersonnes;
     }
 
@@ -77,20 +79,20 @@ public class Reservation {
         this.nbrChambre = nbrChambre;
     }
 
-    public int getIdStatutResa() {
-        return idStatutResa;
+    public String getStatutReservation() {
+        return statutReservation;
     }
 
-    public void setIdStatutResa(int idStatutResa) {
-        this.idStatutResa = idStatutResa;
+    public void setStatutReservation(String statutReservation) {
+        this.statutReservation = statutReservation;
     }
 
-    public int getIdClient() {
-        return idClient;
+    public String getNomPrenomClient() {
+        return nomPrenomClient;
     }
 
-    public void setIdClient(int idClient) {
-        this.idClient = idClient;
+    public void setNomPrenomClient(String nomPrenomClient) {
+        this.nomPrenomClient = nomPrenomClient;
     }
 
     public int getIdFacture() {
@@ -109,19 +111,18 @@ public class Reservation {
         this.idResp = idResp;
     }
 
+
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
         return "Reservation{" +
                 "idReservation=" + idReservation +
-                ", dateReservation=" + format(dateReservation, formatter) +
-                ", dateDebut=" + format(dateDebut, formatter) +
-                ", dateFin=" + format(dateFin, formatter) +
-                ", nbrPersonnes='" + nbrPersonnes + '\'' +
+                ", dateReservation=" + dateReservation +
+                ", dateDebut=" + dateDebut +
+                ", dateFin=" + dateFin +
+                ", nbrPersonnes=" + nbrPersonnes +
                 ", nbrChambre=" + nbrChambre +
-                ", idStatutResa=" + idStatutResa +
-                ", idClient=" + idClient +
+                ", statutReservation='" + statutReservation + '\'' +
+                ", nomPrenomClient='" + nomPrenomClient + '\'' +
                 ", idFacture=" + idFacture +
                 ", idResp=" + idResp +
                 '}';

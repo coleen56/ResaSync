@@ -27,8 +27,8 @@ public class ReservationController {
     @FXML private TableColumn<Reservation, LocalDate> colDateFin;
     @FXML private TableColumn<Reservation, String> colNbPersonnes;
     @FXML private TableColumn<Reservation, Integer> colIdNbChambres;
-    @FXML private TableColumn<Reservation, Integer> colIdStatutResa;
-    @FXML private TableColumn<Reservation, Integer> colIdClient;
+    @FXML private TableColumn<Reservation, String> colStatutResa;
+    @FXML private TableColumn<Reservation, String> colNomPrenomClient;
     @FXML private TableColumn<Reservation, Integer> colIdFacture;
     @FXML private TableColumn<Reservation, Integer> colIdResp;
 
@@ -92,8 +92,8 @@ public class ReservationController {
         colDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
         colNbPersonnes.setCellValueFactory(new PropertyValueFactory<>("nbrPersonnes"));
         colIdNbChambres.setCellValueFactory(new PropertyValueFactory<>("nbrChambre"));
-        colIdStatutResa.setCellValueFactory(new PropertyValueFactory<>("idStatutResa"));
-        colIdClient.setCellValueFactory(new PropertyValueFactory<>("idClient"));
+        colStatutResa.setCellValueFactory(new PropertyValueFactory<>("statutReservation"));
+        colNomPrenomClient.setCellValueFactory(new PropertyValueFactory<>("nomPrenomClient"));
         colIdFacture.setCellValueFactory(new PropertyValueFactory<>("idFacture"));
         colIdResp.setCellValueFactory(new PropertyValueFactory<>("idResp"));
     }

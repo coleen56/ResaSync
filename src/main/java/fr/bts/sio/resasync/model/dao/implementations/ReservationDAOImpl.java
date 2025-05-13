@@ -17,7 +17,24 @@ public class ReservationDAOImpl implements ReservationDAO {
     public List<Reservation> findAll() {
 
         List<Reservation> reservations = new ArrayList<>();
-        String sql = "SELECT * FROM reservation";
+        String sql = "SELECT \n" +
+                "    Reservation.idReservation,\n" +
+                "    Reservation.dateReservation,\n" +
+                "    Reservation.dateDebut,\n" +
+                "    Reservation.dateFin,\n" +
+                "    Reservation.nbrPersonnes,\n" +
+                "    Reservation.nbrChambre,\n" +
+                "    StatutReservation.libelle AS statutReservation,\n" +
+                "    Client.nom,\n" +
+                "    Client.prenom,\n" +
+                "    Reservation.idFacture,\n" +
+                "    Reservation.idResp\n" +
+                "FROM \n" +
+                "    Reservation\n" +
+                "JOIN \n" +
+                "    StatutReservation ON Reservation.idStatutResa = StatutReservation.idStatutResa\n" +
+                "JOIN \n" +
+                "    Client ON Reservation.idClient = Client.idClient;\n";
 
         Reservation reservation = null;
         Connection conn = null;
@@ -34,10 +51,10 @@ public class ReservationDAOImpl implements ReservationDAO {
                         resultSet.getDate("dateReservation").toLocalDate(),
                         resultSet.getDate("dateDebut").toLocalDate(),
                         resultSet.getDate("dateFin").toLocalDate(),
-                        resultSet.getString("nbrPersonnes"),
+                        resultSet.getInt("nbrPersonnes"),
                         resultSet.getInt("nbrChambre"),
-                        resultSet.getInt("idStatutResa"),
-                        resultSet.getInt("idClient"),
+                        resultSet.getString("statutReservation"),
+                        resultSet.getString("nom") + " " + resultSet.getString("prenom"),
                         resultSet.getInt("idFacture"),
                         resultSet.getInt("idResp")
                 );
@@ -84,10 +101,10 @@ public class ReservationDAOImpl implements ReservationDAO {
                         resultSet.getDate("dateReservation").toLocalDate(),
                         resultSet.getDate("dateDebut").toLocalDate(),
                         resultSet.getDate("dateFin").toLocalDate(),
-                        resultSet.getString("nbrPersonnes"),
+                        resultSet.getInt("nbrPersonnes"),
                         resultSet.getInt("nbrChambre"),
-                        resultSet.getInt("idStatutResa"),
-                        resultSet.getInt("idClient"),
+                        resultSet.getString("statutReservation"),
+                        resultSet.getString("nom") + " " + resultSet.getString("prenom"),
                         resultSet.getInt("idFacture"),
                         resultSet.getInt("idResp"));
             }
@@ -126,10 +143,10 @@ public class ReservationDAOImpl implements ReservationDAO {
             stmt.setDate(2, new Date(valueOf(reservation.getDateReservation())));
             stmt.setDate(3, Date.valueOf(reservation.getDateDebut()));
             stmt.setDate(4, Date.valueOf(reservation.getDateFin()));
-            stmt.setString(5, reservation.getNbrPersonnes());
+            stmt.setInt(5, reservation.getNbrPersonnes());
             stmt.setInt(6, reservation.getNbrChambre());
-            stmt.setInt(7, reservation.getIdStatutResa());
-            stmt.setInt(8, reservation.getIdClient());
+            stmt.setString(7, reservation.getStatutReservation());
+            stmt.setString(8, reservation.getNomPrenomClient());
             stmt.setInt(9, reservation.getIdFacture());
             stmt.setInt(10, reservation.getIdResp());
 
@@ -167,10 +184,10 @@ public class ReservationDAOImpl implements ReservationDAO {
             stmt = conn.prepareStatement(sql);
 
             stmt.setDate(2, Date.valueOf(reservation.getDateReservation()));
-            stmt.setString(4, reservation.getNbrPersonnes());
+            stmt.setInt(4, reservation.getNbrPersonnes());
             stmt.setInt(5, reservation.getNbrChambre());
-            stmt.setInt(6, reservation.getIdStatutResa());
-            stmt.setInt(7, reservation.getIdClient());
+            stmt.setString(6, reservation.getStatutReservation());
+            stmt.setString(7, reservation.getNomPrenomClient());
             stmt.setInt(8, reservation.getIdFacture());
             stmt.setInt(9, reservation.getIdResp());
             stmt.setInt(10, reservation.getIdReservation());

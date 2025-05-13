@@ -73,8 +73,8 @@
                                     <TableColumn fx:id="colDateFin" prefWidth="111.0" text="Date Fin" />
                                     <TableColumn fx:id="colNbPersonnes" prefWidth="117.0" text="Nb Personnes" />
                                     <TableColumn fx:id="colIdNbChambres" prefWidth="90.0" text="Nb Chambres" />
-                                    <TableColumn fx:id="colIdStatutResa" prefWidth="90.0" text="ID Statut" />
-                                    <TableColumn fx:id="colIdClient" prefWidth="90.0" text="ID Client" />
+                                    <TableColumn fx:id="colStatutResa" prefWidth="90.0" text="Statut" />
+                                    <TableColumn fx:id="colNomPrenomClient" prefWidth="90.0" text="Client" />
                                     <TableColumn fx:id="colIdFacture" prefWidth="90.0" text="ID Facture" />
                                     <TableColumn fx:id="colIdResp" prefWidth="90.0" text="ID Resp" />
                                 </columns>
