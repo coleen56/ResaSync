@@ -12,9 +12,6 @@ import java.sql.SQLException;
 public class TypeChambreDAOImpl implements TypeChambreDAO {
     private Connection connection;
 
-    public TypeChambreDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
     public TypeChambre findById(int idTypeChambre) {
@@ -127,4 +124,5 @@ public class TypeChambreDAOImpl implements TypeChambreDAO {
             }
         }
     }
+
 }

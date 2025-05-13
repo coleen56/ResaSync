@@ -10,4 +10,5 @@ public interface TypeChambreDAO {
     void update(TypeChambre typeChambre);
 
     void delete(TypeChambre typeChambre);
+
 }
