@@ -6,19 +6,30 @@ public class Entreprise {
     private String tel;
     private String numSiret;
     private String email;
-    private int idAdresseFacturation;
+    private AdresseFacturation adresseFacturationEntreprise;
 
     public Entreprise() {
     }
 
-    public Entreprise(int idEntreprise, String raisonSociale, String tel, String numSiret, String email, int idAdresseFacturation) {
+    public Entreprise(int idEntreprise, String raisonSociale, String tel, String numSiret, String email, AdresseFacturation adresseFacturationEntreprise) {
         this.idEntreprise = idEntreprise;
         this.raisonSociale = raisonSociale;
         this.tel = tel;
         this.numSiret = numSiret;
         this.email = email;
-        this.idAdresseFacturation = idAdresseFacturation;
+        this.adresseFacturationEntreprise = adresseFacturationEntreprise;
     }
+
+    public Entreprise(int idEntreprise, String raisonSociale, String tel, String numSiret, String email) {
+        this.idEntreprise = idEntreprise;
+        this.raisonSociale = raisonSociale;
+        this.tel = tel;
+        this.numSiret = numSiret;
+        this.email = email;
+
+    }
+
+
 
     public int getIdEntreprise() {
         return idEntreprise;
@@ -60,12 +71,12 @@ public class Entreprise {
         this.email = email;
     }
 
-    public int getIdAdresseFacturation() {
-        return idAdresseFacturation;
+    public AdresseFacturation getAdresseFacturationEntreprise() {
+        return adresseFacturationEntreprise;
     }
 
-    public void setIdAdresseFacturation(int idAdresseFacturation) {
-        this.idAdresseFacturation = idAdresseFacturation;
+    public void setAdresseFacturationEntreprise(AdresseFacturation adresseFacturationEntreprise) {
+        this.adresseFacturationEntreprise = adresseFacturationEntreprise;
     }
 
     @Override
@@ -76,7 +87,7 @@ public class Entreprise {
                 ", tel='" + tel + '\'' +
                 ", numSiret='" + numSiret + '\'' +
                 ", email='" + email + '\'' +
-                ", idAdresseFacturation=" + idAdresseFacturation +
+                ", idAdresseFacturation=" + adresseFacturationEntreprise +
                 '}';
     }
 }

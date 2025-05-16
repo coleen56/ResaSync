@@ -3,53 +3,37 @@ package fr.bts.sio.resasync.model.entity;
 public class Chambre {
     private int idChambre;
     private int numChambre;
-    private int idTypeChambre;
-    private int idStatutChambre;
-    private String typeChambreLibelle;
-    private String statutChambreLibelle;
+    private TypeChambre typeChambre;
+    private StatutChambre statutChambre;
 
-    public Chambre (int idChambre, int numChambre, int idTypeChambre, int idStatutChambre){
+    public Chambre(int idChambre, int numChambre, TypeChambre typeChambre, StatutChambre statutChambre) {
+        if (typeChambre == null) {
+            throw new IllegalArgumentException("Le type de chambre ne peut pas être nul.");
+        }
+        if (statutChambre == null) {
+            throw new IllegalArgumentException("Le statut de chambre ne peut pas être nul.");
+        }
         this.idChambre = idChambre;
         this.numChambre = numChambre;
-        this.idTypeChambre = idTypeChambre;
-        this.idStatutChambre = idStatutChambre;
+        this.typeChambre = typeChambre;
+        this.statutChambre = statutChambre;
     }
 
-    public Chambre (int numChambre, int idTypeChambre,int idStatutChambre){
+    // Constructeur sans ID de chambre (pour l'insertion d'une nouvelle chambre)
+    public Chambre(int numChambre, TypeChambre typeChambre, StatutChambre statutChambre) {
+        if (typeChambre == null) {
+            throw new IllegalArgumentException("Le type de chambre ne peut pas être nul.");
+        }
+        if (statutChambre == null) {
+            throw new IllegalArgumentException("Le statut de chambre ne peut pas être nul.");
+        }
         this.numChambre = numChambre;
-        this.idTypeChambre = idTypeChambre;
-        this.idStatutChambre = idStatutChambre;
+        this.typeChambre = typeChambre;
+        this.statutChambre = statutChambre;
     }
 
-    public Chambre (int numChambre, String typeChambrelibelle, String statutChambreLibelle){
-        this.numChambre = numChambre;
-        this.typeChambreLibelle = typeChambrelibelle;
-        this.statutChambreLibelle = statutChambreLibelle;
-    }
 
-    public Chambre (int idChambre,int numChambre, String typeChambrelibelle, String statutChambreLibelle){
-        this.idChambre = idChambre;
-        this.numChambre = numChambre;
-        this.typeChambreLibelle = typeChambrelibelle;
-        this.statutChambreLibelle = statutChambreLibelle;
-    }
-
-    public String getTypeChambreLibelle() {
-        return typeChambreLibelle;
-    }
-
-    public void setTypeChambreLibelle(String typeChambreLibelle) {
-        this.typeChambreLibelle = typeChambreLibelle;
-    }
-
-    public String getStatutChambreLibelle() {
-        return statutChambreLibelle;
-    }
-
-    public void setStatutChambreLibelle(String statutChambreLibelle) {
-        this.statutChambreLibelle = statutChambreLibelle;
-    }
-
+    // Getters et setters
     public int getIdChambre() {
         return idChambre;
     }
@@ -66,19 +50,27 @@ public class Chambre {
         this.numChambre = numChambre;
     }
 
-    public int getIdTypeChambre() {
-        return idTypeChambre;
+    public TypeChambre getTypeChambre() {
+        return typeChambre;
     }
 
-    public void setIdTypeChambre(int idTypeChambre) {
-        this.idTypeChambre = idTypeChambre;
+    public String getTypeChambreLibelle() {
+        return this.typeChambre.getLibelle(); // Exemple
     }
 
-    public int getIdStatutChambre() {
-        return idStatutChambre;
+    public void setTypeChambre(TypeChambre typeChambre) {
+        this.typeChambre = typeChambre;
     }
 
-    public void setIdStatutChambre(int idStatusChambre) {
-        this.idStatutChambre = idStatusChambre;
+    public StatutChambre getStatutChambre() {
+        return statutChambre;
+    }
+
+    public String getStatutChambreLibelle() {
+        return this.statutChambre.getLibelle(); // Exemple
+    }
+
+    public void setStatutChambre(StatutChambre statutChambre) {
+        this.statutChambre = statutChambre;
     }
 }
