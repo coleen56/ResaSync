@@ -11,23 +11,23 @@ public class Reservation {
     private LocalDate dateFin;
     private int nbrPersonnes;
     private int nbrChambre;
-    private String statutReservation;
-    private String nomPrenomClient;
+    private int idEntreprise;
+    private int idStatutResa;
+    private int idClient;
     private int idFacture;
-    private int idResp;
 
 
-    public Reservation(int idReservation, LocalDate dateReservation, LocalDate dateDebut, LocalDate dateFin, int nbrPersonnes, int nbrChambre, String statutReservation, String nomPrenomClient, int idFacture, int idResp) {
+    public Reservation(int idReservation, LocalDate dateReservation, LocalDate dateDebut, LocalDate dateFin, int nbrPersonnes, int nbrChambre, int idEntreprise, int idStatutResa, int idClient, int idFacture) {
         this.idReservation = idReservation;
         this.dateReservation = dateReservation;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.nbrPersonnes = nbrPersonnes;
         this.nbrChambre = nbrChambre;
-        this.statutReservation = statutReservation;
-        this.nomPrenomClient = nomPrenomClient;
+        this.idEntreprise = idEntreprise;
+        this.idStatutResa = idStatutResa;
+        this.idClient = idClient;
         this.idFacture = idFacture;
-        this.idResp = idResp;
     }
 
 
@@ -79,20 +79,28 @@ public class Reservation {
         this.nbrChambre = nbrChambre;
     }
 
-    public String getStatutReservation() {
-        return statutReservation;
+    public int getIdEntreprise() {
+        return idEntreprise;
     }
 
-    public void setStatutReservation(String statutReservation) {
-        this.statutReservation = statutReservation;
+    public void setIdEntreprise(int idEntreprise) {
+        this.idEntreprise = idEntreprise;
     }
 
-    public String getNomPrenomClient() {
-        return nomPrenomClient;
+    public int getIdStatutResa() {
+        return idStatutResa;
     }
 
-    public void setNomPrenomClient(String nomPrenomClient) {
-        this.nomPrenomClient = nomPrenomClient;
+    public void setIdStatutResa(int idStatutResa) {
+        this.idStatutResa = idStatutResa;
+    }
+
+    public int getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(int idClient) {
+        this.idClient = idClient;
     }
 
     public int getIdFacture() {
@@ -101,14 +109,6 @@ public class Reservation {
 
     public void setIdFacture(int idFacture) {
         this.idFacture = idFacture;
-    }
-
-    public int getIdResp() {
-        return idResp;
-    }
-
-    public void setIdResp(int idResp) {
-        this.idResp = idResp;
     }
 
 
@@ -121,12 +121,13 @@ public class Reservation {
                 ", dateFin=" + dateFin +
                 ", nbrPersonnes=" + nbrPersonnes +
                 ", nbrChambre=" + nbrChambre +
-                ", statutReservation='" + statutReservation + '\'' +
-                ", nomPrenomClient='" + nomPrenomClient + '\'' +
+                ", idEntreprise=" + idEntreprise +
+                ", idStatutResa=" + idStatutResa +
+                ", idClient=" + idClient +
                 ", idFacture=" + idFacture +
-                ", idResp=" + idResp +
                 '}';
     }
+
 
     private String format(LocalDate date, DateTimeFormatter formatter) {
         return (date != null) ? date.format(formatter) : "non renseignée";

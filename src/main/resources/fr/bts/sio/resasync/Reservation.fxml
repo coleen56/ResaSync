@@ -67,22 +67,18 @@
                             </HBox>
                             <TableView fx:id="reservationTableView" layoutX="253.0" layoutY="183.0" prefHeight="260.0" prefWidth="774.0">
                                 <columns>
-                                    <TableColumn fx:id="colId" prefWidth="90.0" text="ID" />
-                                    <TableColumn fx:id="colDateReservation" prefWidth="97.0" text="Date Réservation" />
-                                    <TableColumn fx:id="colDateDebut" prefWidth="94.0" text="Date Début" />
-                                    <TableColumn fx:id="colDateFin" prefWidth="111.0" text="Date Fin" />
-                                    <TableColumn fx:id="colNbPersonnes" prefWidth="117.0" text="Nb Personnes" />
-                                    <TableColumn fx:id="colIdNbChambres" prefWidth="90.0" text="Nb Chambres" />
-                                    <TableColumn fx:id="colStatutResa" prefWidth="90.0" text="Statut" />
-                                    <TableColumn fx:id="colNomPrenomClient" prefWidth="90.0" text="Client" />
-                                    <TableColumn fx:id="colIdFacture" prefWidth="90.0" text="ID Facture" />
-                                    <TableColumn fx:id="colIdResp" prefWidth="90.0" text="ID Resp" />
+                                    <TableColumn fx:id="colIdReservation" text="Id Resa" />
+                                    <TableColumn fx:id="colDateReservation" text="Date Resa" />
+                                    <TableColumn fx:id="colDateDebut" text="Date Arrivée" />
+                                    <TableColumn fx:id="colDateFin" text="Date Départ" />
+                                    <TableColumn fx:id="colNbrPersonnes" text="Nbr Personnes" />
+                                    <TableColumn fx:id="colNbrChambres" text="Nbr Chambre" />
+                                    <TableColumn fx:id="colIdEntreprise" text="Id Entreprise" />
+                                    <TableColumn fx:id="colIdStatutResa" text="Id Statut Resa" />
+                                    <TableColumn fx:id="colIdClient" text="Id Client" />
+                                    <TableColumn fx:id="colIdFacture" text="Id Facture" />
                                 </columns>
                             </TableView>
-                            <TextArea fx:id="resultatTextArea" layoutX="490.0" layoutY="482.0" prefHeight="241.0" prefWidth="442.0" />
-                            <DatePicker fx:id="dateReservationPicker" layoutX="624.0" layoutY="524.0" />
-                            <DatePicker fx:id="dateDebutPicker" layoutX="624.0" layoutY="590.0" />
-                            <DatePicker fx:id="dateFinPicker" layoutX="624.0" layoutY="671.0" />
                             <Label layoutX="496.0" layoutY="95.0" text="Réservations" textFill="#056861">
                                 <font>
                                     <Font name="Segoe UI" size="46.0" />

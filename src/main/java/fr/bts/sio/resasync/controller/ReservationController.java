@@ -17,20 +17,20 @@ import java.util.List;
 
 
 public class ReservationController {
-    @FXML private Hyperlink lienDashboard; // Lien pour retourner au Dashboard
-
+    @FXML private Hyperlink lienDashboard;
     @FXML private TableView<Reservation> reservationTableView;
 
-    @FXML private TableColumn<Reservation, Integer> colId;
+    @FXML private TableColumn<Reservation, Integer> colIdReservation;
     @FXML private TableColumn<Reservation, LocalDate> colDateReservation;
     @FXML private TableColumn<Reservation, LocalDate> colDateDebut;
     @FXML private TableColumn<Reservation, LocalDate> colDateFin;
-    @FXML private TableColumn<Reservation, String> colNbPersonnes;
-    @FXML private TableColumn<Reservation, Integer> colIdNbChambres;
-    @FXML private TableColumn<Reservation, String> colStatutResa;
-    @FXML private TableColumn<Reservation, String> colNomPrenomClient;
+    @FXML private TableColumn<Reservation, Integer> colNbrPersonnes;
+    @FXML private TableColumn<Reservation, Integer> colNbrChambres;
+    @FXML private TableColumn<Reservation, Integer> colIdEntreprise;
+    @FXML private TableColumn<Reservation, Integer> colIdStatutResa;
+    @FXML private TableColumn<Reservation, Integer> colIdClient;
     @FXML private TableColumn<Reservation, Integer> colIdFacture;
-    @FXML private TableColumn<Reservation, Integer> colIdResp;
+
 
     private ReservationDAOImpl reservationDAO;
 
@@ -56,21 +56,15 @@ public class ReservationController {
 
     @FXML
     public void Deconnexion() {
-        Methods.deconnexionAvecConfirmation(() -> chargerVue("Login.fxml")); // Appel direct à la méthode utilitaire
+        Methods.deconnexionAvecConfirmation(() -> chargerVue("Login.fxml"));
     }
 
 
-
-    // Méthode pour charger une vue en utilisant la classe utilitaire
     private void chargerVue(String fichierFxml) {
         try {
-            // Obtenir la fenêtre actuelle (Stage) via l'un des liens (par exemple, lienDashboard)
             Stage stage = (Stage) lienDashboard.getScene().getWindow();
-
-            // Utiliser la méthode utilitaire pour charger la nouvelle vue
-            Methods.chargerVue(fichierFxml, stage); // Appel de la méthode utilitaire centralisée
+            Methods.chargerVue(fichierFxml, stage);
         } catch (Exception e) {
-            // Afficher une trace en cas d'erreur
             e.printStackTrace();
         }
     }
@@ -86,16 +80,16 @@ public class ReservationController {
 
 
     private void configurerColonnesTableView() {
-        colId.setCellValueFactory(new PropertyValueFactory<>("idReservation"));
+        colIdReservation.setCellValueFactory(new PropertyValueFactory<>("idReservation"));
         colDateReservation.setCellValueFactory(new PropertyValueFactory<>("dateReservation"));
         colDateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
         colDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
-        colNbPersonnes.setCellValueFactory(new PropertyValueFactory<>("nbrPersonnes"));
-        colIdNbChambres.setCellValueFactory(new PropertyValueFactory<>("nbrChambre"));
-        colStatutResa.setCellValueFactory(new PropertyValueFactory<>("statutReservation"));
-        colNomPrenomClient.setCellValueFactory(new PropertyValueFactory<>("nomPrenomClient"));
+        colNbrPersonnes.setCellValueFactory(new PropertyValueFactory<>("nbrPersonnes"));
+        colNbrChambres.setCellValueFactory(new PropertyValueFactory<>("nbrChambre"));
+        colIdEntreprise.setCellValueFactory(new PropertyValueFactory<>("idEntreprise"));
+        colIdStatutResa.setCellValueFactory(new PropertyValueFactory<>("idStatutResa"));
+        colIdClient.setCellValueFactory(new PropertyValueFactory<>("idClient"));
         colIdFacture.setCellValueFactory(new PropertyValueFactory<>("idFacture"));
-        colIdResp.setCellValueFactory(new PropertyValueFactory<>("idResp"));
     }
 
 
