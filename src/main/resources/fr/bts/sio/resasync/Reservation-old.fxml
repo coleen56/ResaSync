@@ -109,8 +109,8 @@
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
-                                                                     <RowConstraints />
-                                                                     <RowConstraints />
+                                                                                            <RowConstraints />
+                                                                                            <RowConstraints />
                                                                                         </rowConstraints>
                                                                                         <Label text="Nom:" GridPane.rowIndex="0" />
                                                                                         <Label fx:id="labelNomClientParticulierDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -128,7 +128,7 @@
                                                                                     </GridPane>
                                                                                 </VBox>
                                                                             </TitledPane>
-                                                                                                                                                       <!-- Boutons d'action -->
+                                                                            <!-- Boutons d'action -->
                                                                             <HBox spacing="10">
                                                                                 <Button fx:id="btnModifierClientParticulier" onAction="#gererModifierClientParticulier" prefWidth="150.0" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Modifier" />
                                                                                 <Button fx:id="btnSupprimerClientParticulier" onAction="#gererSupprimerClientParticulier" prefWidth="150.0" style="-fx-background-color: #bc0e0e; -fx-text-fill: white;" text="Supprimer" />
@@ -163,10 +163,10 @@
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
-                                                                           <RowConstraints minHeight="30.0" prefHeight="30.0" />
-                                                                           <RowConstraints />
-                                                                           <RowConstraints />
-                                                                           <RowConstraints />
+                                                                                                    <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                                                                                                    <RowConstraints />
+                                                                                                    <RowConstraints />
+                                                                                                    <RowConstraints />
                                                                                                 </rowConstraints>
                                                                                                 <TextField fx:id="fieldNomClientParticulier" promptText="Nom *" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                                                                                 <TextField fx:id="fieldPrenomClientParticulier" promptText="Prénom *" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -254,7 +254,7 @@
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
-                                                                     <RowConstraints />
+                                                                                            <RowConstraints />
                                                                                         </rowConstraints>
                                                                                         <Label text="Raison sociale:" GridPane.rowIndex="0" />
                                                                                         <Label fx:id="labelRaisonSocialeDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -317,9 +317,9 @@
                                                                                                 <rowConstraints>
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
-                                                                           <RowConstraints />
-                                                                           <RowConstraints />
-                                                                           <RowConstraints />
+                                                                                                    <RowConstraints />
+                                                                                                    <RowConstraints />
+                                                                                                    <RowConstraints />
                                                                                                 </rowConstraints>
                                                                                                 <TextField fx:id="fieldRaisonSocialeEntreprise" promptText="Raison sociale *" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                                                                                 <TextField fx:id="fieldSiretEntreprise" promptText="SIRET *" GridPane.columnIndex="1" GridPane.rowIndex="0" />
