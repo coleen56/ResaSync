@@ -2,121 +2,152 @@ package fr.bts.sio.resasync.model.dao.implementations;
 
 import fr.bts.sio.resasync.model.dao.interfaces.ReservationDAO;
 import fr.bts.sio.resasync.model.entity.Reservation;
+import fr.bts.sio.resasync.model.utils.DatabaseConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReservationDAOImpl implements ReservationDAO {
 
-    private Connection connection;
-
-    public ReservationDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
-
 
     @Override
-    public Reservation findById(int idReservation) {
+    public List<Reservation> findAll() {
+        List<Reservation> reservations = new ArrayList<>();
 
-        Reservation reservation = null;
-        String sql = "SELECT * FROM Reservation WHERE idReservation = ?";
+        String sql = "SELECT " +
+                "Reservation.idReservation, " +
+                "Reservation.dateReservation, " +
+                "Reservation.dateDebut, " +
+                "Reservation.dateFin, " +
+                "Reservation.nbrPersonnes, " +
+                "Reservation.nbrChambre, " +
+                "Reservation.idEntreprise, " +
+                "Reservation.idStatutResa, " +
+                "Reservation.idClient, " +
+                "Reservation.idFacture, " +
+                "StatutReservation.libelle AS libelleStatut " +
+                "FROM Reservation " +
+                "JOIN StatutReservation ON Reservation.idStatutResa = StatutReservation.idStatutResa";
+
 
         try (
-                PreparedStatement stmt = connection.prepareStatement(sql)) {
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet resultSet = stmt.executeQuery()
+        ) {
+            while (resultSet.next()) {
+                Reservation reservation = new Reservation();
 
-                stmt.setInt(1, idReservation);
+                reservation.setIdReservation(resultSet.getInt("idReservation"));
+                reservation.setDateReservation(resultSet.getDate("dateReservation").toLocalDate());
+                reservation.setDateDebut(resultSet.getDate("dateDebut").toLocalDate());
+                reservation.setDateFin(resultSet.getDate("dateFin").toLocalDate());
+                reservation.setNbrPersonnes(resultSet.getInt("nbrPersonnes"));
+                reservation.setNbrChambre(resultSet.getInt("nbrChambre"));
+                reservation.setIdEntreprise(resultSet.getInt("idEntreprise"));
+                reservation.setIdStatutResa(resultSet.getInt("idStatutResa"));
+                reservation.setIdClient(resultSet.getInt("idClient"));
+                reservation.setIdFacture(resultSet.getInt("idFacture"));
+                reservation.setLibelleStatut(resultSet.getString("libelleStatut"));
 
-                ResultSet resultSet = stmt.executeQuery();
-
-            if (resultSet.next()) {
-                reservation = new Reservation(
-                        resultSet.getInt("idReservation"),
-                        resultSet.getString("statutReservation"),
-                        resultSet.getDate("dateReservation").toLocalDate(),
-                        resultSet.getDate("dateDebut").toLocalDate(),
-                        resultSet.getDate("dateFin").toLocalDate(),
-                        resultSet.getString("nbrPersonnes"),
-                        resultSet.getInt("nbrChambre"),
-                        resultSet.getInt("idStatutResa"),
-                        resultSet.getInt("idClient"),
-                        resultSet.getInt("idFacture"),
-                        resultSet.getInt("idResp"));
+                reservations.add(reservation);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return reservation;
+        return reservations;
     }
 
 
+//----------------------------------------------------------------------------------------------------------------------
     @Override
     public void save(Reservation reservation) {
-        String sql = "INSERT INTO Reservation (statutReservation, dateReservation, dateDebut, dateFin, " +
-                "nbrPersonnes, nbrChambre, idStatutResa, idClient, idFacture, idResp) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO reservation (dateReservation, dateDebut, dateFin, nbrPersonnes, nbrChambre, idEntreprise, idStatutResa, idClient, idFacture) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (
-                PreparedStatement stmt = connection.prepareStatement(sql)) {
+             Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            stmt.setDate(1, Date.valueOf(reservation.getDateReservation()));
+            stmt.setDate(2, Date.valueOf(reservation.getDateDebut()));
+            stmt.setDate(3, Date.valueOf(reservation.getDateFin()));
+            stmt.setInt(4, reservation.getNbrPersonnes());
+            stmt.setInt(5, reservation.getNbrChambre());
+            stmt.setInt(6, reservation.getIdEntreprise());
+            stmt.setInt(7, reservation.getIdStatutResa());
+            stmt.setInt(8, reservation.getIdClient());
+            stmt.setInt(9, reservation.getIdFacture());
 
-                stmt.setString(1, reservation.getStatusReservation());
-                stmt.setDate(2, Date.valueOf(reservation.getDateReservation()));
-                stmt.setDate(3, Date.valueOf(reservation.getDateDebut()));
-                stmt.setDate(4, Date.valueOf(reservation.getDateFin()));
-                stmt.setString(5, reservation.getNbrPersonnes());
-                stmt.setInt(6, reservation.getNbrChambre());
-                stmt.setInt(7, reservation.getIdStatusResa());
-                stmt.setInt(8, reservation.getIdClient());
-                stmt.setInt(9, reservation.getIdFacture());
-                stmt.setInt(10, reservation.getIdResp());
+            int rowsAffected = stmt.executeUpdate();
 
-                stmt.executeUpdate();
-
+            if (rowsAffected > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int generatedId = generatedKeys.getInt(1);
+                        reservation.setIdReservation(generatedId); // mise à jour de l'objet en mémoire
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
 
+//----------------------------------------------------------------------------------------------------------------------
     @Override
     public void update(Reservation reservation) {
-        String sql = "UPDATE Reservation SET statutReservation = ?, dateReservation = ?, dateDebut = ?, dateFin = NULL, " +
-                "nbrPersonnes = ?, nbrChambre = ?, idStatutResa = ?, idClient = ?, idFacture = ?, idResp = ? " +
-                "WHERE idReservation = ?";
+        String sql = "UPDATE reservation SET dateReservation = ?, dateDebut = ?, dateFin = ?, nbrPersonnes = ?, nbrChambre = ?, idEntreprise = ?, idStatutResa = ?, idClient = ?, idFacture = ? WHERE idReservation = ?";
 
         try (
-                PreparedStatement stmt = connection.prepareStatement(sql)) {
+             Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql))
+        {
 
-                stmt.setString(1, reservation.getStatusReservation());
-                stmt.setDate(2, Date.valueOf(reservation.getDateReservation()));
-                stmt.setString(4, reservation.getNbrPersonnes());
-                stmt.setInt(5, reservation.getNbrChambre());
-                stmt.setInt(6, reservation.getIdStatusResa());
-                stmt.setInt(7, reservation.getIdClient());
-                stmt.setInt(8, reservation.getIdFacture());
-                stmt.setInt(9, reservation.getIdResp());
-                stmt.setInt(10, reservation.getIdReservation());
+            stmt.setDate(1, Date.valueOf(reservation.getDateReservation()));
+            stmt.setDate(2, Date.valueOf(reservation.getDateDebut()));
+            stmt.setDate(3, Date.valueOf(reservation.getDateFin()));
+            stmt.setInt(4, reservation.getNbrPersonnes());
+            stmt.setInt(5, reservation.getNbrChambre());
+            stmt.setInt(6, reservation.getIdEntreprise());
+            stmt.setInt(7, reservation.getIdStatutResa());
+            stmt.setInt(8, reservation.getIdClient());
+            stmt.setInt(9, reservation.getIdFacture());
+            stmt.setInt(10, reservation.getIdReservation());
 
-                stmt.executeUpdate();
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Impossible de modifier la réservation : " + e.getMessage());
         }
     }
 
 
+//----------------------------------------------------------------------------------------------------------------------
     @Override
-    public void delete(Reservation reservation) {
-        String sql = "DELETE FROM Reservation WHERE idReservation = ?";
+    public void delete(int idReservation) {
+        String sql = "DELETE FROM reservation WHERE idReservation = ?";
 
         try (
-                PreparedStatement stmt = connection.prepareStatement(sql)) {
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql))
+        {
 
-                stmt.setInt(1, reservation.getIdReservation());
+            stmt.setInt(1, idReservation);
+            int affectedRows = stmt.executeUpdate();
 
-                stmt.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("Suppression réussie de la réservation numéro " + idReservation);
+            } else {
+                System.out.println("Aucune réservation trouvée avec l'ID " + idReservation);
+            }
 
         } catch (SQLException e) {
+            System.err.println("Erreur lors de la suppression de la réservation numéro " + idReservation);
             e.printStackTrace();
         }
     }
+
 }
