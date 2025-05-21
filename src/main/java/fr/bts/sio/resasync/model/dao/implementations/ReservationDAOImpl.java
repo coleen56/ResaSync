@@ -26,9 +26,14 @@ public class ReservationDAOImpl implements ReservationDAO {
                 "Reservation.idStatutResa, " +
                 "Reservation.idClient, " +
                 "Reservation.idFacture, " +
-                "StatutReservation.libelle AS libelleStatut " +
+                "StatutReservation.libelle AS libelleStatut, " +
+                "Entreprise.raisonSociale AS raisonSociale, " +
+                "Client.nom AS nomClient, " +
+                "Client.prenom AS prenomClient " +
                 "FROM Reservation " +
-                "JOIN StatutReservation ON Reservation.idStatutResa = StatutReservation.idStatutResa";
+                "JOIN StatutReservation ON Reservation.idStatutResa = StatutReservation.idStatutResa " +
+                "JOIN Entreprise ON Reservation.idEntreprise = Entreprise.idEntreprise " +
+                "JOIN Client ON Reservation.idClient = Client.idClient";
 
 
         try (
@@ -50,6 +55,9 @@ public class ReservationDAOImpl implements ReservationDAO {
                 reservation.setIdClient(resultSet.getInt("idClient"));
                 reservation.setIdFacture(resultSet.getInt("idFacture"));
                 reservation.setLibelleStatut(resultSet.getString("libelleStatut"));
+                reservation.setRaisonSociale(resultSet.getString("raisonSociale"));
+                reservation.setNomClient(resultSet.getString("nomClient"));
+                reservation.setPrenomClient(resultSet.getString("prenomClient"));
 
                 reservations.add(reservation);
             }

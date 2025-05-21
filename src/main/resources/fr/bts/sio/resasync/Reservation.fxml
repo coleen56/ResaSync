@@ -71,13 +71,25 @@
                                         <TableColumn fx:id="colDateFin" text="Date Départ" />
                                         <TableColumn fx:id="colNbrPersonnes" text="Nombre Personne(s)" />
                                         <TableColumn fx:id="colNbrChambres" text="Nombre Chambre(s)" />
-                                        <TableColumn fx:id="colIdEntreprise" text="Numéro Entreprise" />
-                                        <TableColumn fx:id="colLibelleStatut" text="Statut Réservation">
+                                        <TableColumn fx:id="colRaisonSociale" text="Entreprise">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="raisonSociale" />
+                                            </cellValueFactory>
+                                        </TableColumn>                                        <TableColumn fx:id="colLibelleStatut" text="Statut Réservation">
                                             <cellValueFactory>
                                                 <PropertyValueFactory property="libelleStatut" />
                                             </cellValueFactory>
                                         </TableColumn>
-                                        <TableColumn fx:id="colIdClient" text="Numéro Client" />
+                                        <TableColumn fx:id="colNomClient" text="Nom">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="nomClient" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn fx:id="colPrenomClient" text="Prénom">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="nomClient" />
+                                            </cellValueFactory>
+                                        </TableColumn>
                                         <TableColumn fx:id="colIdFacture" text="Numéro Facture" />
                                     </columns>
                                 </TableView>
@@ -96,12 +108,26 @@
                                         <TableColumn fx:id="colDateFinEnCours" text="Date Départ" />
                                         <TableColumn fx:id="colNbrPersonnesEnCours" text="Nombre Personnes" />
                                         <TableColumn fx:id="colNbrChambresEnCours" text="Nombre Chambre" />
-                                        <TableColumn fx:id="colIdEntrepriseEnCours" text="Numéro Entreprise" />
+                                        <TableColumn fx:id="colRaisonSocialeEnCours" text="Entreprise">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="raisonSociale" />
+                                            </cellValueFactory>
+                                        </TableColumn>
                                         <TableColumn fx:id="colLibelleStatutEnCours" text="Statut Réservation">
                                             <cellValueFactory>
                                                 <PropertyValueFactory property="libelleStatut" />
                                             </cellValueFactory>
-                                        </TableColumn>                                        <TableColumn fx:id="colIdClientEnCours" text="Numéro Client" />
+                                        </TableColumn>
+                                        <TableColumn fx:id="colNomClientEnCours" text="Nom">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="nomClient" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn fx:id="colPrenomClientEnCours" text="Prénom">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="nomClient" />
+                                            </cellValueFactory>
+                                        </TableColumn>
                                         <TableColumn fx:id="colIdFactureEnCours" text="Numéro Facture" />
                                     </columns>
                                 </TableView>
@@ -120,12 +146,26 @@
                                         <TableColumn fx:id="colDateFinTerminee" text="Date Départ" />
                                         <TableColumn fx:id="colNbrPersonnesTerminee" text="Nombre Personnes" />
                                         <TableColumn fx:id="colNbrChambresTerminee" text="Nombre Chambre" />
-                                        <TableColumn fx:id="colIdEntrepriseTerminee" text="Numéro Entreprise" />
+                                        <TableColumn fx:id="colRaisonSocialeTerminee" text="Entreprise">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="raisonSociale" />
+                                            </cellValueFactory>
+                                        </TableColumn>
                                         <TableColumn fx:id="colLibelleStatutTerminee" text="Statut Réservation">
                                             <cellValueFactory>
                                                 <PropertyValueFactory property="libelleStatut" />
                                             </cellValueFactory>
-                                        </TableColumn>                                          <TableColumn fx:id="colIdClientTerminee" text="Numéro Client" />
+                                        </TableColumn>
+                                        <TableColumn fx:id="colNomClientTerminee" text="Nom">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="nomClient" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn fx:id="colPrenomClientTerminee" text="Prénom">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="nomClient" />
+                                            </cellValueFactory>
+                                        </TableColumn>
                                         <TableColumn fx:id="colIdFactureTerminee" text="Numéro Facture" />
                                     </columns>
                                 </TableView>
@@ -144,42 +184,33 @@
                                         <TableColumn fx:id="colDateFinAnnulee" text="Date Départ" />
                                         <TableColumn fx:id="colNbrPersonnesAnnulee" text="Nombre Personnes" />
                                         <TableColumn fx:id="colNbrChambresAnnulee" text="Nombre Chambre" />
-                                        <TableColumn fx:id="colIdEntrepriseAnnulee" text="Numéro Entreprise" />
+                                        <TableColumn fx:id="colRaisonSocialeAnnulee" text="Entreprise">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="raisonSociale" />
+                                            </cellValueFactory>
+                                        </TableColumn>
                                         <TableColumn fx:id="colLibelleStatutAnnulee" text="Statut Réservation">
                                             <cellValueFactory>
                                                 <PropertyValueFactory property="libelleStatut" />
                                             </cellValueFactory>
-                                        </TableColumn>                                           <TableColumn fx:id="colIdClientAnnulee" text="Numéro Client" />
+                                        </TableColumn>
+                                        <TableColumn fx:id="colNomClientAnnulee" text="Nom">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="nomClient" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn fx:id="colPrenomClientAnnulee" text="Prénom">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="nomClient" />
+                                            </cellValueFactory>
+                                        </TableColumn>
                                         <TableColumn fx:id="colIdFactureAnnulee" text="Numéro Facture" />
                                     </columns>
                                 </TableView>
                             </children>
                         </AnchorPane>
                     </Tab>
-                    <!-- Onglet réservations Confirmée -->
-                    <Tab text="Confirmée">
-                        <AnchorPane>
-                            <children>
-                                <TableView fx:id="tableViewReservationsConfirmees" prefWidth="600.0">
-                                    <columns>
-                                        <TableColumn fx:id="colidReservationConfirmee" text="Numéro Réservation" />
-                                        <TableColumn fx:id="colDateReservationConfirmee" text="Date Réservation" />
-                                        <TableColumn fx:id="colDateDebutConfirmee" text="Date Arrivée" />
-                                        <TableColumn fx:id="colDateFinConfirmee" text="Date Départ" />
-                                        <TableColumn fx:id="colNbrPersonnesConfirmee" text="Nombre Personnes" />
-                                        <TableColumn fx:id="colNbrChambresConfirmee" text="Nombre Chambre" />
-                                        <TableColumn fx:id="colIdEntrepriseConfirmee" text="Numéro Entreprise" />
-                                        <TableColumn fx:id="colLibelleStatutConfirmee" text="Statut Réservation">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="libelleStatut" />
-                                            </cellValueFactory>
-                                        </TableColumn>                                                   <TableColumn fx:id="colIdClientConfirmee" text="Numéro Client" />
-                                        <TableColumn fx:id="colIdFactureConfirmee" text="Numéro Facture" />
-                                    </columns>
-                                </TableView>
-                            </children>
-                        </AnchorPane>
-                    </Tab>
+
                 </tabs>
             </TabPane>
             <!-- Partie gestion des réservations -->
@@ -253,7 +284,7 @@
                                             <VBox spacing="10">
 
                                                 <Label text="Date de réservation :" />
-                                                <DatePicker fx:id="dateReservationPicker" />
+                                                <DatePicker fx:id="dateReservationPicker" editable="false" disable="true"/>
 
                                                 <Label text="Date de début :" />
                                                 <DatePicker fx:id="dateDebutPicker" />
@@ -267,14 +298,14 @@
                                                 <Label text="Nombre de chambres :" />
                                                 <TextField fx:id="nbrChambresField" promptText="ex: 1" />
 
-                                                <Label text="ID de l'entreprise :" />
-                                                <TextField fx:id="idEntrepriseField" promptText="ex: 3" />
+                                                <Label text="Entreprise :" />
+                                                <ComboBox fx:id="comboEntreprise" prefWidth="200" />
 
-                                                <Label text="ID du statut de réservation :" />
-                                                <TextField fx:id="idStatutResaField" promptText="ex: 1" />
+                                                <Label text="Statut réservation:" />
+                                                <ComboBox fx:id="comboStatutResa" prefWidth="200" />
 
-                                                <Label text="ID du client :" />
-                                                <TextField fx:id="idClientField" promptText="ex: 5" />
+                                                <Label text="Client :" />
+                                                <ComboBox fx:id="comboClient" prefWidth="200" />
 
                                                 <Label text="ID de la facture :" />
                                                 <TextField fx:id="idFactureField" promptText="ex: 10" />

@@ -1,8 +1,14 @@
 package fr.bts.sio.resasync.controller;
 
 import fr.bts.sio.resasync.model.dao.implementations.ReservationDAOImpl;
-import fr.bts.sio.resasync.model.entity.Reservation;
-import fr.bts.sio.resasync.model.entity.Session;
+import fr.bts.sio.resasync.model.dao.implementations.EntrepriseDAOImpl;
+import fr.bts.sio.resasync.model.dao.implementations.ClientDAOImpl;
+import fr.bts.sio.resasync.model.dao.implementations.StatutReservationDAOImpl;
+import fr.bts.sio.resasync.model.dao.interfaces.EntrepriseDAO;
+import fr.bts.sio.resasync.model.dao.interfaces.ClientDAO;
+import fr.bts.sio.resasync.model.dao.interfaces.StatutReservationDAO;
+import fr.bts.sio.resasync.model.entity.*;
+
 import fr.bts.sio.resasync.util.Methods;
 
 import javafx.collections.FXCollections;
@@ -13,6 +19,9 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.util.StringConverter;
 
 
 public class ReservationController {
@@ -53,7 +62,6 @@ public class ReservationController {
     @FXML private TableView<Reservation> tableViewReservationsEnCours;
     @FXML private TableView<Reservation> tableViewReservationsTerminees;
     @FXML private TableView<Reservation> tableViewReservationsAnnulees;
-    @FXML private TableView<Reservation> tableViewReservationsConfirmees;
 
 
     // Onglet Toutes les reservations
@@ -63,9 +71,10 @@ public class ReservationController {
     @FXML private TableColumn<Reservation, LocalDate> colDateFin;
     @FXML private TableColumn<Reservation, Integer> colNbrPersonnes;
     @FXML private TableColumn<Reservation, Integer> colNbrChambres;
-    @FXML private TableColumn<Reservation, Integer> colIdEntreprise;
+    @FXML private TableColumn<Reservation, Integer> colRaisonSociale;
     @FXML private TableColumn<Reservation, Integer> colLibelleStatut;
-    @FXML private TableColumn<Reservation, Integer> colIdClient;
+    @FXML private TableColumn<Reservation, Integer> colNomClient;
+    @FXML private TableColumn<Reservation, Integer> colPrenomClient;
     @FXML private TableColumn<Reservation, Integer> colIdFacture;
 
 
@@ -76,9 +85,10 @@ public class ReservationController {
     @FXML private TableColumn<Reservation, LocalDate> colDateFinEnCours;
     @FXML private TableColumn<Reservation, Integer> colNbrPersonnesEnCours;
     @FXML private TableColumn<Reservation, Integer> colNbrChambresEnCours;
-    @FXML private TableColumn<Reservation, Integer> colIdEntrepriseEnCours;
+    @FXML private TableColumn<Reservation, Integer> colRaisonSocialeEnCours;
     @FXML private TableColumn<Reservation, Integer> colLibelleStatutEnCours;
-    @FXML private TableColumn<Reservation, Integer> colIdClientEnCours;
+    @FXML private TableColumn<Reservation, Integer> colNomClientEnCours;
+    @FXML private TableColumn<Reservation, Integer> colPrenomClientEnCours;
     @FXML private TableColumn<Reservation, Integer> colIdFactureEnCours;
 
 
@@ -89,9 +99,10 @@ public class ReservationController {
     @FXML private TableColumn<Reservation, LocalDate> colDateFinTerminee;
     @FXML private TableColumn<Reservation, Integer> colNbrPersonnesTerminee;
     @FXML private TableColumn<Reservation, Integer> colNbrChambresTerminee;
-    @FXML private TableColumn<Reservation, Integer> colIdEntrepriseTerminee;
+    @FXML private TableColumn<Reservation, Integer> colRaisonSocialeTerminee;
     @FXML private TableColumn<Reservation, Integer> colLibelleStatutTerminee;
-    @FXML private TableColumn<Reservation, Integer> colIdClientTerminee;
+    @FXML private TableColumn<Reservation, Integer> colNomClientTerminee;
+    @FXML private TableColumn<Reservation, Integer> colPrenomClientTerminee;
     @FXML private TableColumn<Reservation, Integer> colIdFactureTerminee;
 
 
@@ -102,36 +113,27 @@ public class ReservationController {
     @FXML private TableColumn<Reservation, LocalDate> colDateFinAnnulee;
     @FXML private TableColumn<Reservation, Integer> colNbrPersonnesAnnulee;
     @FXML private TableColumn<Reservation, Integer> colNbrChambresAnnulee;
-    @FXML private TableColumn<Reservation, Integer> colIdEntrepriseAnnulee;
+    @FXML private TableColumn<Reservation, Integer> colRaisonSocialeAnnulee;
     @FXML private TableColumn<Reservation, Integer> colLibelleStatutAnnulee;
-    @FXML private TableColumn<Reservation, Integer> colIdClientAnnulee;
+    @FXML private TableColumn<Reservation, Integer> colNomClientAnnulee;
+    @FXML private TableColumn<Reservation, Integer> colPrenomClientAnnulee;
     @FXML private TableColumn<Reservation, Integer> colIdFactureAnnulee;
 
 
-    // Onglet reservations "Confirmée"
-    @FXML private TableColumn<Reservation, Integer> colidReservationConfirmee;
-    @FXML private TableColumn<Reservation, LocalDate> colDateReservationConfirmee;
-    @FXML private TableColumn<Reservation, LocalDate> colDateDebutConfirmee;
-    @FXML private TableColumn<Reservation, LocalDate> colDateFinConfirmee;
-    @FXML private TableColumn<Reservation, Integer> colNbrPersonnesConfirmee;
-    @FXML private TableColumn<Reservation, Integer> colNbrChambresConfirmee;
-    @FXML private TableColumn<Reservation, Integer> colIdEntrepriseConfirmee;
-    @FXML private TableColumn<Reservation, Integer> colLibelleStatutConfirmee;
-    @FXML private TableColumn<Reservation, Integer> colIdClientConfirmee;
-    @FXML private TableColumn<Reservation, Integer> colIdFactureConfirmee;
-
-
     // Champs du formulaire ajout d'une reservation
-    @FXML private javafx.scene.control.DatePicker dateReservationPicker;
     @FXML private javafx.scene.control.DatePicker dateDebutPicker;
     @FXML private javafx.scene.control.DatePicker dateFinPicker;
     @FXML private javafx.scene.control.TextField nbrPersonnesField;
     @FXML private javafx.scene.control.TextField nbrChambresField;
-    @FXML private javafx.scene.control.TextField idEntrepriseField;
     @FXML private javafx.scene.control.TextField idStatutResaField;
     @FXML private javafx.scene.control.TextField idClientField;
     @FXML private javafx.scene.control.TextField idFactureField;
     @FXML private javafx.scene.control.Label ajouterReservationErreur;
+    @FXML private DatePicker dateReservationPicker;
+    @FXML private ComboBox<Entreprise> comboEntreprise;
+    @FXML private ComboBox<Client> comboClient;
+    @FXML private ComboBox<StatutReservation> comboStatutResa;
+
 
 
     // Champs du formulaire modification d'une reservation
@@ -175,13 +177,17 @@ public class ReservationController {
         configurerColonnesEnCours();
         configurerColonnesTerminees();
         configurerColonnesAnnulees();
-        configurerColonnesConfirmees();
 
         chargerToutesReservations();
         chargerReservationsEnCours();
         chargerReservationsTerminees();
         chargerReservationsAnnulees();
-        chargerReservationsConfirmees();
+        chargerEntreprises();
+        chargerClients();
+        chargerStatutsReservation();
+
+        // Remplir le champ date avec la date du jour
+        dateReservationPicker.setValue(LocalDate.now());
 
         tableViewToutesReservations.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -207,12 +213,6 @@ public class ReservationController {
             }
         });
 
-        tableViewReservationsConfirmees.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                remplirFormulaireModification(newSelection);
-            }
-        });
-
         tableViewToutesReservations.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             afficherDetailsReservation(newVal);
         });
@@ -229,9 +229,6 @@ public class ReservationController {
             afficherDetailsReservation(newVal);
         });
 
-        tableViewReservationsConfirmees.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            afficherDetailsReservation(newVal);
-        });
     }
 
 
@@ -242,9 +239,10 @@ public class ReservationController {
         colDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
         colNbrPersonnes.setCellValueFactory(new PropertyValueFactory<>("nbrPersonnes"));
         colNbrChambres.setCellValueFactory(new PropertyValueFactory<>("nbrChambre"));
-        colIdEntreprise.setCellValueFactory(new PropertyValueFactory<>("idEntreprise"));
+        colRaisonSociale.setCellValueFactory(new PropertyValueFactory<>("raisonSociale"));
         colLibelleStatut.setCellValueFactory(new PropertyValueFactory<>("libelleStatut"));
-        colIdClient.setCellValueFactory(new PropertyValueFactory<>("idClient"));
+        colNomClient.setCellValueFactory(new PropertyValueFactory<>("nomClient"));
+        colPrenomClient.setCellValueFactory(new PropertyValueFactory<>("prenomClient"));
         colIdFacture.setCellValueFactory(new PropertyValueFactory<>("idFacture"));
     }
 
@@ -256,9 +254,10 @@ public class ReservationController {
         colDateFinEnCours.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
         colNbrPersonnesEnCours.setCellValueFactory(new PropertyValueFactory<>("nbrPersonnes"));
         colNbrChambresEnCours.setCellValueFactory(new PropertyValueFactory<>("nbrChambre"));
-        colIdEntrepriseEnCours.setCellValueFactory(new PropertyValueFactory<>("idEntreprise"));
-        colLibelleStatutEnCours.setCellValueFactory(new PropertyValueFactory<>("idStatutResa"));
-        colIdClientEnCours.setCellValueFactory(new PropertyValueFactory<>("idClient"));
+        colRaisonSocialeEnCours.setCellValueFactory(new PropertyValueFactory<>("raisonSociale"));
+        colLibelleStatutEnCours.setCellValueFactory(new PropertyValueFactory<>("libelleStatut"));
+        colNomClientEnCours.setCellValueFactory(new PropertyValueFactory<>("nomClient"));
+        colPrenomClientEnCours.setCellValueFactory(new PropertyValueFactory<>("prenomClient"));
         colIdFactureEnCours.setCellValueFactory(new PropertyValueFactory<>("idFacture"));
     }
 
@@ -270,9 +269,10 @@ public class ReservationController {
         colDateFinTerminee.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
         colNbrPersonnesTerminee.setCellValueFactory(new PropertyValueFactory<>("nbrPersonnes"));
         colNbrChambresTerminee.setCellValueFactory(new PropertyValueFactory<>("nbrChambre"));
-        colIdEntrepriseTerminee.setCellValueFactory(new PropertyValueFactory<>("idEntreprise"));
-        colLibelleStatutTerminee.setCellValueFactory(new PropertyValueFactory<>("idStatutResa"));
-        colIdClientTerminee.setCellValueFactory(new PropertyValueFactory<>("idClient"));
+        colRaisonSocialeTerminee.setCellValueFactory(new PropertyValueFactory<>("raisonSociale"));
+        colLibelleStatutTerminee.setCellValueFactory(new PropertyValueFactory<>("libelleStatut"));
+        colNomClientTerminee.setCellValueFactory(new PropertyValueFactory<>("nomClient"));
+        colPrenomClientTerminee.setCellValueFactory(new PropertyValueFactory<>("prenomClient"));
         colIdFactureTerminee.setCellValueFactory(new PropertyValueFactory<>("idFacture"));
     }
 
@@ -284,26 +284,12 @@ public class ReservationController {
         colDateFinAnnulee.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
         colNbrPersonnesAnnulee.setCellValueFactory(new PropertyValueFactory<>("nbrPersonnes"));
         colNbrChambresAnnulee.setCellValueFactory(new PropertyValueFactory<>("nbrChambre"));
-        colIdEntrepriseAnnulee.setCellValueFactory(new PropertyValueFactory<>("idEntreprise"));
-        colLibelleStatutAnnulee.setCellValueFactory(new PropertyValueFactory<>("idStatutResa"));
-        colIdClientAnnulee.setCellValueFactory(new PropertyValueFactory<>("idClient"));
+        colRaisonSocialeAnnulee.setCellValueFactory(new PropertyValueFactory<>("raisonSociale"));
+        colLibelleStatutAnnulee.setCellValueFactory(new PropertyValueFactory<>("libelleStatut"));
+        colNomClientAnnulee.setCellValueFactory(new PropertyValueFactory<>("nomClient"));
+        colPrenomClientAnnulee.setCellValueFactory(new PropertyValueFactory<>("prenomClient"));
         colIdFactureAnnulee.setCellValueFactory(new PropertyValueFactory<>("idFacture"));
     }
-
-
-    private void configurerColonnesConfirmees() {
-        colidReservationConfirmee.setCellValueFactory(new PropertyValueFactory<>("idReservation"));
-        colDateReservationConfirmee.setCellValueFactory(new PropertyValueFactory<>("dateReservation"));
-        colDateDebutConfirmee.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
-        colDateFinConfirmee.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
-        colNbrPersonnesConfirmee.setCellValueFactory(new PropertyValueFactory<>("nbrPersonnes"));
-        colNbrChambresConfirmee.setCellValueFactory(new PropertyValueFactory<>("nbrChambre"));
-        colIdEntrepriseConfirmee.setCellValueFactory(new PropertyValueFactory<>("idEntreprise"));
-        colLibelleStatutConfirmee.setCellValueFactory(new PropertyValueFactory<>("idStatutResa"));
-        colIdClientConfirmee.setCellValueFactory(new PropertyValueFactory<>("idClient"));
-        colIdFactureConfirmee.setCellValueFactory(new PropertyValueFactory<>("idFacture"));
-    }
-
 
 
     //----------------------------------------Méthodes pour afficher les réservations-----------------------------------
@@ -337,15 +323,6 @@ public class ReservationController {
     }
 
 
-    private void chargerReservationsConfirmees() {
-        List<Reservation> confirmees = reservationDAO.findAll().stream()
-                .filter(r -> r.getIdStatutResa() == 5)
-                .collect(Collectors.toList());
-        tableViewReservationsConfirmees.setItems(FXCollections.observableArrayList(confirmees));
-    }
-
-
-
     //----------------------------------------Méthode pour ajouter une réservation------------------------------------------
     @FXML
     private void ajouterReservation() {
@@ -361,8 +338,8 @@ public class ReservationController {
 
             if (dateReservation == null || dateDebut == null || dateFin == null ||
                     nbrPersonnesField.getText().isBlank() || nbrChambresField.getText().isBlank() ||
-                    idEntrepriseField.getText().isBlank() || idStatutResaField.getText().isBlank() ||
-                    idClientField.getText().isBlank() || idFactureField.getText().isBlank()) {
+                    comboEntreprise.getValue() == null || comboClient.getValue() == null ||
+                    comboStatutResa.getValue() == null || idFactureField.getText().isBlank()) {
 
                 ajouterReservationErreur.setText("Veuillez compléter tous les champs pour créer une réservation.");
                 ajouterReservationErreur.setVisible(true);
@@ -378,12 +355,23 @@ public class ReservationController {
             // Conversion des champs numériques
             int nbrPersonnes = Integer.parseInt(nbrPersonnesField.getText().trim());
             int nbrChambres = Integer.parseInt(nbrChambresField.getText().trim());
-            int idEntreprise = Integer.parseInt(idEntrepriseField.getText().trim());
-            int idStatutResa = Integer.parseInt(idStatutResaField.getText().trim());
-            int idClient = Integer.parseInt(idClientField.getText().trim());
+
+            // Entreprise
+            Entreprise entrepriseSelectionnee = comboEntreprise.getValue();
+            int idEntreprise = entrepriseSelectionnee.getIdEntreprise();
+
+            // Client
+            Client clientSelectionne = comboClient.getValue();
+            int idClient = clientSelectionne.getIdClient();
+
+            // Statut réservation
+            StatutReservation statutSelectionne = comboStatutResa.getValue();
+            int idStatutResa = statutSelectionne.getIdStatutResa();
+
+            // Facture
             int idFacture = Integer.parseInt(idFactureField.getText().trim());
 
-            // Création de l'objet réservation avec id fictif (0)
+            // Création de l'objet réservation
             Reservation reservation = new Reservation(
                     0,
                     dateReservation,
@@ -410,7 +398,6 @@ public class ReservationController {
                 case 1 -> tableViewReservationsEnCours.getItems().add(reservation);
                 case 2 -> tableViewReservationsAnnulees.getItems().add(reservation);
                 case 3 -> tableViewReservationsTerminees.getItems().add(reservation);
-                case 5 -> tableViewReservationsConfirmees.getItems().add(reservation);
             }
 
             System.out.println("Réservation numéro " + reservation.getIdReservation() + " créée");
@@ -421,9 +408,9 @@ public class ReservationController {
             dateFinPicker.setValue(null);
             nbrPersonnesField.clear();
             nbrChambresField.clear();
-            idEntrepriseField.clear();
-            idStatutResaField.clear();
-            idClientField.clear();
+            comboEntreprise.setValue(null);
+            comboClient.setValue(null);
+            comboStatutResa.setValue(null);
             idFactureField.clear();
 
         } catch (NumberFormatException e) {
@@ -434,6 +421,70 @@ public class ReservationController {
             ajouterReservationErreur.setVisible(true);
             e.printStackTrace();
         }
+    }
+
+
+
+
+    private void chargerEntreprises() {
+        EntrepriseDAO entrepriseDAO = new EntrepriseDAOImpl();
+        List<Entreprise> entreprises = entrepriseDAO.findAll();
+        comboEntreprise.setItems(FXCollections.observableArrayList(entreprises));
+
+        // Afficher la raison sociale uniquement
+        comboEntreprise.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(Entreprise item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getRaisonSociale());
+            }
+        });
+
+        comboEntreprise.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(Entreprise item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getRaisonSociale());
+            }
+        });
+    }
+
+
+    private void chargerClients() {
+        ClientDAO clientDAO = new ClientDAOImpl();
+        List<Client> clients = clientDAO.findAll();
+        comboClient.getItems().addAll(clients);
+
+        comboClient.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Client client) {
+                return client != null ? client.getNom() + " " + client.getPrenom() + " " + client.getEmail() : "";
+            }
+
+            @Override
+            public Client fromString(String string) {
+                return null;
+            }
+        });
+    }
+
+
+    private void chargerStatutsReservation() {
+        StatutReservationDAO statutDAO = new StatutReservationDAOImpl();
+        List<StatutReservation> statuts = statutDAO.findAll();
+        comboStatutResa.getItems().addAll(statuts);
+
+        comboStatutResa.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(StatutReservation statut) {
+                return statut != null ? statut.getLibelle() : "";
+            }
+
+            @Override
+            public StatutReservation fromString(String string) {
+                return null;
+            }
+        });
     }
 
 
@@ -470,7 +521,6 @@ public class ReservationController {
             chargerReservationsEnCours();
             chargerReservationsAnnulees();
             chargerReservationsTerminees();
-            chargerReservationsConfirmees();
 
         } catch (Exception e) {
             labelAucuneSelection.setText("Erreur lors de la modification.");
@@ -488,8 +538,7 @@ public class ReservationController {
             return tableViewReservationsTerminees;
         if (tableViewReservationsAnnulees.getSelectionModel().getSelectedItem() != null)
             return tableViewReservationsAnnulees;
-        if (tableViewReservationsConfirmees.getSelectionModel().getSelectedItem() != null)
-            return tableViewReservationsConfirmees;
+
         return null;
     }
 
@@ -540,7 +589,6 @@ public class ReservationController {
         if (selected == null) selected = tableViewReservationsEnCours.getSelectionModel().getSelectedItem();
         if (selected == null) selected = tableViewReservationsTerminees.getSelectionModel().getSelectedItem();
         if (selected == null) selected = tableViewReservationsAnnulees.getSelectionModel().getSelectedItem();
-        if (selected == null) selected = tableViewReservationsConfirmees.getSelectionModel().getSelectedItem();
 
         if (selected != null && selected.getIdReservation() > 0) {
             reservationDAO.delete(selected.getIdReservation());
@@ -552,7 +600,6 @@ public class ReservationController {
             tableViewReservationsEnCours.getItems().remove(selected);
             tableViewReservationsAnnulees.getItems().remove(selected);
             tableViewReservationsTerminees.getItems().remove(selected);
-            tableViewReservationsConfirmees.getItems().remove(selected);
         } else {
             labelConfirmationSuppression.setText("Aucune réservation sélectionnée.");
         }
