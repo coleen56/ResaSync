@@ -8,6 +8,7 @@ import fr.bts.sio.resasync.model.dao.interfaces.StatutChambreDAO;
 import fr.bts.sio.resasync.model.dao.interfaces.TypeChambreDAO;
 import fr.bts.sio.resasync.model.entity.Chambre;
 import fr.bts.sio.resasync.model.entity.StatutChambre;
+import fr.bts.sio.resasync.model.entity.TypeChambre;
 import fr.bts.sio.resasync.util.Methods;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -22,7 +23,7 @@ public class ChambreController {
 
     ChambreDAO chambreDAO = new ChambreDAOImpl();
     TypeChambreDAO typeChambreDAO = new TypeChambreDAOImpl();
-    StatutChambreDAO statutChambre = new StatutChambreDAOImpl();
+    StatutChambreDAO statutChambreDAO = new StatutChambreDAOImpl();
 
     @FXML
     private Hyperlink lienDashboard;
@@ -118,7 +119,7 @@ public class ChambreController {
             if (nouvelleValeur != null) {
                 // Remplir les champs de modification avec les données sélectionnées
                 fieldNumChambreModif.setText(String.valueOf(nouvelleValeur.getNumChambre()));
-                comboTypeChambreModif.getSelectionModel().select(nouvelleValeur.getTypeChambreLibelle());
+                comboTypeChambreModif.getSelectionModel().select(nouvelleValeur.getTypeChambre().getLibelle());
 
                 // Activer les contrôles de modification
                 fieldNumChambreModif.setDisable(false);
@@ -157,21 +158,42 @@ public class ChambreController {
         try {
             // Récupération des valeurs du formulaire d'ajout
             int numeroChambre = Integer.parseInt(fieldNumChambre.getText());
-            int typeIndex = comboTypeChambre.getSelectionModel().getSelectedIndex() + 1;
 
-            // Vérification pour éviter les doublons
-            List<Chambre> toutesChambres = chambreDAO.findAll();
-            boolean numeroExistant = toutesChambres.stream()
-                    .anyMatch(c -> c.getNumChambre() == numeroChambre);
+            // Récupérer le type de chambre sélectionné dans la ComboBox
+            String typeChambreLibelle = comboTypeChambre.getSelectionModel().getSelectedItem();
+            TypeChambre typeChambre = new TypeChambre();
+
+            // On crée un TypeChambre en fonction du libellé sélectionné
+            switch (typeChambreLibelle) {
+                case "Lit double":
+                    typeChambre = new TypeChambre(1, "Lit double");
+                    break;
+                case "2 lits simples":
+                    typeChambre = new TypeChambre(2, "2 lits simples");
+                    break;
+                case "Lit simple et 2 lits superposés":
+                    typeChambre = new TypeChambre(3, "Lit simple et 2 lits superposés");
+                    break;
+                default:
+                    // Par défaut, on considère que c'est un lit double
+                    typeChambre = new TypeChambre(1, "Lit double");
+                    break;
+            }
+
+            // Vérification que le numéro de chambre n'existe pas déjà
+            boolean numeroExistant = chambreDAO.findByNumeroChambre(numeroChambre);
 
             if (numeroExistant) {
                 ajouterChambreErreur.setText("Le numéro de chambre existe déjà.");
                 return;
             }
 
-            // Création de la nouvelle chambre
-            Chambre nouvelleChambre = new Chambre(0, numeroChambre, typeIndex, 1); // Statut disponible par défaut
-            chambreDAO.ajouterChambre(nouvelleChambre);
+            // Création de l'objet StatutChambre avec un statut 1 (par défaut)
+            StatutChambre statutChambre = new StatutChambre(1, "Disponible");
+
+            // Création de la nouvelle chambre avec un statut disponible par défaut
+            Chambre nouvelleChambre = new Chambre(0, numeroChambre, typeChambre, statutChambre);
+            chambreDAO.save(nouvelleChambre);
 
             // Rafraîchir la table et réinitialiser le formulaire
             afficherChambres();
@@ -182,8 +204,13 @@ public class ChambreController {
             System.out.println("Chambre ajoutée avec succès !");
         } catch (NumberFormatException e) {
             ajouterChambreErreur.setText("Numéro de chambre invalide.");
+        } catch (Exception e) {
+            ajouterChambreErreur.setText("Erreur lors de l'ajout de la chambre.");
+            e.printStackTrace();
         }
     }
+
+
 
     @FXML
     public void gererModifierChambre() {
@@ -207,15 +234,18 @@ public class ChambreController {
             if (response == ButtonType.OK) {
                 try {
                     int nouveauNumero = Integer.parseInt(fieldNumChambreModif.getText());
-                    int nouveauType = comboTypeChambreModif.getSelectionModel().getSelectedIndex() + 1;
+
+                    // Validation de l'index du type de chambre sélectionné
+                    int nouveauTypeIndex = comboTypeChambreModif.getSelectionModel().getSelectedIndex();
+                    if (nouveauTypeIndex == -1) {
+                        throw new IllegalArgumentException("Veuillez sélectionner un type de chambre.");
+                    }
+
+                    TypeChambre typeChambreModifie = new TypeChambre(nouveauTypeIndex + 1, comboTypeChambreModif.getSelectionModel().getSelectedItem());
 
                     // Vérification que le numéro n'est pas déjà pris par une autre chambre
-                    // UNIQUEMENT si le numéro a changé
                     if (nouveauNumero != chambreSelectionnee.getNumChambre()) {
-                        List<Chambre> toutesChambres = chambreDAO.findAll();
-                        boolean numeroExistant = toutesChambres.stream()
-                                .anyMatch(c -> c.getNumChambre() == nouveauNumero && c.getIdChambre() != chambreSelectionnee.getIdChambre());
-
+                        boolean numeroExistant = chambreDAO.findByNumeroChambre(nouveauNumero);
                         if (numeroExistant) {
                             Alert erreur = new Alert(Alert.AlertType.ERROR);
                             erreur.setTitle("Erreur");
@@ -230,8 +260,8 @@ public class ChambreController {
                     Chambre chambreModifiee = new Chambre(
                             chambreSelectionnee.getIdChambre(),
                             nouveauNumero,
-                            nouveauType,
-                            chambreSelectionnee.getIdStatutChambre()
+                            typeChambreModifie,  // Utilisation du TypeChambre
+                            chambreSelectionnee.getStatutChambre()  // Garder le statut actuel
                     );
 
                     // Mise à jour dans la base de données
@@ -259,10 +289,17 @@ public class ChambreController {
                     erreur.setHeaderText("Format invalide");
                     erreur.setContentText("Le numéro de chambre doit être un nombre entier.");
                     erreur.showAndWait();
+                } catch (IllegalArgumentException e) {
+                    Alert erreur = new Alert(Alert.AlertType.ERROR);
+                    erreur.setTitle("Erreur");
+                    erreur.setHeaderText("Type de chambre invalide");
+                    erreur.setContentText(e.getMessage());
+                    erreur.showAndWait();
                 }
             }
         });
     }
+
 
     @FXML
     public void gererSupprimerChambre() {
@@ -287,7 +324,7 @@ public class ChambreController {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 // Supprimer la chambre
-                chambreDAO.supprimerChambreById(idChambre);
+                chambreDAO.delete(chambreSelectionnee);
 
                 // Rafraîchir l'affichage
                 afficherChambres();

@@ -8,132 +8,68 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.h2.engine.GeneratedKeysMode.valueOf;
-
 public class ReservationDAOImpl implements ReservationDAO {
 
 
     @Override
     public List<Reservation> findAll() {
-
         List<Reservation> reservations = new ArrayList<>();
-        String sql = "SELECT \n" +
-                "    Reservation.idReservation,\n" +
-                "    Reservation.dateReservation,\n" +
-                "    Reservation.dateDebut,\n" +
-                "    Reservation.dateFin,\n" +
-                "    Reservation.nbrPersonnes,\n" +
-                "    Reservation.nbrChambre,\n" +
-                "    Reservation.idEntreprise,\n" +
-                "    Reservation.idStatutResa,\n" +
-                "    Reservation.idClient,\n" +
-                "    Reservation.idFacture,\n" +
-                "FROM Reservation\n";
 
-        Reservation reservation = null;
-        Connection conn = null;
-        PreparedStatement stmt = null;
+        String sql = "SELECT " +
+                "Reservation.idReservation, " +
+                "Reservation.dateReservation, " +
+                "Reservation.dateDebut, " +
+                "Reservation.dateFin, " +
+                "Reservation.nbrPersonnes, " +
+                "Reservation.nbrChambre, " +
+                "Reservation.idEntreprise, " +
+                "Reservation.idStatutResa, " +
+                "Reservation.idClient, " +
+                "Reservation.idFacture, " +
+                "StatutReservation.libelle AS libelleStatut " +
+                "FROM Reservation " +
+                "JOIN StatutReservation ON Reservation.idStatutResa = StatutReservation.idStatutResa";
 
-        try {
-            conn = DatabaseConnection.getConnection();
-            stmt = conn.prepareStatement(sql);
-            ResultSet resultSet = stmt.executeQuery();
 
+        try (
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet resultSet = stmt.executeQuery()
+        ) {
             while (resultSet.next()) {
-                Reservation res = new Reservation(
-                        resultSet.getInt("idReservation"),
-                        resultSet.getDate("dateReservation").toLocalDate(),
-                        resultSet.getDate("dateDebut").toLocalDate(),
-                        resultSet.getDate("dateFin").toLocalDate(),
-                        resultSet.getInt("nbrPersonnes"),
-                        resultSet.getInt("nbrChambre"),
-                        resultSet.getInt("idEntreprise"),
-                        resultSet.getInt("idStatutResa"),
-                        resultSet.getInt("idClient"),
-                        resultSet.getInt("idFacture")
-                );
-                reservations.add(res);
-            }
+                Reservation reservation = new Reservation();
 
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } finally {
-                // Ferme les ressources
-                try {
-                    if (stmt != null) {
-                        stmt.close();
-                    }
-                    if (conn != null) {
-                        conn.close();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                reservation.setIdReservation(resultSet.getInt("idReservation"));
+                reservation.setDateReservation(resultSet.getDate("dateReservation").toLocalDate());
+                reservation.setDateDebut(resultSet.getDate("dateDebut").toLocalDate());
+                reservation.setDateFin(resultSet.getDate("dateFin").toLocalDate());
+                reservation.setNbrPersonnes(resultSet.getInt("nbrPersonnes"));
+                reservation.setNbrChambre(resultSet.getInt("nbrChambre"));
+                reservation.setIdEntreprise(resultSet.getInt("idEntreprise"));
+                reservation.setIdStatutResa(resultSet.getInt("idStatutResa"));
+                reservation.setIdClient(resultSet.getInt("idClient"));
+                reservation.setIdFacture(resultSet.getInt("idFacture"));
+                reservation.setLibelleStatut(resultSet.getString("libelleStatut"));
+
+                reservations.add(reservation);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return reservations;
     }
 
 
-    @Override
-    public Reservation findById(int idReservation) {
-
-        String sql = "SELECT * FROM Reservation WHERE idReservation = ?";
-
-        Reservation reservation = null;
-        Connection conn = null;
-        PreparedStatement stmt = null;
-
-        try {
-            conn = DatabaseConnection.getConnection();
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idReservation);
-            ResultSet resultSet = stmt.executeQuery();
-
-            if (resultSet.next()) {
-                reservation = new Reservation(
-                        resultSet.getInt("idReservation"),
-                        resultSet.getDate("dateReservation").toLocalDate(),
-                        resultSet.getDate("dateDebut").toLocalDate(),
-                        resultSet.getDate("dateFin").toLocalDate(),
-                        resultSet.getInt("nbrPersonnes"),
-                        resultSet.getInt("nbrChambre"),
-                        resultSet.getInt("idEntreprise"),
-                        resultSet.getInt("idStatutResa"),
-                        resultSet.getInt("idClient"),
-                        resultSet.getInt("idFacture"));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            // Ferme les ressources
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return reservation;
-    }
-
-
+//----------------------------------------------------------------------------------------------------------------------
     @Override
     public void save(Reservation reservation) {
-        String sql = "INSERT INTO Reservation (dateReservation, dateDebut, dateFin, " +
-                "nbrPersonnes, nbrChambre, idEntreprise, idStatutResa, idClient, idFacture) " +
+        String sql = "INSERT INTO reservation (dateReservation, dateDebut, dateFin, nbrPersonnes, nbrChambre, idEntreprise, idStatutResa, idClient, idFacture) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        Connection conn = null;
-        PreparedStatement stmt = null;
-
-        try {
-            conn = DatabaseConnection.getConnection();
-            stmt = conn.prepareStatement(sql);
-
+        try (
+             Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
             stmt.setDate(1, Date.valueOf(reservation.getDateReservation()));
             stmt.setDate(2, Date.valueOf(reservation.getDateDebut()));
             stmt.setDate(3, Date.valueOf(reservation.getDateFin()));
@@ -144,38 +80,31 @@ public class ReservationDAOImpl implements ReservationDAO {
             stmt.setInt(8, reservation.getIdClient());
             stmt.setInt(9, reservation.getIdFacture());
 
-            stmt.executeUpdate();
+            int rowsAffected = stmt.executeUpdate();
 
+            if (rowsAffected > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int generatedId = generatedKeys.getInt(1);
+                        reservation.setIdReservation(generatedId); // mise à jour de l'objet en mémoire
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            // Ferme les ressources
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
 
+//----------------------------------------------------------------------------------------------------------------------
     @Override
     public void update(Reservation reservation) {
-        String sql = "UPDATE Reservation SET dateReservation = ?, dateDebut = ?, dateFin = ?, " +
-                "nbrPersonnes = ?, nbrChambre = ?, idEntreprise = ?, idStatutResa = ?, idClient = ?, idFacture = ?" +
-                "WHERE idReservation = ?";
+        String sql = "UPDATE reservation SET dateReservation = ?, dateDebut = ?, dateFin = ?, nbrPersonnes = ?, nbrChambre = ?, idEntreprise = ?, idStatutResa = ?, idClient = ?, idFacture = ? WHERE idReservation = ?";
 
-        Connection conn = null;
-        PreparedStatement stmt = null;
-
-        try {
-            conn = DatabaseConnection.getConnection();
-            stmt = conn.prepareStatement(sql);
+        try (
+             Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql))
+        {
 
             stmt.setDate(1, Date.valueOf(reservation.getDateReservation()));
             stmt.setDate(2, Date.valueOf(reservation.getDateDebut()));
@@ -188,54 +117,37 @@ public class ReservationDAOImpl implements ReservationDAO {
             stmt.setInt(9, reservation.getIdFacture());
             stmt.setInt(10, reservation.getIdReservation());
 
-
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Ferme les ressources
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            System.err.println("Impossible de modifier la réservation : " + e.getMessage());
         }
     }
 
 
+//----------------------------------------------------------------------------------------------------------------------
     @Override
-    public void delete(Reservation reservation) {
-        String sql = "DELETE FROM Reservation WHERE idReservation = ?";
+    public void delete(int idReservation) {
+        String sql = "DELETE FROM reservation WHERE idReservation = ?";
 
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        try {
-            conn = DatabaseConnection.getConnection();
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, reservation.getIdReservation());
+        try (
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql))
+        {
 
-            stmt.executeUpdate();
+            stmt.setInt(1, idReservation);
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                System.out.println("Suppression réussie de la réservation numéro " + idReservation);
+            } else {
+                System.out.println("Aucune réservation trouvée avec l'ID " + idReservation);
+            }
 
         } catch (SQLException e) {
+            System.err.println("Erreur lors de la suppression de la réservation numéro " + idReservation);
             e.printStackTrace();
-        } finally {
-            // Ferme les ressources
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
+
 }

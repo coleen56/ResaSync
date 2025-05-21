@@ -1,102 +1,377 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.*?>
+<?xml version='1.0' encoding='utf-8'?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.geometry.Insets?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane prefHeight="857.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.bts.sio.resasync.controller.ReservationController">
-        <children>
-            <VBox prefHeight="857.0" prefWidth="1280.0">
-                <children>
-                    <AnchorPane prefHeight="832.0" prefWidth="1280.0">
-                        <children>
-                            <HBox prefHeight="79.0" prefWidth="1280.0" style="-fx-background-color: #d1f2eb;">
+    <children>
+        <!-- Barre de navigation -->
+        <HBox prefHeight="79.0" prefWidth="1280.0" style="-fx-background-color: #d1f2eb;">
+            <children>
+                <AnchorPane prefWidth="200.0">
+                    <children>
+                        <Hyperlink fx:id="lienDashboard" layoutX="27.0" layoutY="21.0" onAction="#allerADashboard" text="Dashboard">
+                            <font><Font name="Segoe UI Bold" size="22.0" /></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefWidth="200.0">
+                    <children>
+                        <Hyperlink fx:id="lienChambres" layoutX="44.0" layoutY="21.0" onAction="#allerAChambre" text="Chambres">
+                            <font><Font name="Segoe UI Bold" size="21.0" /></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefWidth="200.0">
+                    <children>
+                        <Hyperlink fx:id="lienClients" layoutX="58.0" layoutY="21.0" onAction="#allerAClient" text="Clients">
+                            <font><Font name="Segoe UI Bold" size="22.0" /></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefWidth="242.0">
+                    <children>
+                        <Hyperlink fx:id="lienConfiguration" disable="true" layoutX="46.0" layoutY="21.0" onAction="#allerAConfiguration" text="Configuration">
+                            <font><Font name="Segoe UI Bold" size="21.0" /></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefWidth="442.0">
+                    <children>
+                        <Hyperlink fx:id="lienDeconnexion" layoutX="276.0" layoutY="21.0" onAction="#Deconnexion" text="Déconnexion">
+                            <font><Font name="Segoe UI Bold" size="21.0" /></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+            </children>
+        </HBox>
+        <!-- Titre -->
+        <Label AnchorPane.topAnchor="100.0" AnchorPane.leftAnchor="520.0" text="Réservations" textFill="#056861">
+            <font><Font name="Segoe UI" size="46.0" /></font>
+            <effect><DropShadow><color><Color opacity="0.15" /></color></DropShadow></effect>
+        </Label>
+        <HBox AnchorPane.topAnchor="170.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" style="-fx-padding: 0 40 0 40;">
+            <!-- Partie Tableau des réservations -->
+            <TabPane layoutX="25.0" layoutY="170.0" prefHeight="900.0" prefWidth="600" fx:id="reservationTabPane">
+                <tabs>
+                    <!-- Onglet Toutes les réservations -->
+                    <Tab text="Toutes les réservations">
+                        <AnchorPane>
+                            <children>
+                                <TableView fx:id="tableViewToutesReservations" prefWidth="600.0">
+                                    <columns>
+                                        <TableColumn fx:id="colidReservation" text="Numéro Réservation" />
+                                        <TableColumn fx:id="colDateReservation" text="Date Réservation" />
+                                        <TableColumn fx:id="colDateDebut" text="Date Arrivée" />
+                                        <TableColumn fx:id="colDateFin" text="Date Départ" />
+                                        <TableColumn fx:id="colNbrPersonnes" text="Nombre Personne(s)" />
+                                        <TableColumn fx:id="colNbrChambres" text="Nombre Chambre(s)" />
+                                        <TableColumn fx:id="colIdEntreprise" text="Numéro Entreprise" />
+                                        <TableColumn fx:id="colLibelleStatut" text="Statut Réservation">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="libelleStatut" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn fx:id="colIdClient" text="Numéro Client" />
+                                        <TableColumn fx:id="colIdFacture" text="Numéro Facture" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </Tab>
+                    <!-- Onglet réservations En cours -->
+                    <Tab text="En cours">
+                        <AnchorPane>
+                            <children>
+                                <TableView fx:id="tableViewReservationsEnCours" prefWidth="600.0">
+                                    <columns>
+                                        <TableColumn fx:id="colIdReservationEnCours" text="Numéro Réservation" />
+                                        <TableColumn fx:id="colDateReservationEnCours" text="Date Réservation" />
+                                        <TableColumn fx:id="colDateDebutEnCours" text="Date Arrivée" />
+                                        <TableColumn fx:id="colDateFinEnCours" text="Date Départ" />
+                                        <TableColumn fx:id="colNbrPersonnesEnCours" text="Nombre Personnes" />
+                                        <TableColumn fx:id="colNbrChambresEnCours" text="Nombre Chambre" />
+                                        <TableColumn fx:id="colIdEntrepriseEnCours" text="Numéro Entreprise" />
+                                        <TableColumn fx:id="colLibelleStatutEnCours" text="Statut Réservation">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="libelleStatut" />
+                                            </cellValueFactory>
+                                        </TableColumn>                                        <TableColumn fx:id="colIdClientEnCours" text="Numéro Client" />
+                                        <TableColumn fx:id="colIdFactureEnCours" text="Numéro Facture" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </Tab>
+                    <!-- Onglet réservations Terminée -->
+                    <Tab text="Terminée">
+                        <AnchorPane>
+                            <children>
+                                <TableView fx:id="tableViewReservationsTerminees" prefWidth="600.0">
+                                    <columns>
+                                        <TableColumn fx:id="colidReservationTerminee" text="Numéro Réservation" />
+                                        <TableColumn fx:id="colDateReservationTerminee" text="Date Réservation" />
+                                        <TableColumn fx:id="colDateDebutTerminee" text="Date Arrivée" />
+                                        <TableColumn fx:id="colDateFinTerminee" text="Date Départ" />
+                                        <TableColumn fx:id="colNbrPersonnesTerminee" text="Nombre Personnes" />
+                                        <TableColumn fx:id="colNbrChambresTerminee" text="Nombre Chambre" />
+                                        <TableColumn fx:id="colIdEntrepriseTerminee" text="Numéro Entreprise" />
+                                        <TableColumn fx:id="colLibelleStatutTerminee" text="Statut Réservation">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="libelleStatut" />
+                                            </cellValueFactory>
+                                        </TableColumn>                                          <TableColumn fx:id="colIdClientTerminee" text="Numéro Client" />
+                                        <TableColumn fx:id="colIdFactureTerminee" text="Numéro Facture" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </Tab>
+                    <!-- Onglet réservations Annulée -->
+                    <Tab text="Annulée">
+                        <AnchorPane>
+                            <children>
+                                <TableView fx:id="tableViewReservationsAnnulees" prefWidth="600.0">
+                                    <columns>
+                                        <TableColumn fx:id="colidReservationAnnulee" text="Numéro Réservation" />
+                                        <TableColumn fx:id="colDateReservationAnnulee" text="Date Réservation" />
+                                        <TableColumn fx:id="colDateDebutAnnulee" text="Date Arrivée" />
+                                        <TableColumn fx:id="colDateFinAnnulee" text="Date Départ" />
+                                        <TableColumn fx:id="colNbrPersonnesAnnulee" text="Nombre Personnes" />
+                                        <TableColumn fx:id="colNbrChambresAnnulee" text="Nombre Chambre" />
+                                        <TableColumn fx:id="colIdEntrepriseAnnulee" text="Numéro Entreprise" />
+                                        <TableColumn fx:id="colLibelleStatutAnnulee" text="Statut Réservation">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="libelleStatut" />
+                                            </cellValueFactory>
+                                        </TableColumn>                                           <TableColumn fx:id="colIdClientAnnulee" text="Numéro Client" />
+                                        <TableColumn fx:id="colIdFactureAnnulee" text="Numéro Facture" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </Tab>
+                    <!-- Onglet réservations Confirmée -->
+                    <Tab text="Confirmée">
+                        <AnchorPane>
+                            <children>
+                                <TableView fx:id="tableViewReservationsConfirmees" prefWidth="600.0">
+                                    <columns>
+                                        <TableColumn fx:id="colidReservationConfirmee" text="Numéro Réservation" />
+                                        <TableColumn fx:id="colDateReservationConfirmee" text="Date Réservation" />
+                                        <TableColumn fx:id="colDateDebutConfirmee" text="Date Arrivée" />
+                                        <TableColumn fx:id="colDateFinConfirmee" text="Date Départ" />
+                                        <TableColumn fx:id="colNbrPersonnesConfirmee" text="Nombre Personnes" />
+                                        <TableColumn fx:id="colNbrChambresConfirmee" text="Nombre Chambre" />
+                                        <TableColumn fx:id="colIdEntrepriseConfirmee" text="Numéro Entreprise" />
+                                        <TableColumn fx:id="colLibelleStatutConfirmee" text="Statut Réservation">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="libelleStatut" />
+                                            </cellValueFactory>
+                                        </TableColumn>                                                   <TableColumn fx:id="colIdClientConfirmee" text="Numéro Client" />
+                                        <TableColumn fx:id="colIdFactureConfirmee" text="Numéro Facture" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </Tab>
+                </tabs>
+            </TabPane>
+            <!-- Partie gestion des réservations -->
+            <TabPane layoutX="850.0" layoutY="170.0" prefHeight="650.0" prefWidth="600" tabClosingPolicy="UNAVAILABLE">
+                <tabs>
+                    <!-- Onglet Détails -->
+                    <Tab text="Détails">
+                        <content>
+                            <AnchorPane>
                                 <children>
-                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                        <children>
-                                            <Hyperlink fx:id="lienDashboard" layoutX="27.0" layoutY="21.0" onAction="#allerADashboard" text="Dashboard">
-                                                <font>
-                                                    <Font name="Segoe UI Bold" size="22.0" />
-                                                </font>
-                                            </Hyperlink>
-                                        </children>
-                                    </AnchorPane>
-                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                        <children>
-                                            <Hyperlink fx:id="lienChambres" layoutX="44.0" layoutY="21.0" onAction="#allerAChambre" text="Chambres">
-                                                <font>
-                                                    <Font name="Segoe UI Bold" size="21.0" />
-                                                </font>
-                                            </Hyperlink>
-                                        </children>
-                                    </AnchorPane>
-                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                        <children>
-                                            <Hyperlink fx:id="lienClients" layoutX="58.0" layoutY="21.0" onAction="#allerAClient" text="Clients">
-                                                <font>
-                                                    <Font name="Segoe UI Bold" size="22.0" />
-                                                </font>
-                                            </Hyperlink>
-                                        </children>
-                                    </AnchorPane>
-                                    <AnchorPane prefHeight="200.0" prefWidth="242.0">
-                                        <children>
-                                            <Hyperlink fx:id="lienConfiguration" disable="true" layoutX="46.0" layoutY="21.0" onAction="#allerAConfiguration" text="Configuration">
-                                                <font>
-                                                    <Font name="Segoe UI Bold" size="21.0" />
-                                                </font>
-                                            </Hyperlink>
-                                        </children>
-                                    </AnchorPane>
-                                    <AnchorPane prefHeight="0.0" prefWidth="442.0">
-                                        <children>
-                                            <Hyperlink fx:id="lienDeconnexion" layoutX="276.0" layoutY="21.0" onAction="#Deconnexion" text="Déconnexion">
-                                                <font>
-                                                    <Font name="Segoe UI Bold" size="21.0" />
-                                                </font>
-                                            </Hyperlink>
-                                        </children>
-                                    </AnchorPane>
+                                    <VBox spacing="15.0" style="-fx-background-color: #f0f9f7; -fx-padding: 15; -fx-background-radius: 5;" AnchorPane.topAnchor="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                                        <Label text="Détails" textFill="#056861">
+                                            <font><Font name="Segoe UI Bold" size="18.0" /></font>
+                                        </Label>
+                                        <TitledPane text="Informations de la réservation" expanded="true">
+                                            <VBox spacing="10">
+                                                <GridPane hgap="10" vgap="10">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints minWidth="150" />
+                                                        <ColumnConstraints minWidth="350" />
+                                                    </columnConstraints>
+
+                                                    <Label text="Date de réservation:" GridPane.rowIndex="0" />
+                                                    <Label fx:id="labelDateReservationDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                                                    <Label text="Date début:" GridPane.rowIndex="1" />
+                                                    <Label fx:id="labelDateDebutDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                                    <Label text="Date fin:" GridPane.rowIndex="2" />
+                                                    <Label fx:id="labelDateFinDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                                                    <Label text="Nbre personnes:" GridPane.rowIndex="3" />
+                                                    <Label fx:id="labelNbrPersonnesDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                                                    <Label text="Nbre chambres:" GridPane.rowIndex="4" />
+                                                    <Label fx:id="labelNbrChambresDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                                                    <Label text="Statut:" GridPane.rowIndex="5" />
+                                                    <Label fx:id="labelStatutDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                                                    <Label text="Client:" GridPane.rowIndex="6" />
+                                                    <Label fx:id="labelClientDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+                                                    <Label text="Entreprise:" GridPane.rowIndex="7" />
+                                                    <Label fx:id="labelEntrepriseDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+
+                                                    <Label text="Facture:" GridPane.rowIndex="8" />
+                                                    <Label fx:id="labelFactureDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                                </GridPane>
+                                            </VBox>
+                                        </TitledPane>
+                                    </VBox>
                                 </children>
-                                <cursor>
-                                    <Cursor fx:constant="OPEN_HAND" />
-                                </cursor>
-                            </HBox>
-                            <TableView fx:id="reservationTableView" layoutX="253.0" layoutY="183.0" prefHeight="260.0" prefWidth="774.0">
-                                <columns>
-                                    <TableColumn fx:id="colIdReservation" text="Id Resa" />
-                                    <TableColumn fx:id="colDateReservation" text="Date Resa" />
-                                    <TableColumn fx:id="colDateDebut" text="Date Arrivée" />
-                                    <TableColumn fx:id="colDateFin" text="Date Départ" />
-                                    <TableColumn fx:id="colNbrPersonnes" text="Nbr Personnes" />
-                                    <TableColumn fx:id="colNbrChambres" text="Nbr Chambre" />
-                                    <TableColumn fx:id="colIdEntreprise" text="Id Entreprise" />
-                                    <TableColumn fx:id="colIdStatutResa" text="Id Statut Resa" />
-                                    <TableColumn fx:id="colIdClient" text="Id Client" />
-                                    <TableColumn fx:id="colIdFacture" text="Id Facture" />
-                                </columns>
-                            </TableView>
-                            <Label layoutX="496.0" layoutY="95.0" text="Réservations" textFill="#056861">
-                                <font>
-                                    <Font name="Segoe UI" size="46.0" />
-                                </font>
-                                <cursor>
-                                    <Cursor fx:constant="CROSSHAIR" />
-                                </cursor>
-                                <effect>
-                                    <DropShadow>
-                                        <color>
-                                            <Color opacity="0.14885495603084564" />
-                                        </color>
-                                    </DropShadow>
-                                </effect>
-                            </Label>
-                        </children>
-                    </AnchorPane>
-                </children>
-            </VBox>
-        </children>
+                            </AnchorPane>
+                        </content>
+                    </Tab>
+                    <!-- Onglet Ajouter une réservation -->
+                    <Tab text="Ajouter une réservation">
+                        <content>
+                            <ScrollPane fitToWidth="true">
+                                <content>
+                                    <VBox spacing="15" style="-fx-padding: 15;">
+                                        <children>
+
+                                            <Label text="Nouvelle réservation" textFill="#056861">
+                                                <font>
+                                                    <Font name="Segoe UI" size="20.0" />
+                                                </font>
+                                            </Label>
+
+                                            <VBox spacing="10">
+
+                                                <Label text="Date de réservation :" />
+                                                <DatePicker fx:id="dateReservationPicker" />
+
+                                                <Label text="Date de début :" />
+                                                <DatePicker fx:id="dateDebutPicker" />
+
+                                                <Label text="Date de fin :" />
+                                                <DatePicker fx:id="dateFinPicker" />
+
+                                                <Label text="Nombre de personnes :" />
+                                                <TextField fx:id="nbrPersonnesField" promptText="ex: 2" />
+
+                                                <Label text="Nombre de chambres :" />
+                                                <TextField fx:id="nbrChambresField" promptText="ex: 1" />
+
+                                                <Label text="ID de l'entreprise :" />
+                                                <TextField fx:id="idEntrepriseField" promptText="ex: 3" />
+
+                                                <Label text="ID du statut de réservation :" />
+                                                <TextField fx:id="idStatutResaField" promptText="ex: 1" />
+
+                                                <Label text="ID du client :" />
+                                                <TextField fx:id="idClientField" promptText="ex: 5" />
+
+                                                <Label text="ID de la facture :" />
+                                                <TextField fx:id="idFactureField" promptText="ex: 10" />
+
+                                            </VBox>
+
+                                            <Label fx:id="ajouterReservationErreur" textFill="#666666" />
+
+                                            <Button fx:id="btnAjouterReservation" onAction="#ajouterReservation" text="Ajouter la réservation" style="-fx-background-color: #056861; -fx-text-fill: white;" maxWidth="1.7976931348623157E308">
+                                                <VBox.margin>
+                                                    <Insets top="10.0" />
+                                                </VBox.margin>
+                                            </Button>
+                                        </children>
+                                    </VBox>
+                                </content>
+                            </ScrollPane>
+                        </content>
+                    </Tab>
+                    <!-- Onglet Modifier une réservation -->
+                    <Tab text="Modifier une réservation">
+                        <content>
+                            <ScrollPane fitToWidth="true">
+                                <content>
+                                    <VBox spacing="15" style="-fx-padding: 15;">
+                                        <children>
+
+                                            <Label text="Modifier une réservation" textFill="#056861">
+                                                <font><Font name="Segoe UI" size="20.0" /></font>
+                                            </Label>
+
+                                            <VBox spacing="10">
+
+                                                <Label text="Date de réservation :" />
+                                                <DatePicker fx:id="dateReservationPickerModif" />
+
+                                                <Label text="Date de début :" />
+                                                <DatePicker fx:id="dateDebutPickerModif" />
+
+                                                <Label text="Date de fin :" />
+                                                <DatePicker fx:id="dateFinPickerModif" />
+
+                                                <Label text="Nombre de personnes :" />
+                                                <TextField fx:id="nbrPersonnesFieldModif" />
+
+                                                <Label text="Nombre de chambres :" />
+                                                <TextField fx:id="nbrChambresFieldModif" />
+
+                                                <Label text="ID de l'entreprise :" />
+                                                <TextField fx:id="idEntrepriseFieldModif" />
+
+                                                <Label text="ID du statut de réservation :" />
+                                                <TextField fx:id="idStatutResaFieldModif" />
+
+                                                <Label text="ID du client :" />
+                                                <TextField fx:id="idClientFieldModif" />
+
+                                                <Label text="ID de la facture :" />
+                                                <TextField fx:id="idFactureFieldModif" />
+
+                                            </VBox>
+
+                                            <Label fx:id="labelAucuneSelection" text="Aucune réservation sélectionnée. Veuillez sélectionner une réservation dans le tableau." wrapText="true" textFill="#666666" />
+
+                                            <Button fx:id="btnModifierReservation" text="Modifier la réservation" onAction="#modifierReservation" style="-fx-background-color: #056861; -fx-text-fill: white;" maxWidth="1.7976931348623157E308">
+                                                <VBox.margin>
+                                                    <Insets top="10.0" />
+                                                </VBox.margin>
+                                            </Button>
+
+                                        </children>
+                                    </VBox>
+                                </content>
+                            </ScrollPane>
+                        </content>
+                    </Tab>
+                    <!-- Supprimer une réservation -->
+                    <Tab text="Supprimer une réservation">
+                        <content>
+                            <VBox spacing="15" style="-fx-padding: 15;">
+                                <children>
+
+                                    <Label text="Supprimer une réservation" textFill="#8B0000">
+                                        <font>
+                                            <Font name="Segoe UI" size="20.0" />
+                                        </font>
+                                    </Label>
+
+                                    <Label fx:id="labelConfirmationSuppression" text="Aucune réservation sélectionnée." wrapText="true" textFill="#666666" />
+
+                                    <Button text="Supprimer la réservation" fx:id="btnSupprimerReservation" onAction="#supprimerReservation" style="-fx-background-color: #cc0000; -fx-text-fill: white;" maxWidth="1.7976931348623157E308" />
+                                </children>
+                            </VBox>
+                        </content>
+                    </Tab>
+                </tabs>
+            </TabPane>
+        </HBox>
+    </children>
 </AnchorPane>

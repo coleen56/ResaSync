@@ -13,6 +13,7 @@ public class Reservation {
     private int nbrChambre;
     private int idEntreprise;
     private int idStatutResa;
+    private String libelleStatut;
     private int idClient;
     private int idFacture;
 
@@ -28,6 +29,10 @@ public class Reservation {
         this.idStatutResa = idStatutResa;
         this.idClient = idClient;
         this.idFacture = idFacture;
+    }
+
+    // Constructeur vide
+    public Reservation() {
     }
 
 
@@ -93,6 +98,14 @@ public class Reservation {
 
     public void setIdStatutResa(int idStatutResa) {
         this.idStatutResa = idStatutResa;
+    }
+
+    public String getLibelleStatut() {
+        return libelleStatut;
+    }
+
+    public void setLibelleStatut(String libelleStatut) {
+        this.libelleStatut = libelleStatut;
     }
 
     public int getIdClient() {
