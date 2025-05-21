@@ -129,10 +129,7 @@
                                                                                 </VBox>
                                                                             </TitledPane>
                                                                                                                                                        <!-- Boutons d'action -->
-                                                                            <HBox spacing="10">
-                                                                                <Button fx:id="btnModifierClientParticulier" onAction="#gererModifierClientParticulier" prefWidth="150.0" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Modifier" />
-                                                                                <Button fx:id="btnSupprimerClientParticulier" onAction="#gererSupprimerClientParticulier" prefWidth="150.0" style="-fx-background-color: #bc0e0e; -fx-text-fill: white;" text="Supprimer" />
-                                                                            </HBox>
+
                                                                         </VBox>
                                                                     </children>
                                                                 </AnchorPane>
@@ -186,6 +183,10 @@
 
                                                                                     <!-- Bouton d'action -->
                                                                                     <Button fx:id="btnEnregistrerClientParticulier" onAction="#gererAjouterClientParticulier" prefWidth="200.0" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Enregistrer" />
+                                                                                    <HBox spacing="10">
+                                                                                        <Button fx:id="btnModifierClientParticulier" onAction="#gererModifierClientParticulier" prefWidth="150.0" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Modifier" />
+                                                                                        <Button fx:id="btnSupprimerClientParticulier" onAction="#gererSupprimerClientParticulier" prefWidth="150.0" style="-fx-background-color: #bc0e0e; -fx-text-fill: white;" text="Supprimer" />
+                                                                                    </HBox>
                                                                                 </VBox>
                                                                             </content>
                                                                         </ScrollPane>
@@ -284,10 +285,7 @@
                                                                             </TitledPane>
 
                                                                             <!-- Boutons d'action -->
-                                                                            <HBox spacing="10">
-                                                                                <Button fx:id="btnModifierEntreprise" onAction="#gererModifierEntreprise" prefWidth="150.0" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Modifier" />
-                                                                                <Button fx:id="btnSupprimerEntreprise" onAction="#gererSupprimerEntreprise" prefWidth="150.0" style="-fx-background-color: #bc0e0e; -fx-text-fill: white;" text="Supprimer" />
-                                                                            </HBox>
+
                                                                         </VBox>
                                                                     </children>
                                                                 </AnchorPane>
@@ -338,6 +336,10 @@
 
                                                                                     <!-- Bouton d'action -->
                                                                                     <Button fx:id="btnEnregistrerEntreprise" onAction="#gererAjouterEntreprise" prefWidth="200.0" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Enregistrer" />
+                                                                                    <HBox spacing="10">
+                                                                                        <Button fx:id="btnModifierEntreprise" onAction="#gererModifierEntreprise" prefWidth="150.0" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Modifier" />
+                                                                                        <Button fx:id="btnSupprimerEntreprise" onAction="#gererSupprimerEntreprise" prefWidth="150.0" style="-fx-background-color: #bc0e0e; -fx-text-fill: white;" text="Supprimer" />
+                                                                                    </HBox>
                                                                                 </VBox>
                                                                             </content>
                                                                         </ScrollPane>

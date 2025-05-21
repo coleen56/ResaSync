@@ -24,7 +24,10 @@ module fr.bts.sio.resasync {
     opens fr.bts.sio.resasync to javafx.fxml;
     opens fr.bts.sio.resasync.controller to javafx.fxml;
     opens fr.bts.sio.resasync.config to com.fasterxml.jackson.databind;
+    opens fr.bts.sio.resasync.model.entity to javafx.base, com.fasterxml.jackson.databind;
 
+    opens fr.bts.sio.resasync.model.dao.implementations to javafx.base;
+    opens fr.bts.sio.resasync.model.dao.interfaces to javafx.base;
+    opens fr.bts.sio.resasync.util to javafx.base;
 
-    opens fr.bts.sio.resasync.model.entity to com.fasterxml.jackson.databind;
 }

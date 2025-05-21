@@ -6,7 +6,7 @@ import com.lowagie.text.pdf.PdfWriter;
 import fr.bts.sio.resasync.model.dao.implementations.ReservationDAOImpl;
 import fr.bts.sio.resasync.model.entity.Reservation;
 import fr.bts.sio.resasync.model.entity.Session;
-import fr.bts.sio.resasync.util.Methods; // Import de la classe utilitaire Methods
+import fr.bts.sio.resasync.util.Methods; // classe utilitaire Methods
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;

@@ -131,7 +131,7 @@ public class ConstantesDAOImpl implements ConstantesDAO {
 
     @Override
     public void delete(Constantes constantes) {
-        String sql = "DELETE FROM constante WHERE idconstante = ?;";
+        String sql = "DELETE FROM constantes WHERE idconstante = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -159,11 +159,15 @@ public class ConstantesDAOImpl implements ConstantesDAO {
         }
     }
 
+    /**
+     * permet d'updater la dernière constante en bdd
+     * @param libelle
+     */
     @Override
     public void updateLastConstante(String libelle) {
         LocalDate today = LocalDate.now();
         java.sql.Date date = Methods.convertLocalDateToDate(today);
-        String sql = "UPDATE constante SET datefin = ? WHERE libelle = ? AND datefin is null;";
+        String sql = "UPDATE constantes SET datefin = ? WHERE libelle = ? AND datefin is null;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
