@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import fr.bts.sio.resasync.config.ConfigManager;
 
 public class FacturationController {
 
@@ -87,8 +88,7 @@ public class FacturationController {
         }
     }
     public double calculMontantHebergement(Reservation reservation) {
-        //TODO Prendre prix depuis le JACKSON
-        double prixChambre = 62.0;
+        double prixChambre = Double.parseDouble(ConfigManager.getConstanteByLibelle("prixBaseChambre").getValeur());
         int nbrPersonnes = reservation.getNbrPersonnes();
         int nbrChambre = reservation.getNbrChambre();
 
@@ -96,8 +96,9 @@ public class FacturationController {
         double prixPersSupplementaires = 0;  // Initialise hors du if
 
         if (nbrPersonnes > nbrChambre) {
+            double pourcentagePersSupp = Double.parseDouble(ConfigManager.getConstanteByLibelle("pourcentagePersonneSupp").getValeur());
             int persSupplementaires = nbrPersonnes - nbrChambre;
-            prixPersSupplementaires = persSupplementaires * prixChambre * 0.1;
+            prixPersSupplementaires = persSupplementaires * prixChambre * pourcentagePersSupp;
             System.out.println("Il y a un supplément ! NbrPersonnes = " + nbrPersonnes + ", NbrChambre = " + nbrChambre);
         }
         return prixTotalChambre + prixPersSupplementaires;
@@ -117,8 +118,7 @@ public class FacturationController {
     }
 
     public double calculTaxeSejour(Reservation reservation){
-        //TODO Récupérer valeur de JACKSON
-        double taxeSejour = 0.9;
+        double taxeSejour = Double.parseDouble(ConfigManager.getConstanteByLibelle("taxeSejour").getValeur());
         int nbrPersonne = reservation.getNbrPersonnes();
         LocalDate dateDebutSejour = reservation.getDateDebut();
         LocalDate dateFinSejour = reservation.getDateFin();
@@ -131,8 +131,7 @@ public class FacturationController {
     }
 
     public double calculMontantTTC(Reservation reservation){
-        //TODO récupérer TVA de JACKSON
-        double TVA = 0.10;
+        double TVA = Double.parseDouble(ConfigManager.getConstanteByLibelle("TVA").getValeur());
         double montantTotalTTC = calculMontantHT(reservation) * (1+TVA) + calculTaxeSejour(reservation);
         return montantTotalTTC;
     }
