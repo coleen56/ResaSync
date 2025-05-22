@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
@@ -92,8 +93,16 @@
                         <Tab text="Statistiques">
                            <content>
                               <AnchorPane>
-                                 <!-- Contenu des statistiques à ajouter ici -->
-                              </AnchorPane>
+                                 <children>
+                                    <BarChart layoutX="3.0" layoutY="-8.0" prefHeight="400.0" prefWidth="1080.0">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </BarChart>
+                                 </children></AnchorPane>
                            </content>
                         </Tab>
                      </tabs>
