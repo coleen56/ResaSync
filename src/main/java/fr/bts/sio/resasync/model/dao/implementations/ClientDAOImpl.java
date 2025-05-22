@@ -69,29 +69,11 @@ public class ClientDAOImpl implements ClientDAO {
         }
     }
 
-
     @Override
     public void update(Client client) {
-        String sql = "UPDATE Client SET nom = ?, prenom = ?, tel = ?, email = ?, datenaissance = ?, " +
-                "idadressefacturation = ? WHERE idclient = ?";
 
-        try (
-                Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)
-        ) {
-            stmt.setString(1, client.getNom());
-            stmt.setString(2, client.getPrenom());
-            stmt.setString(3, client.getTel());
-            stmt.setString(4, client.getEmail());
-            stmt.setDate(5, java.sql.Date.valueOf(client.getDateNaissance()));
-            stmt.setInt(6, client.getAdresseFacturation().getIdAdresseFacturation());
-            stmt.setInt(7, client.getIdClient());
-
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
+
 
     @Override
     public void delete(Client client) {
