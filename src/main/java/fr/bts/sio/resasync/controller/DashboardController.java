@@ -1,5 +1,6 @@
 package fr.bts.sio.resasync.controller;
 
+import fr.bts.sio.resasync.model.dao.implementations.FacturationDAOImpl;
 import fr.bts.sio.resasync.model.dao.implementations.ReservationDAOImpl;
 import fr.bts.sio.resasync.model.dao.interfaces.ReservationDAO;
 import fr.bts.sio.resasync.model.entity.Session;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 
 public class DashboardController {
     private ReservationDAOImpl resaDAO;
+    private FacturationDAOImpl factDAO;
 
     @FXML private Hyperlink lienReservations;
     @FXML private Hyperlink lienChambres;
@@ -20,6 +22,8 @@ public class DashboardController {
     @FXML
     public void initialize() {
         resaDAO = new ReservationDAOImpl();
+        factDAO = new FacturationDAOImpl();
+
         // rend l'onglet "configuration" accessible uniquement si l'user connecté est admin
         if(Session.getInstance().isAdmin()) {
             lienConfiguration.setDisable(false);
