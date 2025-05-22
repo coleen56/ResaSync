@@ -113,7 +113,8 @@ public class FacturationController {
         return montantTotalHT;
     }
     public double calculMontantTVA(Reservation reservation){
-        double montantTVA = calculMontantTTC(reservation)-calculMontantHT(reservation);
+        double taxeSejour = Double.parseDouble(ConfigManager.getConstanteByLibelle("taxeSejour").getValeur());
+        double montantTVA = calculMontantTTC(reservation)-calculMontantHT(reservation)-calculTaxeSejour(reservation);
         return montantTVA;
     }
 
@@ -127,7 +128,7 @@ public class FacturationController {
         int nbrNuitTotalInt = (int) nbrNuitTotal;
         double montantTotalTaxeSejour = taxeSejour * nbrPersonne * nbrNuitTotalInt;
 
-        return taxeSejour;
+        return montantTotalTaxeSejour;
     }
 
     public double calculMontantTTC(Reservation reservation){

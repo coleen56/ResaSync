@@ -2,14 +2,19 @@ package fr.bts.sio.resasync.controller;
 
 import fr.bts.sio.resasync.model.dao.implementations.ReservationDAOImpl;
 import fr.bts.sio.resasync.model.entity.Reservation;
-import fr.bts.sio.resasync.model.entity.Session;
 import fr.bts.sio.resasync.util.Methods;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,6 +72,7 @@ public class ReservationController {
     @FXML private TableColumn<Reservation, Integer> colLibelleStatut;
     @FXML private TableColumn<Reservation, Integer> colIdClient;
     @FXML private TableColumn<Reservation, Integer> colIdFacture;
+    @FXML private Button boutonDetailsFactuResa;
 
 
     // Onglet reservations "En cours"
@@ -170,6 +176,9 @@ public class ReservationController {
         reservationDAO = new ReservationDAOImpl();
 
         labelConfirmationSuppression.setVisible(false);
+        boutonDetailsFactuResa.disableProperty().bind(
+                tableViewToutesReservations.getSelectionModel().selectedItemProperty().isNull()
+        );
 
         configurerColonnesToutes();
         configurerColonnesEnCours();
@@ -555,6 +564,29 @@ public class ReservationController {
             tableViewReservationsConfirmees.getItems().remove(selected);
         } else {
             labelConfirmationSuppression.setText("Aucune réservation sélectionnée.");
+        }
+    }
+
+
+    //-------------------------------------------Pour envoyer sur modale Facturation---------------------------------------
+    @FXML
+    private void ouvrirFacturationModal() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/bts/sio/resasync/FacturationModal.fxml"));
+            Parent root = loader.load();
+
+            FacturationController controller = loader.getController();
+            //Récupération du Rendez-vous selectionné pour le passer à la modale facturation
+            Reservation selectedReservation = tableViewToutesReservations.getSelectionModel().getSelectedItem();
+            controller.initData(selectedReservation);
+            Stage stage = new Stage();
+            stage.setTitle("Facturation");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

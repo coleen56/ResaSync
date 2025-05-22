@@ -97,7 +97,7 @@
 
                                 <Separator GridPane.columnSpan="2" GridPane.rowIndex="3" />
 
-                                <Label text="TVA (10%) :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                <Label text="TVA :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                                 <Label fx:id="lblTVA" text="0.00 €" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
                                 <Label text="Taxe de séjour :" GridPane.columnIndex="0" GridPane.rowIndex="5" />
