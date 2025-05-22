@@ -135,7 +135,6 @@ public class ReservationController {
     @FXML private ComboBox<StatutReservation> comboStatutResa;
 
 
-
     // Champs du formulaire modification d'une reservation
     @FXML private Label modifierReservationMessage;
     @FXML private javafx.scene.control.Label labelAucuneSelection;
