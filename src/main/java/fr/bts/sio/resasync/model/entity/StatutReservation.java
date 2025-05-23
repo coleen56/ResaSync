@@ -1,5 +1,8 @@
 package fr.bts.sio.resasync.model.entity;
-
+/**
+ * Représente le statut d'une réservation (ex : Confirmée, Annulée, En attente, etc.).
+ * Cette classe contient un identifiant unique et un libellé descriptif du statut.
+ */
 public class StatutReservation {
 
     private int idStatutResa;

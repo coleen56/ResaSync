@@ -1,5 +1,8 @@
 package fr.bts.sio.resasync.model.entity;
-
+/**
+ * Représente un type de chambre (ex : Simple, Double, Suite, etc.).
+ * Cette classe contient un identifiant unique pour le type de chambre et un libellé descriptif.
+ */
 public class TypeChambre {
     private int idTypeChambre;
     private String libelle;

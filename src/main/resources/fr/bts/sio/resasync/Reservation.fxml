@@ -336,12 +336,10 @@
                                                     </VBox>
 
                                                     <!-- Options à droite -->
+                                                    <!-- Bloc des options à droite -->
                                                     <VBox prefWidth="300" spacing="15" style="-fx-border-color: #056861; -fx-border-radius: 5; -fx-padding: 10;">
                                                         <Label text="Libellé Option :" />
-                                                        <ComboBox fx:id="comboOptionLibelle" prefWidth="200">
-
-                                                        </ComboBox>
-
+                                                        <ComboBox fx:id="comboOptionLibelle" prefWidth="200"/>
                                                         <Label text="Quantité :" />
                                                         <ComboBox fx:id="comboOptionQuantite" prefWidth="100">
                                                             <items>
@@ -354,14 +352,18 @@
                                                             </items>
                                                         </ComboBox>
 
-                                                        <Label text="Nombre de nuits :" />
-                                                        <HBox spacing="10" alignment="CENTER_LEFT">
-                                                            <ComboBox fx:id="comboOptionNbJours" prefWidth="100"/>
-                                                            <Label fx:id="labelNbJoursInfo" text="" textFill="red"/>
 
-                                                        </HBox>
+                                                        <!-- Bouton pour ajouter l'option à la liste -->
+                                                        <Button text="Ajouter cette option" onAction="#ajouterOptionALaListe" />
 
-
+                                                        <!-- TableView pour afficher la liste des options ajoutées -->
+                                                        <TableView fx:id="tableOptions" prefHeight="150">
+                                                            <columns>
+                                                                <TableColumn fx:id="colLibelleOption" text="Libellé"/>
+                                                                <TableColumn fx:id="colQuantiteOption" text="Quantité"/>
+                                                                <TableColumn fx:id="colActionOption" text="Supprimer"/>
+                                                            </columns>
+                                                        </TableView>
                                                     </VBox>
 
                                                 </HBox>

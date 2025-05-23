@@ -2,7 +2,11 @@ package fr.bts.sio.resasync.model.entity;
 
 import java.time.LocalDate;
 import java.util.Date;
-
+/**
+ * Représente une constante métier utilisée dans l'application.
+ * Une constante possède un identifiant, un libellé, une valeur, ainsi que des dates de début et de fin de validité.
+ * Elle permet de gérer dynamiquement certains paramètres ou règles métier qui peuvent évoluer dans le temps.
+ */
 public class Constantes {
 
     private int idConstante;

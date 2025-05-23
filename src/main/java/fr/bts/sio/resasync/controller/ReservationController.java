@@ -10,6 +10,7 @@ import fr.bts.sio.resasync.model.entity.*;
 import fr.bts.sio.resasync.util.Methods;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -141,6 +142,20 @@ public class ReservationController {
     @FXML private ComboBox<Integer>  comboOptionQuantite;
     @FXML private ComboBox<Integer>  comboOptionNbJours;
     @FXML private Label labelNbJoursInfo;
+    @FXML
+    private TableView<OptionSelectionnee> tableOptions;
+
+    @FXML
+    private TableColumn<OptionSelectionnee, String> colLibelleOption;
+
+    @FXML
+    private TableColumn<OptionSelectionnee, Integer> colQuantiteOption;
+
+    @FXML
+    private TableColumn<OptionSelectionnee, Integer> colNbJoursOption;
+
+    @FXML
+    private TableColumn<OptionSelectionnee, Void> colActionOption; // Pour un bouton "Supprimer"
 
 
 
@@ -186,7 +201,12 @@ public class ReservationController {
         boutonDetailsFactuResa.disableProperty().bind(
                 tableViewToutesReservations.getSelectionModel().selectedItemProperty().isNull()
         );
-
+        colLibelleOption.setCellValueFactory(new PropertyValueFactory<>("libelle"));
+        colQuantiteOption.setCellValueFactory(new PropertyValueFactory<>("quantite"));
+        colNbJoursOption.setCellValueFactory(new PropertyValueFactory<>("nbJours"));
+// Colonne de bouton supprimer (à faire avec un cellFactory)
+        tableOptions.setItems(optionsAjoutees);
+        ajouterColonneSupprimer();
         configurerColonnesToutes();
         configurerColonnesEnCours();
         configurerColonnesTerminees();
@@ -406,13 +426,34 @@ public class ReservationController {
                     idEntreprise,
                     idStatutResa,
                     idClient,
-                    idFacture
+                    null
             );
 
             // Enregistrement
             reservationDAO.save(reservation);
 
+            // Ajout Des options
+// Ajout des options sélectionnées à la réservation
+            OptionReservationDAOImpl optionDAO = new OptionReservationDAOImpl();
+            ComprendDAOImpl comprendDAO = new ComprendDAOImpl();
+
+            for (OptionSelectionnee optSel : optionsAjoutees) {
+                // 1. Retrouver l'OptionReservation correspondante via le libellé
+                OptionReservation option = optionDAO.findByLibelle(optSel.getLibelle());
+                if (option != null) {
+                    // 2. Créer le lien Comprend (idReservation, idOption, quantite)
+                    Comprend comprend = new Comprend(
+                            reservation.getIdReservation(),
+                            option.getIdOption(),
+                            optSel.getQuantite()
+                            // Tu peux ajouter optSel.getNbJours() ici si tu ajoutes ce champ à Comprend
+                    );
+                    // 3. Enregistrer dans la base
+                    comprendDAO.save(comprend);
+                }
+            }
             // Mise à jour des tables
+            chargerToutesReservations();
             chargerToutesReservations();
 
             // Message de succès
@@ -430,6 +471,8 @@ public class ReservationController {
             comboEntreprise.setValue(null);
             comboClient.setValue(null);
             comboStatutResa.setValue(statutEnCours); // Réafficher "En cours"
+            optionsAjoutees.clear();
+
 
         } catch (NumberFormatException e) {
             ajouterReservationErreur.setText("Veuillez saisir uniquement des nombres valides.");
@@ -543,8 +586,43 @@ public class ReservationController {
             comboOptionNbJours.setDisable(true);
         }
     }
+    private ObservableList<OptionSelectionnee> optionsAjoutees = FXCollections.observableArrayList();
 
+    @FXML
+    private void ajouterOptionALaListe() {
+        String libelle = comboOptionLibelle.getValue();
+        Integer quantite = comboOptionQuantite.getValue();
+        Integer nbJours = comboOptionNbJours.getValue();
 
+        if(libelle != null && quantite != null && nbJours != null && quantite > 0) {
+            optionsAjoutees.add(new OptionSelectionnee(libelle, quantite));
+            // (Facultatif) Réinitialiser les champs
+        }
+    }
+
+    private void ajouterColonneSupprimer() {
+        colActionOption.setCellFactory(param -> new TableCell<OptionSelectionnee, Void>() {
+            private final Button btn = new Button("Supprimer");
+
+            {
+                btn.setOnAction(event -> {
+                    OptionSelectionnee option = getTableView().getItems().get(getIndex());
+                    getTableView().getItems().remove(option);
+                });
+                btn.setStyle("-fx-background-color: #c62828; -fx-text-fill: white; -fx-font-size: 10px;");
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(btn);
+                }
+            }
+        });
+    }
     //----------------------------------------Méthodes pour modifier une réservation------------------------------------------
     @FXML
     private void modifierReservation() {

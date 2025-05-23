@@ -7,4 +7,6 @@ public interface FacturationDAO {
     void save(Facturation facturation);
     void update(Facturation facturation);
     void delete(Facturation facturation);
+
+    int saveAndReturnId(Facturation facturation);
 }

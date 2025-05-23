@@ -1,7 +1,11 @@
 package fr.bts.sio.resasync.model.entity;
 
 import java.time.LocalDateTime;
-
+/**
+ * Singleton représentant la session courante d'un utilisateur connecté.
+ * Stocke le login, le niveau de droits et la date de connexion.
+ * Permet de vérifier si l'utilisateur est admin et de réinitialiser la session.
+ */
 public class Session {
     private static Session instance;
 

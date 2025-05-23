@@ -184,4 +184,13 @@ public class OptionReservationDAOImpl implements OptionReservationDAO {
 
         return listeOptions;
     }
+
+    public OptionReservation findByLibelle(String libelle) {
+        for (OptionReservation option : optionReservationsAll()) {
+            if (option.getLibelle().equalsIgnoreCase(libelle)) {
+                return option;
+            }
+        }
+        return null;
+    }
 }

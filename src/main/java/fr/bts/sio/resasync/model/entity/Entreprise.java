@@ -1,5 +1,11 @@
 package fr.bts.sio.resasync.model.entity;
 
+/**
+ * Représente une entreprise dans le système de réservation.
+ * Une entreprise possède une raison sociale, un numéro SIRET, un numéro de téléphone,
+ * une adresse email, et une adresse de facturation associée.
+ * Cette classe permet de stocker et manipuler les informations liées à une entreprise cliente.
+ */
 public class Entreprise {
     private int idEntreprise;
     private String raisonSociale;

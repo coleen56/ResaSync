@@ -1,5 +1,9 @@
 package fr.bts.sio.resasync.model.entity;
-
+/**
+ * Représente une option que l'on peut ajouter à une réservation.
+ * Une option de réservation possède un identifiant, un libellé descriptif et un prix unitaire.
+ * Cette classe permet de gérer les options disponibles lors du processus de réservation.
+ */
 public class OptionReservation {
     private int idOption;
     private String libelle;

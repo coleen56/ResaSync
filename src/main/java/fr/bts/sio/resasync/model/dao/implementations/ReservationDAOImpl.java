@@ -9,7 +9,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReservationDAOImpl implements ReservationDAO {
+    @Override
+    public Reservation findById(int id) {
+        String sql = "SELECT * FROM Reservation WHERE idReservation = ?";
 
+        try (
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Reservation reservation = new Reservation();
+                    reservation.setIdReservation(rs.getInt("idReservation"));
+                    reservation.setDateReservation(rs.getDate("dateReservation").toLocalDate());
+                    reservation.setDateDebut(rs.getDate("dateDebut").toLocalDate());
+                    reservation.setDateFin(rs.getDate("dateFin").toLocalDate());
+                    reservation.setNbrPersonnes(rs.getInt("nbrPersonnes"));
+                    reservation.setNbrChambre(rs.getInt("nbrChambre"));
+                    reservation.setIdEntreprise(rs.getInt("idEntreprise"));
+                    reservation.setIdStatutResa(rs.getInt("idStatutResa"));
+                    reservation.setIdClient(rs.getInt("idClient"));
+                    reservation.setIdFacture(rs.getInt("idFacture")); // si ce champ existe
+
+                    return reservation;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @Override
     public List<Reservation> findAll() {
@@ -71,7 +101,7 @@ public class ReservationDAOImpl implements ReservationDAO {
     @Override
     public void save(Reservation reservation) {
         String sql = "INSERT INTO reservation (dateReservation, dateDebut, dateFin, nbrPersonnes, nbrChambre, idEntreprise, idStatutResa, idClient, idFacture) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (
              Connection conn = DatabaseConnection.getConnection();
@@ -158,6 +188,21 @@ public class ReservationDAOImpl implements ReservationDAO {
 
         } catch (SQLException e) {
             System.err.println("Erreur lors de la suppression de la réservation numéro " + idReservation);
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateIdFacture(int idReservation, int idFacture) {
+        String sql = "UPDATE Reservation SET idFacture = ? WHERE idReservation = ?";
+        try (
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, idFacture);
+            stmt.setInt(2, idReservation);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

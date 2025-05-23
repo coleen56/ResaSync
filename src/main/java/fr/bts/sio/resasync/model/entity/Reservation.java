@@ -2,7 +2,10 @@ package fr.bts.sio.resasync.model.entity;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+/**
+ * Représente une réservation dans le système.
+ * Contient les informations relatives à la réservation : dates, nombre de personnes, chambres, client, entreprise, statut et facture associée.
+ */
 
 public class Reservation {
     private int idReservation;
@@ -22,7 +25,7 @@ public class Reservation {
 
 
 
-    public Reservation(int idReservation, LocalDate dateReservation, LocalDate dateDebut, LocalDate dateFin, int nbrPersonnes, int nbrChambre, int idEntreprise, int idStatutResa, int idClient, int idFacture) {
+    public Reservation(int idReservation, LocalDate dateReservation, LocalDate dateDebut, LocalDate dateFin, int nbrPersonnes, int nbrChambre, int idEntreprise, int idStatutResa, int idClient, Integer idFacture) {
         this.idReservation = idReservation;
         this.dateReservation = dateReservation;
         this.dateDebut = dateDebut;

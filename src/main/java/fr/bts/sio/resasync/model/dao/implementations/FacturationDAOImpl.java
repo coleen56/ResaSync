@@ -4,10 +4,7 @@ import fr.bts.sio.resasync.model.dao.interfaces.FacturationDAO;
 import fr.bts.sio.resasync.model.entity.Facturation;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 import static fr.bts.sio.resasync.util.Methods.javaDateToSqlDate;
 
@@ -63,7 +60,6 @@ public class FacturationDAOImpl implements FacturationDAO {
             stmt = conn.prepareStatement(sql);
 
             stmt.setDouble(1, facturation.getTotalFacture());
-
             stmt.setDate(2, javaDateToSqlDate(facturation.getDateFacturation()));// conversion de java date a sql date
             stmt.setInt(3, facturation.getIdStatutFacture());
             stmt.setInt(4, facturation.getIdClient());
@@ -151,5 +147,30 @@ public class FacturationDAOImpl implements FacturationDAO {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public int saveAndReturnId(Facturation facturation) {
+        String sql = "INSERT INTO facturation(totalfacture, datefacturation, idstatutfacture, idclient) VALUES (?, ?, ?, ?)";
+        int generatedId = -1;
+        try (
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        ) {
+            stmt.setDouble(1, facturation.getTotalFacture());
+            stmt.setDate(2, javaDateToSqlDate(facturation.getDateFacturation()));
+            stmt.setInt(3, facturation.getIdStatutFacture());
+            stmt.setInt(4, facturation.getIdClient());
+            stmt.executeUpdate();
+
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    generatedId = rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return generatedId;
     }
 }

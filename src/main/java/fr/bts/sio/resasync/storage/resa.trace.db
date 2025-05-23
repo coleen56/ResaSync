@@ -6250,3 +6250,7 @@ SELECT COUNT (idchambre) FROM chambre JOIN relie ON chambre.idchambre = relie.id
 	at org.h2.server.web.WebThread.process(WebThread.java:188)
 	at org.h2.server.web.WebThread.run(WebThread.java:101)
 	at java.base/java.lang.Thread.run(Thread.java:1570)
+2025-05-23 15:03:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "INSERT INTO reservation (dateReservation, dateDebut, dateFin, nbrPersonnes, nbrChambre, idEntreprise, idStatutResa, idClient, idFacture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?[*]"; attendu "[, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"
+Syntax error in SQL statement "INSERT INTO reservation (dateReservation, dateDebut, dateFin, nbrPersonnes, nbrChambre, idEntreprise, idStatutResa, idClient, idFacture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?[*]"; expected "[, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"; SQL statement:
+INSERT INTO reservation (dateReservation, dateDebut, dateFin, nbrPersonnes, nbrChambre, idEntreprise, idStatutResa, idClient, idFacture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? [42001-220]
