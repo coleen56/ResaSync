@@ -2,14 +2,14 @@ package fr.bts.sio.resasync.model.dao.implementations;
 
 import fr.bts.sio.resasync.model.dao.interfaces.OptionReservationDAO;
 import fr.bts.sio.resasync.model.entity.OptionReservation;
-import fr.bts.sio.resasync.model.entity.Utilisateur;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OptionReservationDAOImpl implements OptionReservationDAO {
 
@@ -145,5 +145,43 @@ public class OptionReservationDAOImpl implements OptionReservationDAO {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public List<OptionReservation> optionReservationsAll() {
+        String sql = "SELECT * FROM optionreservation";
+        List<OptionReservation> listeOptions = new ArrayList<>();
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                OptionReservation option = new OptionReservation(
+                        rs.getDouble("prixUnitaire"),
+                        rs.getString("libelle"),
+                        rs.getInt("idOption")
+                );
+                listeOptions.add(option);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur lors de la récupération des options de réservation", e);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return listeOptions;
     }
 }

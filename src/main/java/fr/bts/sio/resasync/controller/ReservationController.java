@@ -1,10 +1,7 @@
 package fr.bts.sio.resasync.controller;
 
-import fr.bts.sio.resasync.model.dao.implementations.ReservationDAOImpl;
+import fr.bts.sio.resasync.model.dao.implementations.*;
 import fr.bts.sio.resasync.model.entity.Reservation;
-import fr.bts.sio.resasync.model.dao.implementations.EntrepriseDAOImpl;
-import fr.bts.sio.resasync.model.dao.implementations.ClientDAOImpl;
-import fr.bts.sio.resasync.model.dao.implementations.StatutReservationDAOImpl;
 import fr.bts.sio.resasync.model.dao.interfaces.EntrepriseDAO;
 import fr.bts.sio.resasync.model.dao.interfaces.ClientDAO;
 import fr.bts.sio.resasync.model.dao.interfaces.StatutReservationDAO;
@@ -140,6 +137,10 @@ public class ReservationController {
     @FXML private ComboBox<Entreprise> comboEntreprise;
     @FXML private ComboBox<Client> comboClient;
     @FXML private ComboBox<StatutReservation> comboStatutResa;
+    @FXML private ComboBox<String>  comboOptionLibelle;
+    @FXML private ComboBox<Integer>  comboOptionQuantite;
+    @FXML private ComboBox<Integer>  comboOptionNbJours;
+    @FXML private Label labelNbJoursInfo;
 
 
 
@@ -176,8 +177,12 @@ public class ReservationController {
     @FXML
     public void initialize() {
         reservationDAO = new ReservationDAOImpl();
-
+        chargerLibelleOptions();
+        dateDebutPicker.valueProperty().addListener((obs, oldDate, newDate) -> updateComboBoxNbJours());
+        dateFinPicker.valueProperty().addListener((obs, oldDate, newDate) -> updateComboBoxNbJours());
         labelConfirmationSuppression.setVisible(false);
+//        labelNbJoursInfo.setText("Veuillez sélectionner des dates de séjour.");
+        comboOptionNbJours.setDisable(true);
         boutonDetailsFactuResa.disableProperty().bind(
                 tableViewToutesReservations.getSelectionModel().selectedItemProperty().isNull()
         );
@@ -501,6 +506,43 @@ public class ReservationController {
         }
     }
 
+    private void chargerLibelleOptions() {
+        OptionReservationDAOImpl optionsDAO = new OptionReservationDAOImpl();
+        List<OptionReservation> options = optionsDAO.optionReservationsAll();
+
+        // Extraire uniquement les libellés
+        List<String> libelles = options.stream()
+                .map(OptionReservation::getLibelle)
+                .collect(Collectors.toList());
+
+        comboOptionLibelle.setItems(FXCollections.observableArrayList(libelles));
+    }
+
+
+    private void updateComboBoxNbJours() {
+        LocalDate dateDebut = dateDebutPicker.getValue();
+        LocalDate dateFin = dateFinPicker.getValue();
+
+        comboOptionNbJours.getItems().clear();
+
+        if (dateDebut != null && dateFin != null && !dateFin.isBefore(dateDebut)) {
+            int nbJours = (int) (java.time.temporal.ChronoUnit.DAYS.between(dateDebut, dateFin));
+            if (nbJours > 0) {
+                for (int i = 1; i <= nbJours; i++) {
+                    comboOptionNbJours.getItems().add(i);
+                }
+                comboOptionNbJours.setValue(1);
+                labelNbJoursInfo.setText("");
+                comboOptionNbJours.setDisable(false);
+            } else {
+                labelNbJoursInfo.setText("La date de fin doit être après la date de début.");
+                comboOptionNbJours.setDisable(true);
+            }
+        } else {
+            labelNbJoursInfo.setText("Veuillez sélectionner des dates de séjour.");
+            comboOptionNbJours.setDisable(true);
+        }
+    }
 
 
     //----------------------------------------Méthodes pour modifier une réservation------------------------------------------
