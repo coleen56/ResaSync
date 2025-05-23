@@ -1,11 +1,19 @@
 package fr.bts.sio.resasync.model.entity;
-
+/**
+ * Représente un niveau de droits ou de permissions attribué à un utilisateur dans le système.
+ * Un niveau de droits est caractérisé par un identifiant unique et un libellé descriptif.
+ * Cette classe permet de gérer les différents rôles ou niveaux d'accès des utilisateurs.
+ */
 public class NiveauDroits {
     private int idNiveau;
     private String libelle;
 
     public NiveauDroits(int idNiveau, String libelle){
         this.idNiveau = idNiveau;
+        this.libelle = libelle;
+    }
+
+    public NiveauDroits(String libelle) {
         this.libelle = libelle;
     }
 

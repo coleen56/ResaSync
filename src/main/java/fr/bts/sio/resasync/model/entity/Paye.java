@@ -1,5 +1,9 @@
 package fr.bts.sio.resasync.model.entity;
-
+/**
+ * Représente un paiement effectué sur une facture.
+ * Cette classe contient l'identifiant de la facture, l'identifiant du type de paiement utilisé,
+ * ainsi que le montant payé.
+ */
 public class Paye {
 
     private int idFacture;

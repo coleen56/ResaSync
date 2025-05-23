@@ -1,29 +1,41 @@
 package fr.bts.sio.resasync.model.entity;
-
+/**
+ * Représente un utilisateur de l'application.
+ * Contient les informations de connexion et d'identité, ainsi que le niveau d'accès.
+ */
 public class Utilisateur {
-    private int id;
+    private int idUtilisateur;
     private String login;
     private String pwd;
     private String nom;
     private String prenom;
     private int idNiveau;
 
-    public Utilisateur (int id, String login, String pwd, String nom, String prenom, int idNiveau){
-        this.id = id;
+    public Utilisateur (int idutilisateur, String login, String pwd, String nom, String prenom, int idNiveau){
+        this.idUtilisateur = idutilisateur;
         this.login = login;
         this.pwd = pwd;
         this.nom = nom;
         this.prenom = prenom;
         this.idNiveau = idNiveau;
     }
+
+    public Utilisateur(String login, String pwd, String nom, String prenom, int idNiveau) {
+        this.login = login;
+        this.pwd = pwd;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.idNiveau = idNiveau;
+    }
+
     // Getters and Setters
 
     public int getId() {
-        return id;
+        return idUtilisateur;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idUtilisateur = id;
     }
 
     public String getLogin() {
@@ -67,4 +79,15 @@ public class Utilisateur {
     }
 
 
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "idUtilisateur=" + idUtilisateur +
+                ", login='" + login + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", idNiveau=" + idNiveau +
+                '}';
+    }
 }

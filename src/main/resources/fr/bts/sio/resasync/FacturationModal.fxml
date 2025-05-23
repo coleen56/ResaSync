@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.bts.sio.resasync.controller.FacturationController">
+    <children>
+        <ScrollPane fitToWidth="true">
+            <content>
+                <VBox spacing="20" style="-fx-background-color: #f0f9f7; -fx-padding: 20; -fx-background-radius: 8;">
+                    <children>
+                        <!-- Titre de la section -->
+                        <Label text="Facturation" textFill="#056861">
+                            <font>
+                                <Font name="Segoe UI Bold" size="22.0" />
+                            </font>
+                            <effect>
+                                <DropShadow>
+                                    <color>
+                                        <Color opacity="0.15" />
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </Label>
+
+                        <!-- Informations de la réservation -->
+                        <TitledPane expanded="true" style="-fx-font-weight: bold;" text="Détails de la facturation">
+                            <VBox spacing="15">
+                                <GridPane hgap="15" vgap="12">
+                                    <columnConstraints>
+                                        <ColumnConstraints minWidth="180" />
+                                        <ColumnConstraints minWidth="200" />
+                                    </columnConstraints>
+
+                                    <Label text="Numéro de réservation :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblNumeroReservation" style="-fx-font-weight: bold;" text="--" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                                    <Label text="Client :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Label fx:id="lblNomClient" style="-fx-font-weight: bold;" text="--" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                    <Label text="Nombre de chambres :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblNbChambres" style="-fx-font-weight: bold;" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                                    <Label text="Nombre de personnes :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Label fx:id="lblNbPersonnes" style="-fx-font-weight: bold;" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                                    <Label text="Période de séjour :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                    <Label fx:id="lblPeriodeSejour" style="-fx-font-weight: bold;" text="-- au --" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                           </rowConstraints>
+                                </GridPane>
+                            </VBox>
+                        </TitledPane>
+
+                        <!-- Options et suppléments -->
+                        <TitledPane expanded="true" style="-fx-font-weight: bold;" text="Options et suppléments">
+                            <VBox spacing="10">
+                                <HBox alignment="CENTER_LEFT" spacing="10" />
+
+                                <TableView fx:id="tableOptions" prefHeight="120">
+                                    <columns>
+                                        <TableColumn fx:id="colOptionDescription" prefWidth="250" text="Description" />
+                                        <TableColumn fx:id="colOptionQuantite" prefWidth="100" text="Quantité" />
+                                        <TableColumn fx:id="colOptionPrixUnitaire" prefWidth="100" text="Prix unitaire (€)" />
+                                    </columns>
+                                </TableView>
+                            </VBox>
+                        </TitledPane>
+
+                        <!-- Détails du calcul -->
+                        <TitledPane expanded="true" style="-fx-font-weight: bold;" text="Détails du montant">
+                            <GridPane hgap="15" vgap="10">
+                                <columnConstraints>
+                                    <ColumnConstraints halignment="RIGHT" minWidth="180" />
+                                    <ColumnConstraints halignment="RIGHT" minWidth="120" />
+                                </columnConstraints>
+
+                                <Label text="Montant chambre(s) :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <Label fx:id="lblMontantChambres" text="0.00 €" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                                <Label text="Montant options :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <Label fx:id="lblMontantOptions" text="0.00 €" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                <Label style="-fx-font-weight: bold;" text="Total HT :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <Label fx:id="lblTotalHT" style="-fx-font-weight: bold;" text="0.00 €" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                                <Separator GridPane.columnSpan="2" GridPane.rowIndex="3" />
+
+                                <Label text="TVA :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                <Label fx:id="lblTVA" text="0.00 €" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                                <Label text="Taxe de séjour :" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                <Label fx:id="lblTaxeSejour" text="0.00 €" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                                <Rectangle fill="#f0f9f7" height="2" stroke="#056861" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+
+                                <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="TOTAL TTC :" textFill="#056861" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                                <Label fx:id="lblTotalTTC" style="-fx-font-weight: bold; -fx-font-size: 14px;" text="0.00 €" textFill="#056861" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <rowConstraints>
+                           <RowConstraints />
+                           <RowConstraints />
+                           <RowConstraints />
+                           <RowConstraints />
+                           <RowConstraints />
+                           <RowConstraints />
+                           <RowConstraints />
+                           <RowConstraints />
+                        </rowConstraints>
+                            </GridPane>
+                        </TitledPane>
+
+                        <!-- Méthode de paiement -->
+                        <TitledPane expanded="true" style="-fx-font-weight: bold;" text="Méthode de paiement">
+                            <VBox spacing="10">
+                                <RadioButton fx:id="radioCarteBancaire" selected="true" text="Carte bancaire">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="methodePaiement" />
+                                    </toggleGroup>
+                                </RadioButton>
+                                <RadioButton fx:id="radioEspeces" text="Espèces" toggleGroup="$methodePaiement" />
+                                <RadioButton fx:id="radioVirement" text="Virement bancaire" toggleGroup="$methodePaiement" />
+                                <RadioButton fx:id="radioFacturation" text="Facturation entreprise" toggleGroup="$methodePaiement" />
+                            </VBox>
+                        </TitledPane>
+
+                        <!-- Boutons d'action -->
+                        <HBox alignment="CENTER_RIGHT" spacing="15">
+
+                            <Button fx:id="btnEnregistrer" style="-fx-background-color: #7f8c8d; -fx-text-fill: white;" text="Enregistrer brouillon">
+                                <font>
+                                    <Font name="Segoe UI" size="14.0" />
+                                </font>
+                                <padding>
+                                    <Insets bottom="8" left="15" right="15" top="8" />
+                                </padding>
+                            </Button>
+                            <Button fx:id="btnValiderFacturation" onAction="#validerFacturation" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Valider la facturation">
+                                <font>
+                                    <Font name="Segoe UI Bold" size="14.0" />
+                                </font>
+                                <padding>
+                                    <Insets bottom="8" left="15" right="15" top="8" />
+                                </padding>
+                            </Button>
+                        </HBox>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

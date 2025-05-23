@@ -1,3 +1,4 @@
+
 module fr.bts.sio.resasync {
     requires javafx.controls;
     requires javafx.fxml;
@@ -10,10 +11,24 @@ module fr.bts.sio.resasync {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
-    requires java.sql;
     requires com.h2database;
+    requires jbcrypt;
+    requires com.github.librepdf.openpdf;
+    requires com.fasterxml.jackson.datatype.jsr310;
+    requires com.fasterxml.jackson.databind;
+    requires java.sql;
+
+    exports fr.bts.sio.resasync;
+    exports fr.bts.sio.resasync.config;
+    exports fr.bts.sio.resasync.controller to javafx.fxml;
 
     opens fr.bts.sio.resasync to javafx.fxml;
-    exports fr.bts.sio.resasync;
+    opens fr.bts.sio.resasync.controller to javafx.fxml;
+    opens fr.bts.sio.resasync.config to com.fasterxml.jackson.databind;
+    opens fr.bts.sio.resasync.model.entity to javafx.base, com.fasterxml.jackson.databind;
+
+    opens fr.bts.sio.resasync.model.dao.implementations to javafx.base;
+    opens fr.bts.sio.resasync.model.dao.interfaces to javafx.base;
+    opens fr.bts.sio.resasync.util to javafx.base;
 
 }

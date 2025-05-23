@@ -1,5 +1,8 @@
 package fr.bts.sio.resasync.model.entity;
-
+/**
+ * Représente le statut d'une chambre (ex: Disponible, Occupée, En nettoyage, etc.).
+ * Contient un identifiant unique et un libellé descriptif du statut.
+ */
 public class StatutChambre {
     private int idStatutChambre;
     private String libelle;

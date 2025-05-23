@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="857.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.bts.sio.resasync.controller.ConfigurationController">
+    <children>
+        <VBox prefHeight="857.0" prefWidth="1280.0">
+            <children>
+                <AnchorPane prefHeight="832.0" prefWidth="1280.0">
+                    <children>
+                        <HBox prefHeight="79.0" prefWidth="1280.0" style="-fx-background-color: #d1f2eb;">
+                            <children>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <Hyperlink fx:id="lienDashboard" layoutX="36.0" layoutY="21.0" onAction="#allerADashboard" text="Dashboard">
+                                            <font>
+                                                <Font name="Segoe UI Bold" size="22.0" />
+                                            </font>
+                                        </Hyperlink>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <Hyperlink fx:id="lienReservations" layoutX="27.0" layoutY="21.0" onAction="#allerAReservation" text="Réservations">
+                                            <font>
+                                                <Font name="Segoe UI Bold" size="22.0" />
+                                            </font>
+                                        </Hyperlink>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <Hyperlink fx:id="lienChambres" layoutX="44.0" layoutY="21.0" onAction="#allerAChambre" text="Chambres">
+                                            <font>
+                                                <Font name="Segoe UI Bold" size="21.0" />
+                                            </font>
+                                        </Hyperlink>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="242.0">
+                                    <children>
+                                        <Hyperlink fx:id="lienClients" disable="false" layoutX="46.0" layoutY="21.0" onAction="#allerAClient" text="Clients">
+                                            <font>
+                                                <Font name="Segoe UI Bold" size="21.0" />
+                                            </font>
+                                        </Hyperlink>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="0.0" prefWidth="442.0">
+                                    <children>
+                                        <Hyperlink fx:id="lienDeconnexion" layoutX="276.0" layoutY="21.0" onAction="#Deconnexion" text="Déconnexion">
+                                            <font>
+                                                <Font name="Segoe UI Bold" size="21.0" />
+                                            </font>
+                                        </Hyperlink>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </HBox>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="500.0" layoutY="114.0" text="Configuration" textAlignment="CENTER" textFill="#056861">
+                            <font>
+                                <Font name="Segoe UI" size="46.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="CROSSHAIR" />
+                            </cursor>
+                            <effect>
+                                <DropShadow>
+                                    <color>
+                                        <Color opacity="0.14885495603084564" />
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </Label>
+                  <VBox layoutY="250.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="1280.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0">
+                           <children>
+                              <VBox prefHeight="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="30.0" text="TVA : ">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </Label>
+                                    <HBox alignment="CENTER" prefHeight="150.0" spacing="10.0">
+                                       <children>
+                                          <TextField fx:id="TVAvalue" disable="true" text="">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button fx:id="TVAmodifButton" mnemonicParsing="false" onAction="#allowModif" text="Modifier">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Button>
+                                           <Button fx:id="TVAvalidateButton" disable="true" mnemonicParsing="false" onAction="#updateVal" text="Valider">
+                                               <HBox.margin>
+                                                   <Insets />
+                                               </HBox.margin>
+                                           </Button>
+                                       </children>
+
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="30.0" text="\% par personne supp. :">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </Label>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="150.0" spacing="10.0">
+                                       <children>
+                                          <TextField fx:id="PersSuppValue" disable="true" text="">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button fx:id="PersSuppModifButton" mnemonicParsing="false" onAction="#allowModif" text="Modifier">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button fx:id="PersSuppValidateButton" disable="true" mnemonicParsing="false" onAction="#updateVal" text="Valider">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0">
+                             <children>
+                              <VBox layoutX="640.0" layoutY="10.0" prefHeight="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="30.0" text="Prix unitaire chambre :">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </Label>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" spacing="10.0">
+                                       <children>
+                                               <TextField fx:id="PrixChValue" disable="true" text="">
+                                                   <HBox.margin>
+                                                       <Insets />
+                                                   </HBox.margin>
+                                               </TextField>
+                                               <Button fx:id="PrixChModifButton" mnemonicParsing="false" onAction="#allowModif" text="Modifier">
+                                                   <HBox.margin>
+                                                       <Insets />
+                                                   </HBox.margin>
+                                               </Button>
+                                               <Button fx:id="PrixChValidateButton" disable="true" mnemonicParsing="false" onAction="#updateVal" text="Valider" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0">
+                                 <children>
+                                         <Label alignment="CENTER" prefHeight="30.0" text="Taxe de séjour : ">
+                                             <font>
+                                                 <Font size="20.0" />
+                                             </font>
+                                             <cursor>
+                                                 <Cursor fx:constant="DEFAULT" />
+                                             </cursor>
+                                         </Label>
+                                       <HBox alignment="CENTER_LEFT" prefHeight="100.0">
+                                           <children>
+                                               <TextField fx:id="TSvalue" disable="true" text="" />
+                                               <Button fx:id="TSmodifButton" mnemonicParsing="false" onAction="#allowModif" text="Modifier">
+                                                   <HBox.margin>
+                                                       <Insets left="10.0" />
+                                                   </HBox.margin>
+                                               </Button>
+                                               <Button fx:id="TSvalidateButton" disable="true" mnemonicParsing="false" onAction="#updateVal" text="Valider">
+                                                   <HBox.margin>
+                                                       <Insets left="10.0" />
+                                                   </HBox.margin>
+                                               </Button>
+                                           </children>
+      
+                                       </HBox>
+                                 </children>
+                              </VBox>
+                             </children>
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                         </HBox>
+                     </children>
+                  </VBox>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

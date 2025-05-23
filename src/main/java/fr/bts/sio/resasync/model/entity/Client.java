@@ -1,7 +1,13 @@
 package fr.bts.sio.resasync.model.entity;
 
+import java.sql.Date;
 import java.time.LocalDate;
-
+/**
+ * Représente un client du système de réservation.
+ * Un client possède des informations personnelles ainsi qu'une adresse de facturation associée.
+ * Les informations stockées incluent l'identifiant du client, le nom, le prénom, le numéro de téléphone,
+ * l'adresse email, la date de naissance et une adresse de facturation.
+ */
 public class Client {
     private int idClient;
     private String nom;
@@ -9,20 +15,36 @@ public class Client {
     private String tel;
     private String email;
     private LocalDate dateNaissance;
-    private int idEntreprise;
-    private int idAdresseFacturation;
+    private AdresseFacturation AdresseFacturation;
 
-    public Client (int idClient, String nom, String prenom, String tel, String email,LocalDate dateNaissance, int idEntreprise, int idAdresseFacturation){
+    public Client (int idClient, String nom, String prenom, String tel, String email,LocalDate dateNaissance, AdresseFacturation AdresseFacturation){
         this.idClient = idClient;
         this.nom = nom;
+        this.prenom = prenom;
         this.tel = tel;
         this.email = email;
         this.dateNaissance = dateNaissance;
-        this.idEntreprise = idEntreprise;
-        this.idAdresseFacturation = idAdresseFacturation;
+        this.AdresseFacturation = AdresseFacturation;
     }
 
-    //getters and setters
+    public Client(int idClient,String nom, String prenom, String tel, String email, LocalDate dateNaissance) {
+        this.idClient = idClient;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.tel = tel;
+        this.email = email;
+        this.dateNaissance = dateNaissance;
+    }
+
+    public Client(String nom, String prenom, String tel, String email, LocalDate dateNaissance,AdresseFacturation adresseFacturation) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.tel = tel;
+        this.email = email;
+        this.dateNaissance = dateNaissance;
+        this.AdresseFacturation = adresseFacturation ;
+    }
+
 
     public int getIdClient() {
         return idClient;
@@ -72,23 +94,13 @@ public class Client {
         this.dateNaissance = dateNaissance;
     }
 
-    public int getIdEntreprise() {
-        return idEntreprise;
+    public fr.bts.sio.resasync.model.entity.AdresseFacturation getAdresseFacturation() {
+        return AdresseFacturation;
     }
 
-    public void setIdEntreprise(int idEntreprise) {
-        this.idEntreprise = idEntreprise;
+    public void setAdresseFacturation(fr.bts.sio.resasync.model.entity.AdresseFacturation adresseFacturation) {
+        AdresseFacturation = adresseFacturation;
     }
-
-    public int getIdNiveau() {
-        return idAdresseFacturation;
-    }
-
-    public void setIdNiveau(int idNiveau) {
-        this.idAdresseFacturation = idAdresseFacturation;
-    }
-
-    // toString
 
     @Override
     public String toString() {
@@ -98,9 +110,8 @@ public class Client {
                 ", prenom='" + prenom + '\'' +
                 ", tel='" + tel + '\'' +
                 ", email='" + email + '\'' +
-                ", dateNaissance=" + dateNaissance +
-                ", idEntreprise=" + idEntreprise +
-                ", idNiveau=" + idAdresseFacturation +
+                ", dateNaissance='" + dateNaissance + '\'' +
+                ", AdresseFacturation=" + AdresseFacturation +
                 '}';
     }
 }

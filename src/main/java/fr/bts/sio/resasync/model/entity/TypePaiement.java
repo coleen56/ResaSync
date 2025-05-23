@@ -1,5 +1,8 @@
 package fr.bts.sio.resasync.model.entity;
-
+/**
+ * Représente un type de paiement (ex : Carte bancaire, Espèces, Chèque, etc.).
+ * Cette classe contient un identifiant unique pour le type de paiement et un libellé descriptif.
+ */
 public class TypePaiement {
 
     private int idTypePaiement;

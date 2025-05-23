@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.geometry.Insets?>
+
+<?import java.lang.String?>
+<AnchorPane prefHeight="857.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.bts.sio.resasync.controller.ReservationController">
+    <children>
+        <!-- Barre de navigation -->
+        <HBox prefHeight="79.0" prefWidth="1280.0" style="-fx-background-color: #d1f2eb;">
+            <children>
+                <AnchorPane prefWidth="200.0">
+                    <children>
+                        <Hyperlink fx:id="lienDashboard" layoutX="36.0" layoutY="21.0" onAction="#allerADashboard" text="Dashboard">
+                            <font><Font name="Segoe UI Bold" size="22.0"/></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefWidth="200.0">
+                    <children>
+                        <Hyperlink fx:id="lienReservation" disable="true" layoutX="31.0" layoutY="21.0" onAction="#allerAReservation" text="Réservations">
+                            <font><Font name="Segoe UI Bold" size="21.0"/></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefWidth="200.0">
+                    <children>
+                        <Hyperlink fx:id="lienClients" layoutX="58.0" layoutY="21.0" onAction="#allerAClient" text="Clients">
+                            <font><Font name="Segoe UI Bold" size="22.0"/></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefWidth="242.0">
+                    <children>
+                        <Hyperlink fx:id="lienConfiguration" layoutX="46.0" layoutY="21.0" onAction="#allerAConfiguration" text="Configuration">
+                            <font><Font name="Segoe UI Bold" size="21.0"/></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefWidth="442.0">
+                    <children>
+                        <Hyperlink fx:id="lienDeconnexion" layoutX="276.0" layoutY="21.0" onAction="#Deconnexion" text="Déconnexion">
+                            <font><Font name="Segoe UI Bold" size="21.0"/></font>
+                        </Hyperlink>
+                    </children>
+                </AnchorPane>
+            </children>
+        </HBox>
+
+        <!-- Titre -->
+        <Label layoutX="503.0" layoutY="102.0" text="Réservations" textFill="#056861">
+            <font><Font name="Segoe UI" size="46.0"/></font>
+            <effect>
+                <DropShadow>
+                    <color><Color opacity="0.15"/></color>
+                </DropShadow>
+            </effect>
+        </Label>
+
+        <!-- Tableau des réservations -->
+        <TableView fx:id="tableReservations" layoutX="25.0" layoutY="170.0" prefHeight="400.0" prefWidth="800.0">
+            <columns>
+                <TableColumn fx:id="colIdReservation" prefWidth="0.0" text="ID" visible="false"/>
+                <TableColumn fx:id="colClient" prefWidth="200.0" text="Client"/>
+                <TableColumn fx:id="colDateDebut" prefWidth="120.0" text="Date d'arrivée"/>
+                <TableColumn fx:id="colDateFin" prefWidth="120.0" text="Date de départ"/>
+                <TableColumn fx:id="colChambres" prefWidth="160.0" text="Chambres"/>
+                <TableColumn fx:id="colStatut" prefWidth="120.0" text="Statut"/>
+                <TableColumn fx:id="colMontant" prefWidth="100.0" text="Montant"/>
+            </columns>
+        </TableView>
+
+        <!-- Filtres pour la recherche -->
+        <VBox layoutX="25.0" layoutY="580.0" spacing="10" prefWidth="800.0">
+            <Label text="Recherche et filtres" textFill="#056861">
+                <font><Font name="Segoe UI" size="18.0"/></font>
+            </Label>
+            <HBox spacing="15">
+                <ComboBox fx:id="comboFiltreStatut" promptText="Filtrer par statut" prefWidth="200.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Toutes les réservations" />
+                            <String fx:value="Confirmées" />
+                            <String fx:value="En attente" />
+                            <String fx:value="Annulées" />
+                            <String fx:value="Terminées" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <DatePicker fx:id="filtreDate" promptText="Filtrer par date" prefWidth="200.0"/>
+                <TextField fx:id="rechercheClient" promptText="Rechercher un client" prefWidth="250.0"/>
+                <Button text="Rechercher" onAction="#rechercherReservations" style="-fx-background-color: #056861; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+
+        <!-- Zone de gestion avec TabPane -->
+        <TabPane layoutX="850.0" layoutY="170.0" prefHeight="530.0" prefWidth="405.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <!-- Onglet 1: Nouvelle réservation -->
+                <Tab text="Nouvelle réservation">
+                    <content>
+                        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                            <VBox spacing="12" style="-fx-padding: 15;">
+                                <Label text="Créer une réservation" textFill="#056861">
+                                    <font><Font name="Segoe UI" size="20.0"/></font>
+                                </Label>
+
+                                <!-- Sélection du client -->
+                                <Label text="Client" style="-fx-font-weight: bold;"/>
+                                <HBox spacing="10">
+                                    <ComboBox fx:id="comboClient" promptText="Sélectionner un client" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
+                                    <Button text="+" onAction="#ouvrirCreationClient" style="-fx-background-color: #056861; -fx-text-fill: white;"/>
+                                </HBox>
+
+                                <!-- Dates de séjour -->
+                                <Label text="Période de séjour" style="-fx-font-weight: bold;"/>
+                                <HBox spacing="10">
+                                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                        <Label text="Arrivée"/>
+                                        <DatePicker fx:id="dateDebut" promptText="Date d'arrivée" maxWidth="1.7976931348623157E308"/>
+                                    </VBox>
+                                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                        <Label text="Départ"/>
+                                        <DatePicker fx:id="dateFin" promptText="Date de départ" maxWidth="1.7976931348623157E308"/>
+                                    </VBox>
+                                </HBox>
+
+                                <!-- Vérification disponibilité -->
+                                <Button text="Vérifier disponibilité" onAction="#verifierDisponibilite"
+                                        style="-fx-background-color: #056861; -fx-text-fill: white;" maxWidth="1.7976931348623157E308"/>
+
+                                <!-- Liste des chambres disponibles -->
+                                <Label text="Chambres disponibles" style="-fx-font-weight: bold;"/>
+                                <ListView fx:id="listeChambresDispo" prefHeight="100.0"/>
+                                <Label text="Sélectionnez une ou plusieurs chambres dans la liste" textFill="#666666" wrapText="true"/>
+
+                                <!-- Informations complémentaires -->
+                                <Label text="Informations complémentaires" style="-fx-font-weight: bold;"/>
+                                <TextArea fx:id="notesReservation" promptText="Notes ou demandes spéciales" prefRowCount="3"/>
+
+                                <!-- Bouton de confirmation -->
+                                <Label fx:id="erreurReservation" textFill="#bc0e0e"/>
+                                <Button text="Confirmer la réservation" onAction="#creerReservation"
+                                        style="-fx-background-color: #056861; -fx-text-fill: white;" maxWidth="1.7976931348623157E308"/>
+                            </VBox>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+
+                <!-- Onglet 2: Gérer une réservation existante -->
+                <Tab text="Gérer une réservation">
+                    <content>
+                        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                            <VBox spacing="15" style="-fx-padding: 15;">
+                                <Label text="Modifier/Annuler la réservation sélectionnée" textFill="#056861" wrapText="true">
+                                    <font><Font name="Segoe UI" size="20.0"/></font>
+                                </Label>
+
+                                <Label fx:id="labelAucuneSelection" text="Aucune réservation sélectionnée. Veuillez sélectionner une réservation dans le tableau."
+                                       wrapText="true" textFill="#666666"/>
+
+                                <!-- Détails de la réservation sélectionnée -->
+                                <VBox fx:id="detailsReservationBox" spacing="10" visible="false">
+                                    <!-- Client -->
+                                    <Label text="Client" style="-fx-font-weight: bold;"/>
+                                    <Label fx:id="labelClientModif"/>
+
+                                    <!-- Dates -->
+                                    <Label text="Période de séjour" style="-fx-font-weight: bold;"/>
+                                    <HBox spacing="10">
+                                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                            <Label text="Arrivée"/>
+                                            <DatePicker fx:id="dateDebutModif" maxWidth="1.7976931348623157E308"/>
+                                        </VBox>
+                                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                            <Label text="Départ"/>
+                                            <DatePicker fx:id="dateFinModif" maxWidth="1.7976931348623157E308"/>
+                                        </VBox>
+                                    </HBox>
+                                    <Button text="Vérifier disponibilité" onAction="#verifierDisponibiliteModif"
+                                            style="-fx-background-color: #056861; -fx-text-fill: white;"/>
+
+                                    <!-- Chambres -->
+                                    <Label text="Chambres réservées" style="-fx-font-weight: bold;"/>
+                                    <ListView fx:id="listeChambresDispo" prefHeight="100.0"/>
+
+                                    <!-- Statut -->
+                                    <Label text="Statut" style="-fx-font-weight: bold;"/>
+                                    <ComboBox fx:id="comboStatutModif" maxWidth="1.7976931348623157E308">
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Confirmée" />
+                                                <String fx:value="En attente" />
+                                                <String fx:value="Annulée" />
+                                                <String fx:value="Terminée" />
+                                            </FXCollections>
+                                        </items>
+                                    </ComboBox>
+
+                                    <!-- Notes -->
+                                    <Label text="Notes" style="-fx-font-weight: bold;"/>
+                                    <TextArea fx:id="notesReservationModif" prefRowCount="3"/>
+
+                                    <!-- Boutons d'action -->
+                                    <HBox spacing="10">
+                                        <Button text="Enregistrer les modifications" onAction="#modifierReservation"
+                                                style="-fx-background-color: #056861; -fx-text-fill: white;" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
+                                        <Button text="Annuler la réservation" onAction="#annulerReservation"
+                                                style="-fx-background-color: #bc0e0e; -fx-text-fill: white;" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
+                                    </HBox>
+                                </VBox>
+                            </VBox>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+
+                <!-- Onglet 3: Calendrier de disponibilité -->
+                <Tab text="Calendrier">
+                    <content>
+                        <VBox spacing="15" style="-fx-padding: 15;">
+                            <Label text="Calendrier de disponibilité" textFill="#056861">
+                                <font><Font name="Segoe UI" size="20.0"/></font>
+                            </Label>
+
+                            <HBox spacing="10">
+                                <DatePicker fx:id="moisCalendrier" promptText="Sélectionner un mois"/>
+                                <Button text="Afficher" onAction="#afficherCalendrier"
+                                        style="-fx-background-color: #056861; -fx-text-fill: white;"/>
+                            </HBox>
+
+                            <Label text="Vue d'ensemble des chambres" style="-fx-font-weight: bold;"/>
+
+                            <!-- Ici, on pourrait mettre une représentation visuelle du calendrier -->
+                            <TableView fx:id="calendrierChambres" prefHeight="350.0" prefWidth="380.0">
+                                <columns>
+                                    <TableColumn fx:id="colChambreCalendrier" prefWidth="100.0" text="Chambre"/>
+                                    <TableColumn fx:id="colStatutCalendrier" prefWidth="280.0" text="Statut du mois"/>
+                                </columns>
+                            </TableView>
+
+                            <Label text="Légende:" style="-fx-font-weight: bold;"/>
+                            <HBox spacing="15">
+                                <Label text="■ Disponible" textFill="green"/>
+                                <Label text="■ Occupée" textFill="red"/>
+                                <Label text="■ Partiellement occupée" textFill="orange"/>
+                            </HBox>
+                        </VBox>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+
+    </children>
+</AnchorPane>
