@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     private static final String URL = "jdbc:h2:./src/main/java/fr/bts/sio/resasync/storage/resa"; // fichier .mv.db à la racine ou dans un dossier /data
+    //private static final String URL = "jdbc:h2:./resa";
     private static final String USER = "";
     private static final String PASSWORD = "";
 

@@ -16,7 +16,7 @@ public class NiveauDroitsDAOImpl implements NiveauDroitsDAO {
 
     @Override
     public NiveauDroits findById(int idniveau) {
-        String sql = "SELECT * FROM niveaudroits WHERE idniveau = ?;";
+        String sql = "SELECT * FROM niveaudroit WHERE idniveau = ?;";
         NiveauDroits niveau = null;
 
         Connection conn = null;
@@ -52,7 +52,7 @@ public class NiveauDroitsDAOImpl implements NiveauDroitsDAO {
 
     @Override
     public void save(NiveauDroits niveau) {
-        String sql = "INSERT INTO niveaudroits(idniveau, libelle) " +
+        String sql = "INSERT INTO niveaudroit(idniveau, libelle) " +
                 "values (?, ?)";
 
         Connection conn = null;
@@ -87,7 +87,7 @@ public class NiveauDroitsDAOImpl implements NiveauDroitsDAO {
 
     @Override
     public void update(NiveauDroits niveau) {
-        String sql = "UPDATE niveaudroits SET libelle = ? where idniveau = ?;";
+        String sql = "UPDATE niveaudroit SET libelle = ? where idniveau = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -120,7 +120,7 @@ public class NiveauDroitsDAOImpl implements NiveauDroitsDAO {
 
     @Override
     public void delete(NiveauDroits niveau) {
-        String sql = "DELETE FROM niveaudroits WHERE idniveau = ?;";
+        String sql = "DELETE FROM niveaudroit WHERE idniveau = ?;";
         Connection conn = null;
         PreparedStatement stmt = null;
 

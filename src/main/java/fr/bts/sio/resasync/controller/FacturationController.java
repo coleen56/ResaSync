@@ -1,4 +1,3 @@
-
 package fr.bts.sio.resasync.controller;
 
 import fr.bts.sio.resasync.model.dao.implementations.ClientDAOImpl;
@@ -13,6 +12,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import fr.bts.sio.resasync.config.ConfigManager;
 import fr.bts.sio.resasync.config.ConfigManager;
 
 public class FacturationController {
@@ -148,6 +148,8 @@ public class FacturationController {
         if (nbrPersonnes > nbrChambre) {
             double pourcentagePersSupp = Double.parseDouble(ConfigManager.getConstanteByLibelle("pourcentagePersonneSupp").getValeur());
             int persSupplementaires = nbrPersonnes - nbrChambre;
+            prixPersSupplementaires = persSupplementaires * prixChambre * pourcentagePersSupp;
+            System.out.println("Il y a un supplément ! NbrPersonnes = " + nbrPersonnes + ", NbrChambre = " + nbrChambre);
             prixPersSupplementaires = persSupplementaires * prixChambre * pourcentagePersSupp;
         }
         return prixTotalChambre + prixPersSupplementaires;

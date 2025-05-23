@@ -15,6 +15,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
+import fr.bts.sio.resasync.util.Methods;
+
+import java.time.LocalDateTime;
 
 import java.io.IOException;
 
@@ -54,8 +57,12 @@ public class LoginController {
         if (utilisateur != null && BCrypt.checkpw(pwd, utilisateur.getPwd())) {
             System.out.println("Connexion réussie. Redirection ...");
             text = "Connexion réussie. Redirection ...";
-            session = new Session(login, utilisateur.getIdNiveau());
-            System.out.println(session);
+            // creation de l'objet session avec les infos de connexion du l'utilisateur
+            Session.creerSession(login, utilisateur.getIdNiveau());
+            System.out.println("Session après connexion : " + Session.getInstance());
+
+            Methods.writeLogs("connexion", Session.getInstance().getLogin(), Session.getInstance().getDateConnexion(), true, text); // écriture de la connexion dans le fichier de logs
+
             // Rediriger vers l'application principale (changer de scène par exemple)
             // Appel à la classe utilitaire pour charger la vue
             Stage stage = (Stage) loginButton.getScene().getWindow();
@@ -65,10 +72,12 @@ public class LoginController {
         } else if (utilisateur == null){
             System.out.println("Échec de l'authentification : l'utilisateur n'existe pas.");
             text = "Échec de l'authentification : l'utilisateur n'existe pas.";
+            Methods.writeLogs("connexion", login, LocalDateTime.now(), false,  text);
             // Afficher un message d'erreur dans la vue
         } else if (!BCrypt.checkpw(pwd, utilisateur.getPwd())) {
             System.out.println("Mot de passe incorrect.");
             text = "Mot de passe incorrect." ;
+            Methods.writeLogs("connexion", login, LocalDateTime.now(),false, text);
         }
         loginError.setText(text);
     }

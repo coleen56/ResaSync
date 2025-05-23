@@ -12,11 +12,6 @@ import java.sql.SQLException;
 import static fr.bts.sio.resasync.util.Methods.javaDateToSqlDate;
 
 public class FacturationDAOImpl implements FacturationDAO {
-    private Connection connection;
-
-    public FacturationDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
     public Facturation findById(int id) {
