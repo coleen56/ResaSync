@@ -18,7 +18,8 @@ public class Reservation {
     private int idClient;
     private String nomClient;
     private String prenomClient;
-    private int idFacture;
+    private Integer idFacture;
+
 
 
     public Reservation(int idReservation, LocalDate dateReservation, LocalDate dateDebut, LocalDate dateFin, int nbrPersonnes, int nbrChambre, int idEntreprise, int idStatutResa, int idClient, int idFacture) {
@@ -143,14 +144,13 @@ public class Reservation {
         this.prenomClient = prenomClient;
     }
 
-    public int getIdFacture() {
+    public Integer  getIdFacture() {
         return idFacture;
     }
 
     public void setIdFacture(int idFacture) {
         this.idFacture = idFacture;
     }
-
 
     @Override
     public String toString() {

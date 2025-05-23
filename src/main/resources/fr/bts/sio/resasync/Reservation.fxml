@@ -90,7 +90,6 @@
                                                 <PropertyValueFactory property="nomClient" />
                                             </cellValueFactory>
                                         </TableColumn>
-                                        <TableColumn fx:id="colIdFacture" text="Numéro Facture" />
                                     </columns>
                                 </TableView>
                             </children>
@@ -128,7 +127,6 @@
                                                 <PropertyValueFactory property="nomClient" />
                                             </cellValueFactory>
                                         </TableColumn>
-                                        <TableColumn fx:id="colIdFactureEnCours" text="Numéro Facture" />
                                     </columns>
                                 </TableView>
                             </children>
@@ -166,7 +164,6 @@
                                                 <PropertyValueFactory property="nomClient" />
                                             </cellValueFactory>
                                         </TableColumn>
-                                        <TableColumn fx:id="colIdFactureTerminee" text="Numéro Facture" />
                                     </columns>
                                 </TableView>
                             </children>
@@ -204,7 +201,6 @@
                                                 <PropertyValueFactory property="nomClient" />
                                             </cellValueFactory>
                                         </TableColumn>
-                                        <TableColumn fx:id="colIdFactureAnnulee" text="Numéro Facture" />
                                     </columns>
                                 </TableView>
                             </children>
@@ -257,8 +253,6 @@
                                                     <Label text="Entreprise:" GridPane.rowIndex="7" />
                                                     <Label fx:id="labelEntrepriseDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
-                                                    <Label text="Facture:" GridPane.rowIndex="8" />
-                                                    <Label fx:id="labelFactureDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                                 </GridPane>
                                             </VBox>
                                         </TitledPane>
@@ -302,13 +296,10 @@
                                                 <ComboBox fx:id="comboEntreprise" prefWidth="200" />
 
                                                 <Label text="Statut réservation:" />
-                                                <ComboBox fx:id="comboStatutResa" prefWidth="200" />
+                                                <ComboBox fx:id="comboStatutResa" prefWidth="200" editable="false" disable="true"/>
 
                                                 <Label text="Client :" />
                                                 <ComboBox fx:id="comboClient" prefWidth="200" />
-
-                                                <Label text="ID de la facture :" />
-                                                <TextField fx:id="idFactureField" promptText="ex: 10" />
 
                                             </VBox>
 
@@ -362,9 +353,6 @@
 
                                                 <Label text="ID du client :" />
                                                 <TextField fx:id="idClientFieldModif" />
-
-                                                <Label text="ID de la facture :" />
-                                                <TextField fx:id="idFactureFieldModif" />
 
                                             </VBox>
 

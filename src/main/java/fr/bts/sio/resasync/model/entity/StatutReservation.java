@@ -28,9 +28,6 @@ public class StatutReservation {
 
     @Override
     public String toString() {
-        return "StatutReservation{" +
-                "idStatutResa=" + idStatutResa +
-                ", libelle='" + libelle + '\'' +
-                '}';
+        return libelle;
     }
 }

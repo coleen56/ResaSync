@@ -53,7 +53,6 @@ public class ReservationDAOImpl implements ReservationDAO {
                 reservation.setIdEntreprise(resultSet.getInt("idEntreprise"));
                 reservation.setIdStatutResa(resultSet.getInt("idStatutResa"));
                 reservation.setIdClient(resultSet.getInt("idClient"));
-                reservation.setIdFacture(resultSet.getInt("idFacture"));
                 reservation.setLibelleStatut(resultSet.getString("libelleStatut"));
                 reservation.setRaisonSociale(resultSet.getString("raisonSociale"));
                 reservation.setNomClient(resultSet.getString("nomClient"));
@@ -72,7 +71,7 @@ public class ReservationDAOImpl implements ReservationDAO {
     @Override
     public void save(Reservation reservation) {
         String sql = "INSERT INTO reservation (dateReservation, dateDebut, dateFin, nbrPersonnes, nbrChambre, idEntreprise, idStatutResa, idClient, idFacture) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?";
 
         try (
              Connection conn = DatabaseConnection.getConnection();
@@ -86,7 +85,13 @@ public class ReservationDAOImpl implements ReservationDAO {
             stmt.setInt(6, reservation.getIdEntreprise());
             stmt.setInt(7, reservation.getIdStatutResa());
             stmt.setInt(8, reservation.getIdClient());
-            stmt.setInt(9, reservation.getIdFacture());
+
+            // idFacture null
+            if (reservation.getIdFacture() != null) {
+                stmt.setInt(9, reservation.getIdFacture());
+            } else {
+                stmt.setNull(9, java.sql.Types.INTEGER);
+            }
 
             int rowsAffected = stmt.executeUpdate();
 
@@ -122,7 +127,6 @@ public class ReservationDAOImpl implements ReservationDAO {
             stmt.setInt(6, reservation.getIdEntreprise());
             stmt.setInt(7, reservation.getIdStatutResa());
             stmt.setInt(8, reservation.getIdClient());
-            stmt.setInt(9, reservation.getIdFacture());
             stmt.setInt(10, reservation.getIdReservation());
 
             stmt.executeUpdate();

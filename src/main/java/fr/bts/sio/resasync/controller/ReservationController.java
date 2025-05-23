@@ -30,7 +30,9 @@ public class ReservationController {
 
     @FXML private Hyperlink lienDashboard;
 
-    @FXML public void allerADashboard() { chargerVue("Dashboard.fxml"); }
+    @FXML public void allerADashboard() {
+        chargerVue("Dashboard.fxml");
+    }
 
     @FXML public void allerAClient() {
         chargerVue("Client.fxml");
@@ -44,7 +46,9 @@ public class ReservationController {
         chargerVue("Configuration.fxml");
     }
 
-    @FXML public void Deconnexion() { Methods.deconnexionAvecConfirmation(() -> chargerVue("Login.fxml")); }
+    @FXML public void Deconnexion() {
+        Methods.deconnexionAvecConfirmation(() -> chargerVue("Login.fxml"));
+    }
 
 
     private void chargerVue(String fichierFxml) {
@@ -75,7 +79,6 @@ public class ReservationController {
     @FXML private TableColumn<Reservation, Integer> colLibelleStatut;
     @FXML private TableColumn<Reservation, Integer> colNomClient;
     @FXML private TableColumn<Reservation, Integer> colPrenomClient;
-    @FXML private TableColumn<Reservation, Integer> colIdFacture;
 
 
     // Onglet reservations "En cours"
@@ -89,7 +92,6 @@ public class ReservationController {
     @FXML private TableColumn<Reservation, Integer> colLibelleStatutEnCours;
     @FXML private TableColumn<Reservation, Integer> colNomClientEnCours;
     @FXML private TableColumn<Reservation, Integer> colPrenomClientEnCours;
-    @FXML private TableColumn<Reservation, Integer> colIdFactureEnCours;
 
 
     // Onglet reservations "Terminee"
@@ -103,7 +105,6 @@ public class ReservationController {
     @FXML private TableColumn<Reservation, Integer> colLibelleStatutTerminee;
     @FXML private TableColumn<Reservation, Integer> colNomClientTerminee;
     @FXML private TableColumn<Reservation, Integer> colPrenomClientTerminee;
-    @FXML private TableColumn<Reservation, Integer> colIdFactureTerminee;
 
 
     // Onglet reservations "Annulee"
@@ -117,7 +118,6 @@ public class ReservationController {
     @FXML private TableColumn<Reservation, Integer> colLibelleStatutAnnulee;
     @FXML private TableColumn<Reservation, Integer> colNomClientAnnulee;
     @FXML private TableColumn<Reservation, Integer> colPrenomClientAnnulee;
-    @FXML private TableColumn<Reservation, Integer> colIdFactureAnnulee;
 
 
     // Champs du formulaire ajout d'une reservation
@@ -125,9 +125,6 @@ public class ReservationController {
     @FXML private javafx.scene.control.DatePicker dateFinPicker;
     @FXML private javafx.scene.control.TextField nbrPersonnesField;
     @FXML private javafx.scene.control.TextField nbrChambresField;
-    @FXML private javafx.scene.control.TextField idStatutResaField;
-    @FXML private javafx.scene.control.TextField idClientField;
-    @FXML private javafx.scene.control.TextField idFactureField;
     @FXML private javafx.scene.control.Label ajouterReservationErreur;
     @FXML private DatePicker dateReservationPicker;
     @FXML private ComboBox<Entreprise> comboEntreprise;
@@ -146,7 +143,6 @@ public class ReservationController {
     @FXML private javafx.scene.control.TextField idEntrepriseFieldModif;
     @FXML private javafx.scene.control.TextField idStatutResaFieldModif;
     @FXML private javafx.scene.control.TextField idClientFieldModif;
-    @FXML private javafx.scene.control.TextField idFactureFieldModif;
 
 
     // Onglet Détails
@@ -158,11 +154,11 @@ public class ReservationController {
     @FXML private Label labelStatutDetail;
     @FXML private Label labelClientDetail;
     @FXML private Label labelEntrepriseDetail;
-    @FXML private Label labelFactureDetail;
 
 
     // Onglet supprimer une réservation
     @FXML private Label labelConfirmationSuppression;
+
 
 
     //-----------------------------------Méthodes pour charger les éléments à l'ouverture de la page--------------------
@@ -183,7 +179,7 @@ public class ReservationController {
         chargerReservationsAnnulees();
         chargerEntreprises();
         chargerClients();
-        chargerStatutsReservation();
+        chargerStatutReservation();
 
         // Remplir le champ date avec la date du jour
         dateReservationPicker.setValue(LocalDate.now());
@@ -227,7 +223,6 @@ public class ReservationController {
         tableViewReservationsAnnulees.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             afficherDetailsReservation(newVal);
         });
-
     }
 
 
@@ -242,7 +237,6 @@ public class ReservationController {
         colLibelleStatut.setCellValueFactory(new PropertyValueFactory<>("libelleStatut"));
         colNomClient.setCellValueFactory(new PropertyValueFactory<>("nomClient"));
         colPrenomClient.setCellValueFactory(new PropertyValueFactory<>("prenomClient"));
-        colIdFacture.setCellValueFactory(new PropertyValueFactory<>("idFacture"));
     }
 
 
@@ -257,7 +251,6 @@ public class ReservationController {
         colLibelleStatutEnCours.setCellValueFactory(new PropertyValueFactory<>("libelleStatut"));
         colNomClientEnCours.setCellValueFactory(new PropertyValueFactory<>("nomClient"));
         colPrenomClientEnCours.setCellValueFactory(new PropertyValueFactory<>("prenomClient"));
-        colIdFactureEnCours.setCellValueFactory(new PropertyValueFactory<>("idFacture"));
     }
 
 
@@ -272,7 +265,6 @@ public class ReservationController {
         colLibelleStatutTerminee.setCellValueFactory(new PropertyValueFactory<>("libelleStatut"));
         colNomClientTerminee.setCellValueFactory(new PropertyValueFactory<>("nomClient"));
         colPrenomClientTerminee.setCellValueFactory(new PropertyValueFactory<>("prenomClient"));
-        colIdFactureTerminee.setCellValueFactory(new PropertyValueFactory<>("idFacture"));
     }
 
 
@@ -287,14 +279,15 @@ public class ReservationController {
         colLibelleStatutAnnulee.setCellValueFactory(new PropertyValueFactory<>("libelleStatut"));
         colNomClientAnnulee.setCellValueFactory(new PropertyValueFactory<>("nomClient"));
         colPrenomClientAnnulee.setCellValueFactory(new PropertyValueFactory<>("prenomClient"));
-        colIdFactureAnnulee.setCellValueFactory(new PropertyValueFactory<>("idFacture"));
     }
+
 
 
     //----------------------------------------Méthodes pour afficher les réservations-----------------------------------
     private void chargerToutesReservations() {
         List<Reservation> reservations = reservationDAO.findAll();
-        tableViewToutesReservations.setItems(FXCollections.observableArrayList(reservations));    }
+        tableViewToutesReservations.setItems(FXCollections.observableArrayList(reservations));
+    }
 
 
     private void chargerReservationsEnCours() {
@@ -322,6 +315,7 @@ public class ReservationController {
     }
 
 
+
     //----------------------------------------Méthode pour ajouter une réservation------------------------------------------
     @FXML
     private void ajouterReservation() {
@@ -337,8 +331,7 @@ public class ReservationController {
 
             if (dateReservation == null || dateDebut == null || dateFin == null ||
                     nbrPersonnesField.getText().isBlank() || nbrChambresField.getText().isBlank() ||
-                    comboEntreprise.getValue() == null || comboClient.getValue() == null ||
-                    comboStatutResa.getValue() == null || idFactureField.getText().isBlank()) {
+                    comboEntreprise.getValue() == null || comboClient.getValue() == null) {
 
                 ajouterReservationErreur.setText("Veuillez compléter tous les champs pour créer une réservation.");
                 ajouterReservationErreur.setVisible(true);
@@ -354,6 +347,7 @@ public class ReservationController {
             // Conversion des champs numériques
             int nbrPersonnes = Integer.parseInt(nbrPersonnesField.getText().trim());
             int nbrChambres = Integer.parseInt(nbrChambresField.getText().trim());
+            int idFacture = Integer.parseInt(nbrPersonnesField.getText().trim());
 
             // Entreprise
             Entreprise entrepriseSelectionnee = comboEntreprise.getValue();
@@ -363,12 +357,24 @@ public class ReservationController {
             Client clientSelectionne = comboClient.getValue();
             int idClient = clientSelectionne.getIdClient();
 
-            // Statut réservation
-            StatutReservation statutSelectionne = comboStatutResa.getValue();
-            int idStatutResa = statutSelectionne.getIdStatutResa();
+            // Statut réservation : forcer "En cours"
+            StatutReservation statutEnCours = null;
+            for (StatutReservation s : comboStatutResa.getItems()) {
+                if ("En cours".equalsIgnoreCase(s.getLibelle())) {
+                    statutEnCours = s;
+                    break;
+                }
+            }
 
-            // Facture
-            int idFacture = Integer.parseInt(idFactureField.getText().trim());
+            if (statutEnCours == null) {
+                ajouterReservationErreur.setText("Le statut 'En cours' est introuvable dans la liste.");
+                ajouterReservationErreur.setVisible(true);
+                return;
+            }
+
+            int idStatutResa = statutEnCours.getIdStatutResa();
+
+
 
             // Création de l'objet réservation
             Reservation reservation = new Reservation(
@@ -387,17 +393,12 @@ public class ReservationController {
             // Enregistrement
             reservationDAO.save(reservation);
 
+            // Mise à jour des tables
+            chargerToutesReservations();
+
             // Message de succès
             ajouterReservationErreur.setText("Réservation créée avec succès !");
             ajouterReservationErreur.setVisible(true);
-
-            // Ajout dynamique dans les vues
-            tableViewToutesReservations.getItems().add(reservation);
-            switch (idStatutResa) {
-                case 1 -> tableViewReservationsEnCours.getItems().add(reservation);
-                case 2 -> tableViewReservationsAnnulees.getItems().add(reservation);
-                case 3 -> tableViewReservationsTerminees.getItems().add(reservation);
-            }
 
             System.out.println("Réservation numéro " + reservation.getIdReservation() + " créée");
 
@@ -409,8 +410,7 @@ public class ReservationController {
             nbrChambresField.clear();
             comboEntreprise.setValue(null);
             comboClient.setValue(null);
-            comboStatutResa.setValue(null);
-            idFactureField.clear();
+            comboStatutResa.setValue(statutEnCours); // Réafficher "En cours"
 
         } catch (NumberFormatException e) {
             ajouterReservationErreur.setText("Veuillez saisir uniquement des nombres valides.");
@@ -421,8 +421,6 @@ public class ReservationController {
             e.printStackTrace();
         }
     }
-
-
 
 
     private void chargerEntreprises() {
@@ -438,6 +436,7 @@ public class ReservationController {
                 setText(empty || item == null ? null : item.getRaisonSociale());
             }
         });
+
 
         comboEntreprise.setButtonCell(new ListCell<>() {
             @Override
@@ -468,22 +467,24 @@ public class ReservationController {
     }
 
 
-    private void chargerStatutsReservation() {
+    private void chargerStatutReservation() {
         StatutReservationDAO statutDAO = new StatutReservationDAOImpl();
+
+        // Récupérer uniquement le statut "En cours"
         List<StatutReservation> statuts = statutDAO.findAll();
-        comboStatutResa.getItems().addAll(statuts);
-
-        comboStatutResa.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(StatutReservation statut) {
-                return statut != null ? statut.getLibelle() : "";
+        StatutReservation statutEnCours = null;
+        for (StatutReservation statut : statuts) {
+            if ("En cours".equalsIgnoreCase(statut.getLibelle())) {
+                statutEnCours = statut;
+                break;
             }
+        }
 
-            @Override
-            public StatutReservation fromString(String string) {
-                return null;
-            }
-        });
+        if (statutEnCours != null) {
+            comboStatutResa.getItems().clear();
+            comboStatutResa.getItems().add(statutEnCours);
+            comboStatutResa.setValue(statutEnCours);
+        }
     }
 
 
@@ -508,7 +509,6 @@ public class ReservationController {
             selected.setIdEntreprise(Integer.parseInt(idEntrepriseFieldModif.getText().trim()));
             selected.setIdStatutResa(Integer.parseInt(idStatutResaFieldModif.getText().trim()));
             selected.setIdClient(Integer.parseInt(idClientFieldModif.getText().trim()));
-            selected.setIdFacture(Integer.parseInt(idFactureFieldModif.getText().trim()));
 
             reservationDAO.update(selected);
             System.out.println("Réservation numéro " + selected.getIdReservation() + " modifiée");
@@ -560,7 +560,7 @@ public class ReservationController {
         idEntrepriseFieldModif.setText(String.valueOf(selected.getIdEntreprise()));
         idStatutResaFieldModif.setText(String.valueOf(selected.getIdStatutResa()));
         idClientFieldModif.setText(String.valueOf(selected.getIdClient()));
-        idFactureFieldModif.setText(String.valueOf(selected.getIdFacture()));
+
     }
 
 
@@ -577,8 +577,9 @@ public class ReservationController {
         labelStatutDetail.setText(String.valueOf(reservation.getIdStatutResa()));
         labelClientDetail.setText(String.valueOf(reservation.getIdClient()));
         labelEntrepriseDetail.setText(String.valueOf(reservation.getIdEntreprise()));
-        labelFactureDetail.setText(String.valueOf(reservation.getIdFacture()));
+
     }
+
 
 
     //-----------------------------------------Méthode supprimer une réservation--------------------------------------------
