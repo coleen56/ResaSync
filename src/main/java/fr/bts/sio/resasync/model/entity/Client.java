@@ -2,7 +2,12 @@ package fr.bts.sio.resasync.model.entity;
 
 import java.sql.Date;
 import java.time.LocalDate;
-
+/**
+ * Représente un client du système de réservation.
+ * Un client possède des informations personnelles ainsi qu'une adresse de facturation associée.
+ * Les informations stockées incluent l'identifiant du client, le nom, le prénom, le numéro de téléphone,
+ * l'adresse email, la date de naissance et une adresse de facturation.
+ */
 public class Client {
     private int idClient;
     private String nom;

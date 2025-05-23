@@ -6,80 +6,84 @@ import fr.bts.sio.resasync.model.entity.Session;
 import fr.bts.sio.resasync.model.entity.Utilisateur;
 import fr.bts.sio.resasync.util.Methods;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
-import fr.bts.sio.resasync.util.Methods;
 
 import java.time.LocalDateTime;
 
-import java.io.IOException;
-
+/**
+ * Contrôleur pour la gestion de la connexion utilisateur.
+ * Gère la logique de vérification des identifiants, la création de la session,
+ * l'affichage des messages d'erreur et la redirection vers la page principale.
+ */
 public class LoginController {
 
+    // Stocke la session courante (optionnel ici, car session est singleton)
     private Session session;
 
-    @FXML
-    private TextField loginField; // récupération des champs de saisie du formulaire de connexion + bouton
+    @FXML private TextField loginField;
+    @FXML private PasswordField passwordField;
+    @FXML private Button loginButton;
+    @FXML private Label loginError;
+    private UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl();
 
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private Button loginButton;
-
-    private UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl(); // instance de utilisateurdaoimpl
-
+    /**
+     * Méthode appelée à l'initialisation du contrôleur.
+     * Associe le bouton à la méthode d'authentification.
+     */
     @FXML
     private void initialize() {
-        loginButton.setOnAction(event -> authentifierUtilisateur()); // lancement de la fonction d'initialisation au clic du bouton de connexion
+        loginButton.setOnAction(event -> authentifierUtilisateur());
     }
 
-    @FXML
-    private Label loginError;
-
+    /**
+     * Vérifie les identifiants utilisateur, gère la session et affiche les messages.
+     * Cette méthode est appelée lors du clic sur le bouton de connexion.
+     */
     private void authentifierUtilisateur() {
         String login = loginField.getText();
         String pwd = passwordField.getText();
-        String text ="";
+        String text = "";
 
         Utilisateur utilisateur = null;
+
+        // Vérifie que le champ login n'est pas vide avant de rechercher l'utilisateur
         if (login != null && !login.isEmpty()) {
             utilisateur = utilisateurDAO.findByLogin(login);
         }
 
+        // Si l'utilisateur existe et que le mot de passe est correct
         if (utilisateur != null && BCrypt.checkpw(pwd, utilisateur.getPwd())) {
             System.out.println("Connexion réussie. Redirection ...");
             text = "Connexion réussie. Redirection ...";
-            // creation de l'objet session avec les infos de connexion du l'utilisateur
+            // Création de la session utilisateur avec login et niveau
             Session.creerSession(login, utilisateur.getIdNiveau());
             System.out.println("Session après connexion : " + Session.getInstance());
 
-            Methods.writeLogs("connexion", Session.getInstance().getLogin(), Session.getInstance().getDateConnexion(), true, text); // écriture de la connexion dans le fichier de logs
+            // Écrit la tentative de connexion réussie dans les logs
+            Methods.writeLogs("connexion", Session.getInstance().getLogin(), Session.getInstance().getDateConnexion(), true, text);
 
-            // Rediriger vers l'application principale (changer de scène par exemple)
-            // Appel à la classe utilitaire pour charger la vue
+            // Redirige vers la page principale de l'application
             Stage stage = (Stage) loginButton.getScene().getWindow();
             Methods.chargerVue("Dashboard.fxml", stage);
 
-
-        } else if (utilisateur == null){
+        } else if (utilisateur == null) {
+            // L'utilisateur n'existe pas
             System.out.println("Échec de l'authentification : l'utilisateur n'existe pas.");
             text = "Échec de l'authentification : l'utilisateur n'existe pas.";
-            Methods.writeLogs("connexion", login, LocalDateTime.now(), false,  text);
-            // Afficher un message d'erreur dans la vue
+            Methods.writeLogs("connexion", login, LocalDateTime.now(), false, text);
         } else if (!BCrypt.checkpw(pwd, utilisateur.getPwd())) {
+            // Le mot de passe est incorrect
             System.out.println("Mot de passe incorrect.");
-            text = "Mot de passe incorrect." ;
-            Methods.writeLogs("connexion", login, LocalDateTime.now(),false, text);
+            text = "Mot de passe incorrect.";
+            Methods.writeLogs("connexion", login, LocalDateTime.now(), false, text);
         }
+
+        // Affiche le message d'erreur ou de succès dans la vue
         loginError.setText(text);
     }
 }
-

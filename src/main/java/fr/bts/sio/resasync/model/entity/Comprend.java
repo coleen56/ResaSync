@@ -1,5 +1,9 @@
 package fr.bts.sio.resasync.model.entity;
-
+/**
+ * Représente l'association entre une réservation et une option sélectionnée,
+ * incluant la quantité choisie pour cette option dans le cadre de la réservation.
+ * Cette classe fait le lien entre une réservation et les options ajoutées à celle-ci.
+ */
 public class Comprend {
     private int idReservation;
     private int idOption;

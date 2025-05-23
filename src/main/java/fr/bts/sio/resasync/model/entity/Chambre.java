@@ -1,5 +1,9 @@
 package fr.bts.sio.resasync.model.entity;
-
+/**
+ * Représente une chambre au sein de l'établissement.
+ * Une chambre est définie par son identifiant unique, son numéro, son type (ex: simple, double, suite...)
+ * et son statut (ex: disponible, occupée, en maintenance...).
+ */
 public class Chambre {
     private int idChambre;
     private int numChambre;
@@ -17,6 +21,11 @@ public class Chambre {
         this.numChambre = numChambre;
         this.typeChambre = typeChambre;
         this.statutChambre = statutChambre;
+    }
+
+    public Chambre(int idChambre, int numChambre) {
+        this.idChambre = idChambre;
+        this.numChambre = numChambre;
     }
 
     // Constructeur sans ID de chambre (pour l'insertion d'une nouvelle chambre)
@@ -72,5 +81,15 @@ public class Chambre {
 
     public void setStatutChambre(StatutChambre statutChambre) {
         this.statutChambre = statutChambre;
+    }
+
+    @Override
+    public String toString() {
+        return "Chambre{" +
+                "idChambre=" + idChambre +
+                ", numChambre=" + numChambre +
+                ", typeChambre=" + typeChambre +
+                ", statutChambre=" + statutChambre +
+                '}';
     }
 }

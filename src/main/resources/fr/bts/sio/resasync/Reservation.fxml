@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.ComboBox?>
-<AnchorPane prefHeight="857.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.bts.sio.resasync.controller.ReservationController">
+<AnchorPane prefHeight="857.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.bts.sio.resasync.controller.ReservationController">
     <children>
         <!-- Barre de navigation -->
         <HBox prefHeight="79.0" prefWidth="1280.0" style="-fx-background-color: #d1f2eb;">
@@ -76,7 +69,7 @@
             <TabPane fx:id="reservationTabPane" layoutX="25.0" layoutY="170.0" prefHeight="900.0" prefWidth="600">
                 <tabs>
                     <!-- Onglet Toutes les réservations -->
-                    <Tab text="Toutes les réservations">
+                    <Tab closable="false" text="Toutes les réservations">
                         <AnchorPane>
                             <children>
                                 <TableView fx:id="tableViewToutesReservations" prefWidth="600.0">
@@ -112,7 +105,7 @@
                         </AnchorPane>
                     </Tab>
                     <!-- Onglet réservations En cours -->
-                    <Tab text="En cours">
+                    <Tab closable="false" text="En cours">
                         <AnchorPane>
                             <children>
                                 <TableView fx:id="tableViewReservationsEnCours" prefWidth="600.0">
@@ -149,7 +142,7 @@
                         </AnchorPane>
                     </Tab>
                     <!-- Onglet réservations Terminée -->
-                    <Tab text="Terminée">
+                    <Tab closable="false" text="Terminée">
                         <AnchorPane>
                             <children>
                                 <TableView fx:id="tableViewReservationsTerminees" prefWidth="600.0">
@@ -186,7 +179,7 @@
                         </AnchorPane>
                     </Tab>
                     <!-- Onglet réservations Annulée -->
-                    <Tab text="Annulée">
+                    <Tab closable="false" text="Annulée">
                         <AnchorPane>
                             <children>
                                 <TableView fx:id="tableViewReservationsAnnulees" prefWidth="600.0">
@@ -257,7 +250,7 @@
                                                     <Label text="Nbre personnes:" GridPane.rowIndex="3" />
                                                     <Label fx:id="labelNbrPersonnesDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                                                    <Label text="Nbre chambres:" GridPane.rowIndex="4" />
+                                                    <Label text="Chambre (s) :" GridPane.rowIndex="4" />
                                                     <Label fx:id="labelNbrChambresDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
                                                     <Label text="Statut:" GridPane.rowIndex="5" />
@@ -285,7 +278,7 @@
                                                 </GridPane>
                                             </VBox>
                                         </TitledPane>
-                                        <Button fx:id="boutonDetailsFactuResa" onAction="#ouvrirFacturationModal" mnemonicParsing="false" prefHeight="41.0" prefWidth="274.0" style="-fx-background-color: green;" text="Détails Facturation Réservation" textFill="WHITE" translateX="150.0" translateY="50.0">
+                                        <Button fx:id="boutonDetailsFactuResa" mnemonicParsing="false" onAction="#ouvrirFacturationModal" prefHeight="41.0" prefWidth="274.0" style="-fx-background-color: green;" text="Détails Facturation Réservation" textFill="WHITE" translateX="150.0" translateY="50.0">
                                             <VBox.margin>
                                                 <Insets />
                                             </VBox.margin>
@@ -309,16 +302,18 @@
                                     <VBox spacing="15" style="-fx-padding: 15;">
                                         <children>
 
+                                            <!-- Titre principal -->
                                             <Label text="Nouvelle réservation" textFill="#056861">
                                                 <font>
                                                     <Font name="Segoe UI" size="20.0" />
                                                 </font>
                                             </Label>
 
+                                            <!-- Formulaire principal -->
                                             <VBox spacing="10">
 
                                                 <Label text="Date de réservation :" />
-                                                <DatePicker fx:id="dateReservationPicker" editable="false" disable="true"/>
+                                                <DatePicker fx:id="dateReservationPicker" disable="true" editable="false" />
 
                                                 <Label text="Date de début :" />
                                                 <DatePicker fx:id="dateDebutPicker" />
@@ -330,26 +325,94 @@
                                                 <TextField fx:id="nbrPersonnesField" promptText="ex: 2" />
 
                                                 <Label text="Nombre de chambres :" />
-                                                <TextField fx:id="nbrChambresField" promptText="ex: 1" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="551.0" spacing="10.0">
+                                       <children>
+                                          <Label text="1 Lit double :">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <ChoiceBox fx:id="nombreDouble" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="285.0" prefHeight="23.0" prefWidth="551.0" spacing="10.0">
+                                       <children>
+                                          <Label text="2 Lits simples :">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <ChoiceBox fx:id="nombreDeuxSimples" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="551.0" spacing="10.0">
+                                       <children>
+                                          <Label text="1 Lit simple + 2 lits superposés :">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <ChoiceBox fx:id="nombreSimpleSuperpose" />
+                                       </children>
+                                    </HBox>
 
-                                                <Label text="Entreprise :" />
-                                                <ComboBox fx:id="comboEntreprise" prefWidth="200" />
+                                                <!-- Ligne avec Entreprise/Client à gauche et Options à droite -->
+                                                <HBox alignment="TOP_LEFT" spacing="30">
+
+                                                    <!-- Colonne Entreprise / Client -->
+                                                    <VBox spacing="10">
+                                                        <Label text="Entreprise :" />
+                                                        <ComboBox fx:id="comboEntreprise" prefWidth="200" />
 
                                                 <Label text="Statut réservation:" />
-                                                <ComboBox fx:id="comboStatutResa" prefWidth="200" editable="false" disable="true"/>
+                                                <ComboBox fx:id="comboStatutResa" disable="true" editable="false" prefWidth="200" />
 
                                                 <Label text="Client :" />
                                                 <ComboBox fx:id="comboClient" prefWidth="200" />
+
+                                                    <!-- Options à droite -->
+                                                    <!-- Bloc des options à droite -->
+                                                    <VBox prefWidth="300" spacing="15" style="-fx-border-color: #056861; -fx-border-radius: 5; -fx-padding: 10;">
+                                                        <Label text="Libellé Option :" />
+                                                        <ComboBox fx:id="comboOptionLibelle" prefWidth="200"/>
+                                                        <Label text="Quantité :" />
+                                                        <ComboBox fx:id="comboOptionQuantite" prefWidth="100">
+                                                            <items>
+                                                                <FXCollections fx:factory="observableArrayList">
+                                                                    <Integer fx:value="0" />
+                                                                    <Integer fx:value="1" />
+                                                                    <Integer fx:value="2" />
+                                                                    <Integer fx:value="3" />
+                                                                </FXCollections>
+                                                            </items>
+                                                        </ComboBox>
+
+
+                                                        <!-- Bouton pour ajouter l'option à la liste -->
+                                                        <Button text="Ajouter cette option" onAction="#ajouterOptionALaListe" />
+
+                                                        <!-- TableView pour afficher la liste des options ajoutées -->
+                                                        <TableView fx:id="tableOptions" prefHeight="150">
+                                                            <columns>
+                                                                <TableColumn fx:id="colLibelleOption" text="Libellé"/>
+                                                                <TableColumn fx:id="colQuantiteOption" text="Quantité"/>
+                                                                <TableColumn fx:id="colActionOption" text="Supprimer"/>
+                                                            </columns>
+                                                        </TableView>
+                                                    </VBox>
+
+                                                </HBox>
 
                                             </VBox>
 
                                             <Label fx:id="ajouterReservationErreur" textFill="#666666" />
 
-                                            <Button fx:id="btnAjouterReservation" maxWidth="1.7976931348623157E308" onAction="#ajouterReservation" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Ajouter la réservation">
+                                            <Button fx:id="btnAjouterReservation" maxWidth="Infinity" onAction="#ajouterReservation" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Ajouter la réservation">
                                                 <VBox.margin>
                                                     <Insets top="10.0" />
                                                 </VBox.margin>
                                             </Button>
+
                                         </children>
                                     </VBox>
                                 </content>

@@ -1,7 +1,11 @@
 package fr.bts.sio.resasync.model.entity;
 
 import javafx.beans.property.*;
-
+/**
+ * Représente une option affichée dans un tableau JavaFX pour la gestion des réservations.
+ * Cette classe utilise les propriétés JavaFX pour permettre la liaison de données avec les composants graphiques.
+ * Elle contient une description, une quantité et un prix unitaire pour l'option concernée.
+ */
 public class OptionTableau {
 
     private final SimpleStringProperty description;

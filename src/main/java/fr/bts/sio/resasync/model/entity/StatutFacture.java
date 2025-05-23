@@ -1,5 +1,8 @@
 package fr.bts.sio.resasync.model.entity;
-
+/**
+ * Représente le statut d'une facture (ex : Payée, En attente, Annulée, etc.).
+ * Cette classe contient un identifiant unique et un libellé descriptif du statut.
+ */
 public class StatutFacture {
 
     private int idStatutFacture;

@@ -6,10 +6,7 @@ import fr.bts.sio.resasync.model.entity.StatutChambre;
 import fr.bts.sio.resasync.model.entity.TypeChambre;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -231,19 +228,41 @@ public class ChambreDAOImpl implements ChambreDAO {
             }
         }
     }
-
-    public int countChambresOccupéesParDate(LocalDate date) {
-        String sql = "SELECT COUNT (chambre.idchambre) FROM chambre JOIN relie on chambre.idchambre = relie.idchambre " +
-                " JOIN reservation on relie.idreservation = reservation.idreservation";
+//
+    public ArrayList<Chambre> getChambreDisponibles(LocalDate startDate, LocalDate endDate, int typeChambre) {
+        // la requête exclut toutes les chambres appartenant à une resa dont soit la date de fin, la date de debut ou les deux
+        // se trouvent entre les bornes de la nouvelle réservation + celles dont les dates englobent celles de la nouvelle resa
+        String sql = "SELECT * FROM chambre WHERE chambre.idchambre NOT IN (" +
+                "SELECT chambre.idchambre FROM chambre " +
+                "JOIN relie ON relie.idchambre = chambre.idchambre " +
+                "JOIN reservation ON reservation.idreservation = relie.idreservation " +
+                "WHERE (" +
+                "  (reservation.datedebut >= ? AND reservation.datedebut <= ?) OR " + // commence dans la période
+                "  (reservation.datefin > ? AND reservation.datefin < ?) OR " +   // finit dans la période
+                "  (reservation.datedebut <= ? AND reservation.datefin > ?)" + // englobe toute la période
+                ")) AND idtypechambre = ?";
 
         Connection conn = null;
         PreparedStatement stmt = null;
+        ArrayList<Chambre> listeChambres = new ArrayList<>();
+        Chambre chambre = null;
 
         try {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
 
-            stmt.executeUpdate();
+            stmt.setDate(1, Date.valueOf(startDate));
+            stmt.setDate(2, Date.valueOf(endDate));
+            stmt.setDate(3, Date.valueOf(startDate));
+            stmt.setDate(4, Date.valueOf(endDate));
+            stmt.setDate(5, Date.valueOf(startDate));
+            stmt.setDate(6, Date.valueOf(endDate));
+            stmt.setInt(7, typeChambre);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                chambre = new Chambre(rs.getInt("idchambre"), rs.getInt("numchambre"));
+                listeChambres.add(chambre);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -254,7 +273,7 @@ public class ChambreDAOImpl implements ChambreDAO {
                 e.printStackTrace();
             }
         }
-    return 1;
+        return listeChambres;
     }
 
     public int countAllChambres() {

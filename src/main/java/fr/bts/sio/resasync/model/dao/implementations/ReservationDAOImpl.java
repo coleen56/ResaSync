@@ -9,7 +9,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReservationDAOImpl implements ReservationDAO {
+    @Override
+    public Reservation findById(int id) {
+        String sql = "SELECT * FROM Reservation WHERE idReservation = ?";
 
+        try (
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Reservation reservation = new Reservation();
+                    reservation.setIdReservation(rs.getInt("idReservation"));
+                    reservation.setDateReservation(rs.getDate("dateReservation").toLocalDate());
+                    reservation.setDateDebut(rs.getDate("dateDebut").toLocalDate());
+                    reservation.setDateFin(rs.getDate("dateFin").toLocalDate());
+                    reservation.setNbrPersonnes(rs.getInt("nbrPersonnes"));
+                    reservation.setNbrChambre(rs.getInt("nbrChambre"));
+                    reservation.setIdEntreprise(rs.getInt("idEntreprise"));
+                    reservation.setIdStatutResa(rs.getInt("idStatutResa"));
+                    reservation.setIdClient(rs.getInt("idClient"));
+                    reservation.setIdFacture(rs.getInt("idFacture")); // si ce champ existe
+
+                    return reservation;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @Override
     public List<Reservation> findAll() {
@@ -69,10 +99,11 @@ public class ReservationDAOImpl implements ReservationDAO {
 
 //----------------------------------------------------------------------------------------------------------------------
     @Override
-    public void save(Reservation reservation) {
+    public int save(Reservation reservation) {
         String sql = "INSERT INTO reservation (dateReservation, dateDebut, dateFin, nbrPersonnes, nbrChambre, idEntreprise, idStatutResa, idClient, idFacture) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+        int generatedId = 0;
         try (
              Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
@@ -98,7 +129,7 @@ public class ReservationDAOImpl implements ReservationDAO {
             if (rowsAffected > 0) {
                 try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
-                        int generatedId = generatedKeys.getInt(1);
+                        generatedId = generatedKeys.getInt(1);
                         reservation.setIdReservation(generatedId); // mise à jour de l'objet en mémoire
                     }
                 }
@@ -106,6 +137,7 @@ public class ReservationDAOImpl implements ReservationDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return generatedId;
     }
 
 
@@ -158,6 +190,46 @@ public class ReservationDAOImpl implements ReservationDAO {
 
         } catch (SQLException e) {
             System.err.println("Erreur lors de la suppression de la réservation numéro " + idReservation);
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public ArrayList<Integer> getNumChambresByReservation(Reservation reservation) {
+        String sql = "SELECT chambre.numchambre from chambre join relie on relie.idchambre = chambre.idchambre " +
+                "JOIN reservation on reservation.idreservation = relie.idreservation WHERE reservation.idreservation = ?";
+        ArrayList<Integer> retour = new ArrayList<>();
+        try (
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+
+            stmt.setInt(1, reservation.getIdReservation());
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                retour.add(rs.getInt("numchambre"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("erreur");
+            e.printStackTrace();
+        }
+        return retour;
+    }
+
+
+    @Override
+    public void updateIdFacture(int idReservation, int idFacture) {
+        String sql = "UPDATE Reservation SET idFacture = ? WHERE idReservation = ?";
+        try (
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, idFacture);
+            stmt.setInt(2, idReservation);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

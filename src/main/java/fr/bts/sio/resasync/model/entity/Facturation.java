@@ -1,5 +1,9 @@
 package fr.bts.sio.resasync.model.entity;
-
+/**
+ * Représente une facture générée suite à une réservation ou une transaction.
+ * Cette classe contient les informations principales d'une facturation, telles que l'identifiant de la facture,
+ * le montant total, la date de facturation, le statut de la facture et l'identifiant du client concerné.
+ */
 import java.util.Date;
 
 public class Facturation {

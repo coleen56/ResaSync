@@ -1,8 +1,6 @@
 package fr.bts.sio.resasync.controller;
 
-import fr.bts.sio.resasync.model.dao.implementations.ClientDAOImpl;
-import fr.bts.sio.resasync.model.dao.implementations.ComprendDAOImpl;
-import fr.bts.sio.resasync.model.dao.implementations.OptionReservationDAOImpl;
+import fr.bts.sio.resasync.model.dao.implementations.*;
 import fr.bts.sio.resasync.model.entity.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -202,15 +200,65 @@ public class FacturationController {
         return montantTotalTTC;
     }
 
+    private void showAlert(String titre, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
-
+    private double parseMontant(String montantLabel) {
+        // Exemples autorisés : "123,45 €", "123.45", "123"
+        String cleaned = montantLabel.replace("€", "").replace(",", ".").trim();
+        if (cleaned.isEmpty()) return 0;
+        return Double.parseDouble(cleaned);
+    }
 
     // Action sur le bouton valider la facturation
     @FXML
     private void validerFacturation() {
-        // TODO: Implémenter la validation et sauvegarde de la facturation
-    }
+        try {
+            int idReservation = Integer.parseInt(lblNumeroReservation.getText());
+            ReservationDAOImpl reservationDAO = new ReservationDAOImpl();
+            Reservation reservation = reservationDAO.findById(idReservation);
+            if(reservation == null) {
+                showAlert("Erreur", "Impossible de retrouver la réservation.");
+                return;
+            }
+            // Vérification de la présence d'une facture déjà existante
+            if(reservation.getIdFacture() != 0) {
+                showAlert("Erreur", "Cette réservation possède déjà une facture. Il est impossible de la refacturer.");
+                return;
+            }
+            int idClient = reservation.getIdClient();
+            double totalTTC = parseMontant(lblTotalTTC.getText());
+            int idStatutFacture = 1;
+            LocalDate dateFacture = LocalDate.now();
 
+            Facturation facturation = new Facturation(
+                    0,
+                    totalTTC,
+                    java.sql.Date.valueOf(dateFacture),
+                    idStatutFacture,
+                    idClient
+            );
+
+            FacturationDAOImpl facturationDAO = new FacturationDAOImpl();
+            int idFactureGenere = facturationDAO.saveAndReturnId(facturation);
+
+            // Mettre à jour la réservation avec l'id de la facture nouvellement créée
+            if (idFactureGenere > 0) {
+                reservationDAO.updateIdFacture(idReservation, idFactureGenere);
+                showAlert("Succès", "Facturation créée et liée à la réservation !");
+            } else {
+                showAlert("Erreur", "La facturation a échoué.");
+            }
+        } catch (Exception e) {
+            showAlert("Erreur", "Une erreur est survenue lors de la facturation :\n" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
     // Action sur le bouton enregistrer brouillon (à rattacher dans FXML si besoin)
     @FXML
     private void enregistrerBrouillon() {

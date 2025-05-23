@@ -1,5 +1,8 @@
 package fr.bts.sio.resasync.model.entity;
-
+/**
+ * Représente un utilisateur de l'application.
+ * Contient les informations de connexion et d'identité, ainsi que le niveau d'accès.
+ */
 public class Utilisateur {
     private int idUtilisateur;
     private String login;

@@ -101,4 +101,29 @@ public class RelieDAOImpl implements RelieDAO {
             }
         }
     }
+
+    @Override
+    public void deleteAllFromIdReservation(int idreservation) {
+        String sql = "DELETE FROM relie WHERE idreservation = ?";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, idreservation);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

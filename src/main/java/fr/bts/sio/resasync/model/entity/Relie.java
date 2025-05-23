@@ -1,4 +1,9 @@
 package fr.bts.sio.resasync.model.entity;
+/**
+ * Représente la relation entre une chambre et une réservation.
+ * Cette classe relie une chambre à une réservation donnée, permettant d'indiquer
+ * quelles chambres sont affectées à quelles réservations.
+ */
 
 public class Relie {
 

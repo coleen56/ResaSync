@@ -1,5 +1,10 @@
 package fr.bts.sio.resasync.model.entity;
 
+/**
+ * Représente une adresse de facturation pour un client ou une entité.
+ * Cette classe contient les informations nécessaires pour identifier une adresse utilisée lors de la facturation,
+ * telles que le numéro, la voie, le code postal, la ville et le pays.
+ */
 public class AdresseFacturation {
     private int idAdresseFacturation;
     private String numero;
