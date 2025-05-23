@@ -12,10 +12,14 @@ public class Reservation {
     private int nbrPersonnes;
     private int nbrChambre;
     private int idEntreprise;
+    private String raisonSociale;
     private int idStatutResa;
     private String libelleStatut;
     private int idClient;
-    private int idFacture;
+    private String nomClient;
+    private String prenomClient;
+    private Integer idFacture;
+
 
 
     public Reservation(int idReservation, LocalDate dateReservation, LocalDate dateDebut, LocalDate dateFin, int nbrPersonnes, int nbrChambre, int idEntreprise, int idStatutResa, int idClient, int idFacture) {
@@ -92,6 +96,14 @@ public class Reservation {
         this.idEntreprise = idEntreprise;
     }
 
+    public String getRaisonSociale() {
+        return raisonSociale;
+    }
+
+    public void setRaisonSociale(String raisonSociale) {
+        this.raisonSociale = raisonSociale;
+    }
+
     public int getIdStatutResa() {
         return idStatutResa;
     }
@@ -116,14 +128,29 @@ public class Reservation {
         this.idClient = idClient;
     }
 
-    public int getIdFacture() {
+    public String getNomClient() {
+        return nomClient;
+    }
+
+    public void setNomClient(String nomClient) {
+        this.nomClient = nomClient;
+    }
+
+    public String getPrenomClient() {
+        return prenomClient;
+    }
+
+    public void setPrenomClient(String prenomClient) {
+        this.prenomClient = prenomClient;
+    }
+
+    public Integer  getIdFacture() {
         return idFacture;
     }
 
     public void setIdFacture(int idFacture) {
         this.idFacture = idFacture;
     }
-
 
     @Override
     public String toString() {

@@ -8,10 +8,10 @@ import fr.bts.sio.resasync.model.utils.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EntrepriseDAOImpl implements EntrepriseDAO {
     private Connection connection;
-
 
     @Override
     public Entreprise findById(int idEntreprise) {

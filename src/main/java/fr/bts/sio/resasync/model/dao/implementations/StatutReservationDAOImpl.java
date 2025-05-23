@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StatutReservationDAOImpl implements StatutReservationDAO {
     @Override
@@ -141,4 +143,30 @@ public class StatutReservationDAOImpl implements StatutReservationDAO {
             }
         }
     }
+
+    @Override
+    public List<StatutReservation> findAll() {
+        List<StatutReservation> statuts = new ArrayList<>();
+        String sql = "SELECT idStatutResa, libelle FROM StatutReservation";
+
+        try (
+             Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet resultSet = stmt.executeQuery())
+        {
+
+            while (resultSet.next()) {
+                StatutReservation statut = new StatutReservation(
+                        resultSet.getInt("idStatutResa"),
+                        resultSet.getString("libelle")
+                );
+                statuts.add(statut);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return statuts;
+    }
+
 }

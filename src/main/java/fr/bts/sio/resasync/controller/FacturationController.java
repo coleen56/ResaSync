@@ -149,7 +149,6 @@ public class FacturationController {
             double pourcentagePersSupp = Double.parseDouble(ConfigManager.getConstanteByLibelle("pourcentagePersonneSupp").getValeur());
             int persSupplementaires = nbrPersonnes - nbrChambre;
             prixPersSupplementaires = persSupplementaires * prixChambre * pourcentagePersSupp;
-            System.out.println("Il y a un supplément ! NbrPersonnes = " + nbrPersonnes + ", NbrChambre = " + nbrChambre);
             prixPersSupplementaires = persSupplementaires * prixChambre * pourcentagePersSupp;
         }
         return prixTotalChambre + prixPersSupplementaires;
