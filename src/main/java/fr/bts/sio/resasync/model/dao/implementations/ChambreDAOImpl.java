@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ChambreDAOImpl implements ChambreDAO {
@@ -229,5 +230,59 @@ public class ChambreDAOImpl implements ChambreDAO {
                 e.printStackTrace();
             }
         }
+    }
+
+    public int countChambresOccupéesParDate(LocalDate date) {
+        String sql = "SELECT COUNT (chambre.idchambre) FROM chambre JOIN relie on chambre.idchambre = relie.idchambre " +
+                " JOIN reservation on relie.idreservation = reservation.idreservation";
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    return 1;
+    }
+
+    public int countAllChambres() {
+        String sql = "SELECT COUNT (chambre.idchambre) FROM chambre";
+
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return count;
     }
 }

@@ -32,6 +32,7 @@ public class ResaSyncMain extends Application {
 //            UtilisateurDAO dao = new UtilisateurDAOImpl();
 ////            NiveauDroitsDAO daodroit = new NiveauDroitsDAOImpl();
 //            dao.save(user);
+            //fr.bts.sio.resasync.config.ConfigManager.load("./config.json");
             fr.bts.sio.resasync.config.ConfigManager.load("src/main/java/fr/bts/sio/resasync/storage/config.json");
 
             launch(args);
