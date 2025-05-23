@@ -1,12 +1,19 @@
+
 package fr.bts.sio.resasync.controller;
 
 import fr.bts.sio.resasync.model.dao.implementations.ClientDAOImpl;
-import fr.bts.sio.resasync.model.entity.Client;
-import fr.bts.sio.resasync.model.entity.Reservation;
+import fr.bts.sio.resasync.model.dao.implementations.ComprendDAOImpl;
+import fr.bts.sio.resasync.model.dao.implementations.OptionReservationDAOImpl;
+import fr.bts.sio.resasync.model.entity.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+import fr.bts.sio.resasync.config.ConfigManager;
 
 public class FacturationController {
 
@@ -18,11 +25,10 @@ public class FacturationController {
     @FXML private Label lblPeriodeSejour;
 
     // Table options
-    @FXML private TableView<?> tableOptions;
-    @FXML private TableColumn<?, ?> colOptionDescription;
-    @FXML private TableColumn<?, ?> colOptionQuantite;
-    @FXML private TableColumn<?, ?> colOptionPrixUnitaire;
-    @FXML private TableColumn<?, ?> colOptionMontant;
+    @FXML private TableView<OptionTableau> tableOptions;
+    @FXML private TableColumn<OptionTableau, String> colOptionDescription;
+    @FXML private TableColumn<OptionTableau, Integer> colOptionQuantite;
+    @FXML private TableColumn<OptionTableau, Double> colOptionPrixUnitaire;
 
     // Labels détails montant
     @FXML private Label lblMontantChambres;
@@ -55,10 +61,54 @@ public class FacturationController {
         return clientDAO.findById(idClient);
     }
 
+    public List<Comprend> getOptions(Reservation reservation){
+        ComprendDAOImpl comprendDAO = new ComprendDAOImpl();
+        int idReservation = reservation.getIdReservation();
+        List<Comprend> listOptions = comprendDAO.findOptionsByReservationId(idReservation);
+
+        return  listOptions;
+    }
+
+    public void afficherOptions(Reservation reservation) {
+        List<Comprend> listOptions = getOptions(reservation);
+        OptionReservationDAOImpl optionDAO = new OptionReservationDAOImpl();
+
+        ObservableList<OptionTableau> optionsAffichees = FXCollections.observableArrayList();
+
+        for (Comprend oneOption : listOptions) {
+            OptionReservation option = optionDAO.findById(oneOption.getIdOption());
+
+            if (option != null) {
+                String libelleOption = option.getLibelle();
+                double prixOption = option.getPrixUnitaire();
+                int quantiteOption = oneOption.getQuantite();
+
+                OptionTableau opt = new OptionTableau(libelleOption, quantiteOption, prixOption);
+                optionsAffichees.add(opt);
+            } else {
+                System.out.println("Option avec ID " + oneOption.getIdOption() + " non trouvée.");
+            }
+        }
+
+        if (optionsAffichees.isEmpty()) {
+            // Pas d'options valides à afficher -> afficher le message
+            tableOptions.setItems(FXCollections.observableArrayList()); // vide
+            tableOptions.setPlaceholder(new Label("Pas d'options à facturer"));
+        }
+
+        tableOptions.setItems(optionsAffichees);
+    }
+
     //Réception de l'objet Rendez-vous pour la facturation
     public void initData(Reservation reservation) {
         this.reservation = reservation;
 
+        // Configuration des colonnes de la table (à AJOUTER)
+        colOptionDescription.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
+        colOptionQuantite.setCellValueFactory(cellData -> cellData.getValue().quantiteProperty().asObject());
+        colOptionPrixUnitaire.setCellValueFactory(cellData -> cellData.getValue().prixUnitaireProperty().asObject());
+
+        afficherOptions(reservation);
         if (reservation != null) {
             //Détails facturation
             lblNumeroReservation.setText(String.valueOf(reservation.getIdReservation()));
@@ -86,9 +136,9 @@ public class FacturationController {
             System.out.println("Réservation nulle dans initData");
         }
     }
+
     public double calculMontantHebergement(Reservation reservation) {
-        //TODO Prendre prix depuis le JACKSON
-        double prixChambre = 62.0;
+        double prixChambre = Double.parseDouble(ConfigManager.getConstanteByLibelle("prixBaseChambre").getValeur());
         int nbrPersonnes = reservation.getNbrPersonnes();
         int nbrChambre = reservation.getNbrChambre();
 
@@ -96,15 +146,30 @@ public class FacturationController {
         double prixPersSupplementaires = 0;  // Initialise hors du if
 
         if (nbrPersonnes > nbrChambre) {
+            double pourcentagePersSupp = Double.parseDouble(ConfigManager.getConstanteByLibelle("pourcentagePersonneSupp").getValeur());
             int persSupplementaires = nbrPersonnes - nbrChambre;
-            prixPersSupplementaires = persSupplementaires * prixChambre * 0.1;
-            System.out.println("Il y a un supplément ! NbrPersonnes = " + nbrPersonnes + ", NbrChambre = " + nbrChambre);
+            prixPersSupplementaires = persSupplementaires * prixChambre * pourcentagePersSupp;
         }
         return prixTotalChambre + prixPersSupplementaires;
     }
-    public double calculMontantOptions(Reservation reservation){
-//TODO à compléter qund les options seront disponibles
-        return 0;
+    public double calculMontantOptions(Reservation reservation) {
+        List<Comprend> listOptions = getOptions(reservation);
+        OptionReservationDAOImpl optionDAO = new OptionReservationDAOImpl();
+
+        double montantTotalOptions = 0;
+
+        for (Comprend oneOption : listOptions) {
+            OptionReservation option = optionDAO.findById(oneOption.getIdOption());
+
+            if (option != null) {
+                double prixOption = option.getPrixUnitaire();
+                int quantiteOption = oneOption.getQuantite();
+                montantTotalOptions += prixOption * quantiteOption;
+            } else {
+                System.out.println("Option avec ID " + oneOption.getIdOption() + " non trouvée.");
+            }
+        }
+        return montantTotalOptions;
     }
 
     public double calculMontantHT(Reservation reservation){
@@ -112,13 +177,13 @@ public class FacturationController {
         return montantTotalHT;
     }
     public double calculMontantTVA(Reservation reservation){
-        double montantTVA = calculMontantTTC(reservation)-calculMontantHT(reservation);
+        double taxeSejour = Double.parseDouble(ConfigManager.getConstanteByLibelle("taxeSejour").getValeur());
+        double montantTVA = calculMontantTTC(reservation)-calculMontantHT(reservation)-calculTaxeSejour(reservation);
         return montantTVA;
     }
 
     public double calculTaxeSejour(Reservation reservation){
-        //TODO Récupérer valeur de JACKSON
-        double taxeSejour = 0.9;
+        double taxeSejour = Double.parseDouble(ConfigManager.getConstanteByLibelle("taxeSejour").getValeur());
         int nbrPersonne = reservation.getNbrPersonnes();
         LocalDate dateDebutSejour = reservation.getDateDebut();
         LocalDate dateFinSejour = reservation.getDateFin();
@@ -127,12 +192,11 @@ public class FacturationController {
         int nbrNuitTotalInt = (int) nbrNuitTotal;
         double montantTotalTaxeSejour = taxeSejour * nbrPersonne * nbrNuitTotalInt;
 
-        return taxeSejour;
+        return montantTotalTaxeSejour;
     }
 
     public double calculMontantTTC(Reservation reservation){
-        //TODO récupérer TVA de JACKSON
-        double TVA = 0.10;
+        double TVA = Double.parseDouble(ConfigManager.getConstanteByLibelle("TVA").getValeur());
         double montantTotalTTC = calculMontantHT(reservation) * (1+TVA) + calculTaxeSejour(reservation);
         return montantTotalTTC;
     }

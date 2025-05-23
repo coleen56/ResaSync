@@ -19,40 +19,70 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Contrôleur JavaFX pour la gestion des chambres de l'application ResAsync.
+ * Permet d'afficher, ajouter, modifier et supprimer des chambres.
+ * Gère également la navigation entre les différentes vues de l'application.
+ *
+ * @author Flogte
+ */
 public class ChambreController {
 
+    /** DAO pour la gestion des chambres */
     ChambreDAO chambreDAO = new ChambreDAOImpl();
+    /** DAO pour la gestion des types de chambre */
     TypeChambreDAO typeChambreDAO = new TypeChambreDAOImpl();
+    /** DAO pour la gestion des statuts de chambre */
     StatutChambreDAO statutChambreDAO = new StatutChambreDAOImpl();
 
     @FXML
     private Hyperlink lienDashboard;
 
+    /**
+     * Navigue vers la vue du dashboard.
+     */
     @FXML
     public void allerADashboard() {
         chargerVue("Dashboard.fxml");
     }
 
+    /**
+     * Navigue vers la vue client.
+     */
     @FXML
     public void allerAClient() {
         chargerVue("Client.fxml");
     }
 
+    /**
+     * Navigue vers la vue réservation.
+     */
     @FXML
     public void allerAReservation() {
         chargerVue("Reservation.fxml");
     }
 
+    /**
+     * Navigue vers la vue configuration.
+     */
     @FXML
     public void allerAConfiguration() {
         chargerVue("Configuration.fxml");
     }
 
+    /**
+     * Déconnecte l'utilisateur avec confirmation.
+     */
     @FXML
     public void Deconnexion() {
         Methods.deconnexionAvecConfirmation(() -> chargerVue("Login.fxml"));
     }
 
+    /**
+     * Charge une nouvelle vue FXML dans la fenêtre courante.
+     *
+     * @param fichierFxml Le fichier FXML à charger.
+     */
     private void chargerVue(String fichierFxml) {
         try {
             Stage stage = (Stage) lienDashboard.getScene().getWindow();
@@ -94,6 +124,9 @@ public class ChambreController {
     @FXML
     private Label labelAucuneSelection;
 
+    /**
+     * Initialise le contrôleur et configure les éléments graphiques au lancement de la vue.
+     */
     @FXML
     public void initialize() {
         // Initialisation des colonnes du tableau
@@ -148,11 +181,18 @@ public class ChambreController {
         labelAucuneSelection.setVisible(true);
     }
 
+    /**
+     * Charge la liste des chambres et l'affiche dans le tableau.
+     */
     public void afficherChambres() {
         ArrayList<Chambre> chambres = chambreDAO.findAll();
         tableChambres.setItems(FXCollections.observableArrayList(chambres));
     }
 
+    /**
+     * Gère l'ajout d'une nouvelle chambre à partir des champs du formulaire.
+     * Affiche un message d'erreur si des données sont invalides ou si le numéro existe déjà.
+     */
     @FXML
     public void gererAjouterChambre() {
         try {
@@ -210,8 +250,10 @@ public class ChambreController {
         }
     }
 
-
-
+    /**
+     * Gère la modification d'une chambre sélectionnée dans le tableau.
+     * Affiche une confirmation avant la modification et des alertes en cas d'erreur.
+     */
     @FXML
     public void gererModifierChambre() {
         Chambre chambreSelectionnee = tableChambres.getSelectionModel().getSelectedItem();
@@ -300,7 +342,9 @@ public class ChambreController {
         });
     }
 
-
+    /**
+     * Gère la suppression d'une chambre sélectionnée dans le tableau après confirmation de l'utilisateur.
+     */
     @FXML
     public void gererSupprimerChambre() {
         Chambre chambreSelectionnee = tableChambres.getSelectionModel().getSelectedItem();

@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+    Vue de gestion des clients pour l'application ResAsync.
+    Cette interface permet d'afficher, d'ajouter, de modifier ou de supprimer des clients particuliers et entreprises.
+    Navigation entre les sections via la barre supérieure.
+    Utilise un TabPane principal pour séparer la gestion des particuliers et des entreprises.
+    Contrôleur associé : fr.bts.sio.resasync.controller.ClientController
+
+    Structure :
+    - Barre de navigation (HBox)
+    - Titre de la page
+    - TabPane principal : "Clients Particuliers" et "Entreprises"
+        • Chaque tab utilise un SplitPane pour séparer la liste et les détails/édition.
+        • Détails et formulaires dans des TabPane secondaires.
+        • Actions CRUD accessibles selon la sélection.
+-->
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
@@ -8,9 +24,10 @@
 
 <AnchorPane prefHeight="857.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.bts.sio.resasync.controller.ClientController">
     <children>
-        <!-- Barre de navigation -->
+        <!-- Barre de navigation principale -->
         <HBox prefHeight="79.0" prefWidth="1280.0" style="-fx-background-color: #d1f2eb;">
             <children>
+                <!-- Dashboard -->
                 <AnchorPane prefWidth="200.0">
                     <children>
                         <Hyperlink fx:id="lienDashboard" layoutX="36.0" layoutY="21.0" onAction="#allerADashboard" text="Dashboard">
@@ -18,6 +35,7 @@
                         </Hyperlink>
                     </children>
                 </AnchorPane>
+                <!-- Réservations -->
                 <AnchorPane prefWidth="200.0">
                     <children>
                         <Hyperlink layoutX="31.0" layoutY="21.0" onAction="#allerAReservation" text="Réservations">
@@ -25,6 +43,7 @@
                         </Hyperlink>
                     </children>
                 </AnchorPane>
+                <!-- Chambres -->
                 <AnchorPane prefWidth="200.0">
                     <children>
                         <Hyperlink layoutX="58.0" layoutY="21.0" onAction="#allerAChambre" text="Chambres">
@@ -32,6 +51,7 @@
                         </Hyperlink>
                     </children>
                 </AnchorPane>
+                <!-- Configuration -->
                 <AnchorPane prefWidth="242.0">
                     <children>
                         <Hyperlink layoutX="46.0" layoutY="21.0" onAction="#allerAConfiguration" text="Configuration">
@@ -39,6 +59,7 @@
                         </Hyperlink>
                     </children>
                 </AnchorPane>
+                <!-- Déconnexion -->
                 <AnchorPane prefWidth="442.0">
                     <children>
                         <Hyperlink layoutX="276.0" layoutY="21.0" onAction="#Deconnexion" text="Déconnexion">
@@ -63,10 +84,10 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="1230.0">
                             <children>
-                                <!-- Split Pane pour diviser la vue -->
+                                <!-- SplitPane particuliers : liste à gauche, détails/édition à droite -->
                                 <SplitPane dividerPositions="0.5" layoutX="0.0" layoutY="0.0" prefHeight="620.0" prefWidth="1230.0">
                                     <items>
-                                        <!-- Partie gauche : Liste des clients particuliers -->
+                                        <!-- Liste des clients particuliers -->
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="600.0">
                                             <children>
                                                 <TableView fx:id="tableClients" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="590.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -80,7 +101,7 @@
                                             </children>
                                         </AnchorPane>
 
-                                        <!-- Partie droite : Détails et édition du client particulier -->
+                                        <!-- Détails et édition du client particulier -->
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="600.0">
                                             <children>
                                                 <TabPane prefHeight="620.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -94,7 +115,6 @@
                                                                             <Label text="Détails du client particulier" textFill="#056861">
                                                                                 <font><Font name="Segoe UI Bold" size="18.0" /></font>
                                                                             </Label>
-
                                                                             <!-- Informations personnelles -->
                                                                             <TitledPane expanded="true" text="Informations personnelles">
                                                                                 <VBox spacing="10">
@@ -109,8 +129,8 @@
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
-                                                                     <RowConstraints />
-                                                                     <RowConstraints />
+                                                                                            <RowConstraints />
+                                                                                            <RowConstraints />
                                                                                         </rowConstraints>
                                                                                         <Label text="Nom:" GridPane.rowIndex="0" />
                                                                                         <Label fx:id="labelNomClientParticulierDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -124,18 +144,14 @@
                                                                                         <Label fx:id="labelDateNaissanceClientParticulierDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                                                                         <Label text="Adresse:" GridPane.rowIndex="5" />
                                                                                         <Label fx:id="labelAdresseClientParticulierDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-
                                                                                     </GridPane>
                                                                                 </VBox>
                                                                             </TitledPane>
-                                                                                                                                                       <!-- Boutons d'action -->
-
                                                                         </VBox>
                                                                     </children>
                                                                 </AnchorPane>
                                                             </content>
                                                         </Tab>
-
                                                         <!-- Onglet ajout/modification client particulier -->
                                                         <Tab text="Ajouter/Modifier">
                                                             <content>
@@ -147,8 +163,7 @@
                                                                                     <Label fx:id="labelTitreFormClientParticulier" text="Nouveau client particulier" textFill="#056861">
                                                                                         <font><Font name="Segoe UI" size="18.0" /></font>
                                                                                     </Label>
-
-                                                                                    <!-- Informations personnelles -->
+                                                                                    <!-- Formulaire infos personnelles -->
                                                                                     <TitledPane expanded="true" text="Informations personnelles">
                                                                                         <VBox spacing="10">
                                                                                             <GridPane hgap="10" vgap="10">
@@ -160,10 +175,10 @@
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
-                                                                           <RowConstraints minHeight="30.0" prefHeight="30.0" />
-                                                                           <RowConstraints />
-                                                                           <RowConstraints />
-                                                                           <RowConstraints />
+                                                                                                    <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                                                                                                    <RowConstraints />
+                                                                                                    <RowConstraints />
+                                                                                                    <RowConstraints />
                                                                                                 </rowConstraints>
                                                                                                 <TextField fx:id="fieldNomClientParticulier" promptText="Nom *" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                                                                                 <TextField fx:id="fieldPrenomClientParticulier" promptText="Prénom *" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -178,10 +193,8 @@
                                                                                             </GridPane>
                                                                                         </VBox>
                                                                                     </TitledPane>
-
                                                                                     <Label fx:id="labelErreurClientParticulier" textFill="#bc0e0e" />
-
-                                                                                    <!-- Bouton d'action -->
+                                                                                    <!-- Actions -->
                                                                                     <Button fx:id="btnEnregistrerClientParticulier" onAction="#gererAjouterClientParticulier" prefWidth="200.0" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Enregistrer" />
                                                                                     <HBox spacing="10">
                                                                                         <Button fx:id="btnModifierClientParticulier" onAction="#gererModifierClientParticulier" prefWidth="150.0" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Modifier" />
@@ -204,16 +217,15 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-
                 <!-- Onglet Entreprises -->
                 <Tab text="Entreprises">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="1230.0">
                             <children>
-                                <!-- Split Pane pour diviser la vue -->
+                                <!-- SplitPane entreprises : liste à gauche, détails/édition à droite -->
                                 <SplitPane dividerPositions="0.5" layoutX="0.0" layoutY="0.0" prefHeight="620.0" prefWidth="1230.0">
                                     <items>
-                                        <!-- Partie gauche : Liste des entreprises -->
+                                        <!-- Liste des entreprises -->
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="600.0">
                                             <children>
                                                 <TableView fx:id="tableEntreprises" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="590.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -226,8 +238,7 @@
                                                 </TableView>
                                             </children>
                                         </AnchorPane>
-
-                                        <!-- Partie droite : Détails et édition de l'entreprise -->
+                                        <!-- Détails et édition de l'entreprise -->
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="600.0">
                                             <children>
                                                 <TabPane prefHeight="620.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -241,7 +252,6 @@
                                                                             <Label text="Détails de l'entreprise" textFill="#056861">
                                                                                 <font><Font name="Segoe UI Bold" size="18.0" /></font>
                                                                             </Label>
-
                                                                             <!-- Informations entreprise -->
                                                                             <TitledPane expanded="true" text="Informations entreprise">
                                                                                 <VBox spacing="10">
@@ -255,7 +265,7 @@
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
-                                                                     <RowConstraints />
+                                                                                            <RowConstraints />
                                                                                         </rowConstraints>
                                                                                         <Label text="Raison sociale:" GridPane.rowIndex="0" />
                                                                                         <Label fx:id="labelRaisonSocialeDetail" text="--" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -270,7 +280,6 @@
                                                                                     </GridPane>
                                                                                 </VBox>
                                                                             </TitledPane>
-
                                                                             <!-- Clients liés à l'entreprise -->
                                                                             <TitledPane expanded="true" text="Clients liés">
                                                                                 <VBox spacing="10">
@@ -283,15 +292,11 @@
                                                                                     </TableView>
                                                                                 </VBox>
                                                                             </TitledPane>
-
-                                                                            <!-- Boutons d'action -->
-
                                                                         </VBox>
                                                                     </children>
                                                                 </AnchorPane>
                                                             </content>
                                                         </Tab>
-
                                                         <!-- Onglet ajout/modification entreprise -->
                                                         <Tab text="Ajouter/Modifier">
                                                             <content>
@@ -303,8 +308,7 @@
                                                                                     <Label fx:id="labelTitreFormEntreprise" text="Nouvelle entreprise" textFill="#056861">
                                                                                         <font><Font name="Segoe UI" size="18.0" /></font>
                                                                                     </Label>
-
-                                                                                    <!-- Informations entreprise -->
+                                                                                    <!-- Formulaire infos entreprise -->
                                                                                     <TitledPane expanded="true" text="Informations entreprise">
                                                                                         <VBox spacing="10">
                                                                                             <GridPane hgap="10" vgap="10">
@@ -315,9 +319,9 @@
                                                                                                 <rowConstraints>
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                                                     <RowConstraints minHeight="30.0" prefHeight="30.0" />
-                                                                           <RowConstraints />
-                                                                           <RowConstraints />
-                                                                           <RowConstraints />
+                                                                                                    <RowConstraints />
+                                                                                                    <RowConstraints />
+                                                                                                    <RowConstraints />
                                                                                                 </rowConstraints>
                                                                                                 <TextField fx:id="fieldRaisonSocialeEntreprise" promptText="Raison sociale *" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                                                                                 <TextField fx:id="fieldSiretEntreprise" promptText="SIRET *" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -331,10 +335,8 @@
                                                                                             </GridPane>
                                                                                         </VBox>
                                                                                     </TitledPane>
-
                                                                                     <Label fx:id="labelErreurEntreprise" textFill="#bc0e0e" />
-
-                                                                                    <!-- Bouton d'action -->
+                                                                                    <!-- Actions -->
                                                                                     <Button fx:id="btnEnregistrerEntreprise" onAction="#gererAjouterEntreprise" prefWidth="200.0" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Enregistrer" />
                                                                                     <HBox spacing="10">
                                                                                         <Button fx:id="btnModifierEntreprise" onAction="#gererModifierEntreprise" prefWidth="150.0" style="-fx-background-color: #056861; -fx-text-fill: white;" text="Modifier" />

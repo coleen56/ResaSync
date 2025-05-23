@@ -29,38 +29,64 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Contrôleur JavaFX pour la gestion des clients particuliers et entreprises dans l'application ResAsync.
+ * Permet d'afficher, ajouter, modifier et supprimer les clients et entreprises,
+ * ainsi que de gérer la navigation entre les différentes vues de l'application.
+ *
+ * @author Flogte
+ */
 public class ClientController {
 
-    // Changer de page
+    // --------- Navigation / changement de page ---------
 
     @FXML
     private Hyperlink lienDashboard;
 
+    /**
+     * Navigue vers la vue Dashboard.
+     */
     @FXML
     public void allerADashboard() {
         chargerVue("Dashboard.fxml");
     }
 
+    /**
+     * Navigue vers la vue Chambre.
+     */
     @FXML
     public void allerAChambre() {
         chargerVue("Chambre.fxml");
     }
 
+    /**
+     * Navigue vers la vue Réservation.
+     */
     @FXML
     public void allerAReservation() {
         chargerVue("Reservation.fxml");
     }
 
+    /**
+     * Navigue vers la vue Configuration.
+     */
     @FXML
     public void allerAConfiguration() {
         chargerVue("Configuration.fxml");
     }
 
+    /**
+     * Déconnecte l'utilisateur avec confirmation.
+     */
     @FXML
     public void Deconnexion() {
         Methods.deconnexionAvecConfirmation(() -> chargerVue("Login.fxml"));
     }
 
+    /**
+     * Charge une nouvelle vue FXML dans la fenêtre courante.
+     * @param fichierFxml Le fichier FXML à charger.
+     */
     private void chargerVue(String fichierFxml) {
         try {
             Stage stage = (Stage) lienDashboard.getScene().getWindow();
@@ -70,22 +96,22 @@ public class ClientController {
         }
     }
 
-    //
-
+    // --------- Attributs DAO ---------
 
     private ClientDAO clientDAO = new ClientDAOImpl();
     private EntrepriseDAO entrepriseDAO = new EntrepriseDAOImpl();
     private AdresseFacturationDAO adresseDAO = new AdresseFacturationDAOImpl();
 
-    // Tableau des clients
+    // --------- Attributs JavaFX pour les clients particuliers ---------
+
+    // Tableau des clients particuliers
     @FXML private TableView<Client> tableClients;
     @FXML private TableColumn<Client, String> colNomClientParticulier;
     @FXML private TableColumn<Client, String> colPrenomClientParticulier;
     @FXML private TableColumn<Client, String> colTelClientParticulier;
     @FXML private TableColumn<Client, String> colDateNaissClientParticulier;
 
-    // Informations personnelles Client --> GridPane
-
+    // Détails client particulier (GridPane)
     @FXML private Label labelNomClientParticulierDetail ;
     @FXML private Label labelPrenomClientParticulierDetail ;
     @FXML private Label labelTelClientParticulierDetail ;
@@ -105,14 +131,15 @@ public class ClientController {
     @FXML private TextField fieldVilleClientParticulier;
     @FXML private TextField fieldPaysClientParticulier;
 
-    // Tableau des entreprises
+    // --------- Attributs JavaFX pour les entreprises ---------
+
     @FXML private TableView <Entreprise> tableEntreprises;
     @FXML private TableColumn colRaisonSocialeEntreprise;
     @FXML private TableColumn colSiretEntreprise;
     @FXML private TableColumn colTelEntreprise;
     @FXML private TableColumn colMailEntreprise;
 
-    // Informations personnelles Client --> GridPane
+    // Détails entreprise (GridPane)
     @FXML private Label labelRaisonSocialeDetail;
     @FXML private Label labelSiretDetail;
     @FXML private Label labelTelEntrepriseDetail;
@@ -131,7 +158,9 @@ public class ClientController {
     @FXML private Button btnModifierEntreprise;
     @FXML private Button btnSupprimerEntreprise;
 
-
+    /**
+     * Initialise le contrôleur, configure les éléments graphiques et charge les données au lancement de la vue.
+     */
     public void initialize() {
         // Initialiser les colonnes du tableau Clients Particulier
         colNomClientParticulier.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -149,7 +178,7 @@ public class ClientController {
         afficherClientsParticuliers();
         afficherEntreprises();
 
-        // Listener pour la sélection d'une ligne dans le tableau des clients
+        // Listener pour la sélection d'une ligne dans le tableau des clients particuliers
         tableClients.getSelectionModel().selectedItemProperty().addListener((obsClient , ancienneValeur, nouvelleValeur) -> {
             if (nouvelleValeur != null) {
                 labelNomClientParticulierDetail.setText(nouvelleValeur.getNom());
@@ -181,7 +210,6 @@ public class ClientController {
         // Listener pour la sélection d'une ligne dans le tableau des entreprises
         tableEntreprises.getSelectionModel().selectedItemProperty().addListener((obsEntreprise, ancienneValeurEntreprise, nouvelleValeurEntreprise) -> {
             if (nouvelleValeurEntreprise != null) {
-                System.out.println(nouvelleValeurEntreprise);
                 labelRaisonSocialeDetail.setText(nouvelleValeurEntreprise.getRaisonSociale());
                 labelSiretDetail.setText(nouvelleValeurEntreprise.getNumSiret());
                 labelTelEntrepriseDetail.setText(nouvelleValeurEntreprise.getTel());
@@ -198,7 +226,6 @@ public class ClientController {
                 fieldVilleEntreprise.setText(nouvelleValeurEntreprise.getAdresseFacturationEntreprise().getVille());
                 fieldPaysEntreprise.setText(nouvelleValeurEntreprise.getAdresseFacturationEntreprise().getPays());
 
-
                 btnModifierEntreprise.setDisable(false);
                 btnSupprimerEntreprise.setDisable(false);
             } else {
@@ -212,19 +239,23 @@ public class ClientController {
             }
         });
     }
-    public void afficherClientsParticuliers() {
-        // Appel à l'instance de ClientDAO pour récupérer tous les clients
-        ArrayList<Client> clients = (ArrayList<Client>) clientDAO.findAll();
-        // Remplir la TableView avec les clients récupérés
-        tableClients.setItems(FXCollections.observableArrayList(clients));
 
+    /**
+     * Charge la liste des clients particuliers et l'affiche dans le tableau.
+     */
+    public void afficherClientsParticuliers() {
+        ArrayList<Client> clients = (ArrayList<Client>) clientDAO.findAll();
+        tableClients.setItems(FXCollections.observableArrayList(clients));
     }
 
+    /**
+     * Gère l'ajout d'un nouveau client particulier à partir des champs du formulaire.
+     * Affiche un message d'erreur si le mail ou le téléphone existe déjà.
+     */
     public void gererAjouterClientParticulier () {
         System.out.println("gererEnregistrerParticulier");
-
         try {
-            //Récupération des valeurs du formulaire d'ajout
+            // Récupération des valeurs du formulaire d'ajout
             String nomClient = fieldNomClientParticulier.getText();
             String prenomClient = fieldPrenomClientParticulier.getText();
             String telClient = fieldTelClientParticulier.getText();
@@ -241,30 +272,29 @@ public class ClientController {
             boolean mailExiste = clientDAO.mailExiste(emailClient);
 
             if (telExiste) {
-                // Afficher une alerte ou message d'erreur
                 System.out.println("Email déjà utilisé");
                 return;
             }
 
             if (mailExiste) {
-                // Afficher une alerte ou message d'erreur
                 System.out.println("Numéro de téléphone déjà utilisé");
                 return;
             }
 
-            //Création de l'adresse du client
-            AdresseFacturation adresseFacturationClient = new AdresseFacturation(0,numAdresseFacturationClient,voieAdresseFacturationClient,codePostalAdresseFacturationClient,villeAdresseFacturationClient,paysAdresseFacturationClient);
+            // Création de l'adresse du client
+            AdresseFacturation adresseFacturationClient = new AdresseFacturation(0, numAdresseFacturationClient, voieAdresseFacturationClient, codePostalAdresseFacturationClient, villeAdresseFacturationClient, paysAdresseFacturationClient);
             adresseDAO.save(adresseFacturationClient);
             int idAdresseFacturation = adresseFacturationClient.getIdAdresseFacturation();
-            Client nouveauClient = new Client(0,nomClient,prenomClient,telClient,emailClient, dateNaissanceClient,adresseFacturationClient);
+            Client nouveauClient = new Client(0, nomClient, prenomClient, telClient, emailClient, dateNaissanceClient, adresseFacturationClient);
             clientDAO.save(nouveauClient);
+        } catch (Exception e){
+            e.printStackTrace();
         }
-        catch (Exception e){
-        e.printStackTrace();
-        }
-
     }
 
+    /**
+     * Gère la modification d'un client particulier sélectionné dans le tableau après confirmation.
+     */
     public void gererModifierClientParticulier () {
         System.out.println("gérer modifier Particulier");
         Client clientSelectionne = tableClients.getSelectionModel().getSelectedItem();
@@ -336,6 +366,9 @@ public class ClientController {
         });
     }
 
+    /**
+     * Efface les champs du formulaire client particulier.
+     */
     private void effacerChampsClient() {
         fieldNomClientParticulier.clear();
         fieldPrenomClientParticulier.clear();
@@ -350,6 +383,9 @@ public class ClientController {
         fieldPaysClientParticulier.clear();
     }
 
+    /**
+     * Gère la suppression d'un client particulier sélectionné après confirmation.
+     */
     public void gererSupprimerClientParticulier() {
         System.out.println("gérer Supprimer Particulier");
         Client clientSelectionne = tableClients.getSelectionModel().getSelectedItem();
@@ -374,7 +410,7 @@ public class ClientController {
                     // Supprimer d'abord le client
                     clientDAO.delete(clientSelectionne);
 
-                    // Supprimer ensuite son adresse si elle est distincte ou si nécessaire
+                    // Supprimer ensuite son adresse si nécessaire
                     adresseDAO.delete(clientSelectionne.getAdresseFacturation());
 
                     afficherClientsParticuliers(); // Rafraîchir la table
@@ -394,21 +430,24 @@ public class ClientController {
         });
     }
 
+    // --------- Méthodes Entreprise ---------
 
-    // Méthodes Entreprise
-
+    /**
+     * Charge la liste des entreprises et l'affiche dans le tableau.
+     */
     public void afficherEntreprises() {
-        // Appel à l'instance de ClientDAO pour récupérer tous les clients
         ArrayList<Entreprise> entreprises = entrepriseDAO.findAll();
-        // Remplir la TableView avec les clients récupérés
         tableEntreprises.setItems(FXCollections.observableArrayList(entreprises));
-
     }
 
+    /**
+     * Gère l'ajout d'une nouvelle entreprise à partir des champs du formulaire.
+     * Affiche un message d'erreur si le SIRET, le téléphone ou le mail existe déjà.
+     */
     public void gererAjouterEntreprise () {
         System.out.println("gererEnregistrerEntreprise");
         try {
-            //Récupération des valeurs du formulaire d'ajout
+            // Récupération des valeurs du formulaire d'ajout
             String raisonSocialeEntreprise = fieldRaisonSocialeEntreprise.getText();
             String numSiretEntreprise = fieldSiretEntreprise.getText();
             String numTelEntreprise = fieldTelEntreprise.getText();
@@ -419,7 +458,7 @@ public class ClientController {
             String villeAdresseFacturationEntreprise = fieldVilleEntreprise.getText();
             String paysAdresseFacturationEntreprise = fieldPaysEntreprise.getText();
 
-            // Vérification que le mail ainsi que le numéro de téléphone n'existent pas déjà
+            // Vérification que le mail, le SIRET ou le numéro de téléphone n'existent pas déjà
             boolean telExiste = entrepriseDAO.telExiste(numTelEntreprise);
             boolean numSiretExiste = entrepriseDAO.numSiretExiste(numSiretEntreprise);
             boolean mailExiste = entrepriseDAO.mailExiste(emailEntreprise);
@@ -439,20 +478,21 @@ public class ClientController {
                 return;
             }
 
-            //Création de l'adresse de l'entreprise
-            AdresseFacturation adresseFacturationEntrprise = new AdresseFacturation(0,numAdresseFacturationEntreprise,voieAdresseFacturationEntreprise,codePostalAdresseFacturationEntreprise,villeAdresseFacturationEntreprise,paysAdresseFacturationEntreprise);
+            // Création de l'adresse de l'entreprise
+            AdresseFacturation adresseFacturationEntrprise = new AdresseFacturation(0, numAdresseFacturationEntreprise, voieAdresseFacturationEntreprise, codePostalAdresseFacturationEntreprise, villeAdresseFacturationEntreprise, paysAdresseFacturationEntreprise);
             adresseDAO.save(adresseFacturationEntrprise);
             int idAdresseFacturation = adresseFacturationEntrprise.getIdAdresseFacturation();
-            Entreprise nouvelleEntreprise = new Entreprise(0,raisonSocialeEntreprise,numTelEntreprise,numSiretEntreprise,emailEntreprise,adresseFacturationEntrprise);
+            Entreprise nouvelleEntreprise = new Entreprise(0, raisonSocialeEntreprise, numTelEntreprise, numSiretEntreprise, emailEntreprise, adresseFacturationEntrprise);
             entrepriseDAO.save(nouvelleEntreprise);
             afficherEntreprises();
-        }
-        catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
+    /**
+     * Gère la modification d'une entreprise sélectionnée dans le tableau après confirmation.
+     */
     public void gererModifierEntreprise() {
         System.out.println("gérer modifier Entreprise");
         Entreprise entrepriseSelectionnee = tableEntreprises.getSelectionModel().getSelectedItem();
@@ -506,6 +546,9 @@ public class ClientController {
         });
     }
 
+    /**
+     * Efface les champs du formulaire entreprise.
+     */
     private void effacerChampsEntreprise() {
         fieldRaisonSocialeEntreprise.clear();
         fieldTelEntreprise.clear();
@@ -519,6 +562,9 @@ public class ClientController {
         fieldPaysEntreprise.clear();
     }
 
+    /**
+     * Gère la suppression d'une entreprise sélectionnée après confirmation.
+     */
     public void gererSupprimerEntreprise() {
         System.out.println("gererSupprimerEntreprise");
         Entreprise entrepriseSelectionnee = tableEntreprises.getSelectionModel().getSelectedItem();
@@ -543,7 +589,7 @@ public class ClientController {
                     entrepriseDAO.delete(entrepriseSelectionnee); // Suppression dans la base
                     afficherEntreprises(); // Rafraîchir la table
                     tableEntreprises.getSelectionModel().clearSelection();
-                    effacerChampsEntreprise(); // Réinitialiser les champs (à créer si pas encore)
+                    effacerChampsEntreprise(); // Réinitialiser les champs
                     System.out.println("Entreprise supprimée avec succès !");
                 } catch (Exception e) {
                     Alert erreur = new Alert(Alert.AlertType.ERROR);
@@ -556,5 +602,4 @@ public class ClientController {
             }
         });
     }
-
 }

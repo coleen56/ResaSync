@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+    Vue de gestion des chambres pour l'application ResAsync.
+    Cette interface permet d'afficher la liste des chambres, d'ajouter, de modifier ou de supprimer une chambre.
+    Les liens en haut de page permettent de naviguer entre les différentes sections de l'application.
+    Contrôleur associé : fr.bts.sio.resasync.controller.ChambreController
+
+    Structure :
+    - Barre de navigation (HBox)
+    - Titre de la page
+    - Tableau listant les chambres existantes
+    - TabPane pour gérer l'ajout et la modification/suppression d'une chambre
+-->
+
 <?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -7,13 +20,14 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.geometry.Insets?>
-
 <?import java.lang.String?>
+
 <AnchorPane prefHeight="857.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.bts.sio.resasync.controller.ChambreController">
     <children>
-        <!-- Barre de navigation -->
+        <!-- Barre de navigation principale -->
         <HBox prefHeight="79.0" prefWidth="1280.0" style="-fx-background-color: #d1f2eb;">
             <children>
+                <!-- Lien vers Dashboard -->
                 <AnchorPane prefWidth="200.0">
                     <children>
                         <Hyperlink fx:id="lienDashboard" layoutX="36.0" layoutY="21.0" onAction="#allerADashboard" text="Dashboard">
@@ -21,6 +35,7 @@
                         </Hyperlink>
                     </children>
                 </AnchorPane>
+                <!-- Lien vers les Réservations -->
                 <AnchorPane prefWidth="200.0">
                     <children>
                         <Hyperlink fx:id="lienReservation" layoutX="31.0" layoutY="21.0" onAction="#allerAReservation" text="Réservations">
@@ -28,6 +43,7 @@
                         </Hyperlink>
                     </children>
                 </AnchorPane>
+                <!-- Lien vers Clients -->
                 <AnchorPane prefWidth="200.0">
                     <children>
                         <Hyperlink fx:id="lienClients" layoutX="58.0" layoutY="21.0" onAction="#allerAClient" text="Clients">
@@ -35,6 +51,7 @@
                         </Hyperlink>
                     </children>
                 </AnchorPane>
+                <!-- Lien vers Configuration (désactivé ici) -->
                 <AnchorPane prefWidth="242.0">
                     <children>
                         <Hyperlink fx:id="lienConfiguration" disable="true" layoutX="46.0" layoutY="21.0" onAction="#allerAConfiguration" text="Configuration">
@@ -42,6 +59,7 @@
                         </Hyperlink>
                     </children>
                 </AnchorPane>
+                <!-- Déconnexion -->
                 <AnchorPane prefWidth="442.0">
                     <children>
                         <Hyperlink fx:id="lienDeconnexion" layoutX="276.0" layoutY="21.0" onAction="#Deconnexion" text="Déconnexion">
@@ -52,7 +70,7 @@
             </children>
         </HBox>
 
-        <!-- Titre -->
+        <!-- Titre de la page -->
         <Label layoutX="538.0" layoutY="102.0" text="Chambres" textFill="#056861">
             <font><Font name="Segoe UI" size="46.0"/></font>
             <effect>
@@ -62,17 +80,21 @@
             </effect>
         </Label>
 
-        <!-- Tableau des chambres -->
+        <!-- Liste des chambres existantes -->
         <TableView fx:id="tableChambres" layoutX="25.0" layoutY="170.0" prefHeight="385.0" prefWidth="808.0">
             <columns>
+                <!-- Colonne ID (non affichée) -->
                 <TableColumn fx:id="colIdChambre" prefWidth="0.0" text="ID" visible="false"/>
+                <!-- Colonne numéro -->
                 <TableColumn fx:id="colNumChambre" prefWidth="150.0" text="Numéro"/>
+                <!-- Colonne type -->
                 <TableColumn fx:id="colTypeChambre" prefWidth="250.0" text="Type de Chambre"/>
+                <!-- Colonne statut -->
                 <TableColumn fx:id="colStatut" prefWidth="200.0" text="Statut"/>
             </columns>
         </TableView>
 
-        <!-- Zone de gestion avec TabPane -->
+        <!-- Gestion d'une chambre : ajout, modification, suppression -->
         <TabPane layoutX="850.0" layoutY="170.0" prefHeight="385.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <!-- Onglet d'ajout -->
@@ -83,14 +105,14 @@
                                 <Label text="Nouvelle chambre" textFill="#056861">
                                     <font><Font name="Segoe UI" size="20.0"/></font>
                                 </Label>
-
+                                <!-- Saisie du numéro de chambre -->
                                 <HBox alignment="CENTER_LEFT" spacing="10">
                                     <children>
                                         <Label text="Numéro :" prefWidth="80.0"/>
                                         <TextField fx:id="fieldNumChambre" promptText="Ex: 101" HBox.hgrow="ALWAYS"/>
                                     </children>
                                 </HBox>
-
+                                <!-- Sélection du type de chambre -->
                                 <HBox alignment="CENTER_LEFT" spacing="10">
                                     <children>
                                         <Label text="Type :" prefWidth="80.0"/>
@@ -105,9 +127,9 @@
                                         </ComboBox>
                                     </children>
                                 </HBox>
-
+                                <!-- Message d'erreur éventuel -->
                                 <Label fx:id="ajouterChambreErreur" textFill="#bc0e0e"/>
-
+                                <!-- Bouton d'ajout -->
                                 <Button onAction="#gererAjouterChambre" text="Ajouter cette chambre"
                                         style="-fx-background-color: #056861; -fx-text-fill: white;" maxWidth="1.7976931348623157E308">
                                     <VBox.margin>
@@ -127,18 +149,17 @@
                                 <Label text="Modifier/Supprimer la chambre sélectionnée" textFill="#056861" wrapText="true">
                                     <font><Font name="Segoe UI" size="20.0"/></font>
                                 </Label>
-
+                                <!-- Message affiché si aucune chambre sélectionnée -->
                                 <Label fx:id="labelAucuneSelection" text="Aucune chambre sélectionnée. Veuillez sélectionner une chambre dans le tableau."
                                        wrapText="true" textFill="#666666"/>
-
-                                <!-- Cette partie utilise les mêmes champs que l'ajout, mais avec des actions différentes -->
+                                <!-- Saisie du nouveau numéro -->
                                 <HBox alignment="CENTER_LEFT" spacing="10">
                                     <children>
                                         <Label text="Numéro :" prefWidth="80.0"/>
                                         <TextField fx:id="fieldNumChambreModif" promptText="Ex: 101" HBox.hgrow="ALWAYS"/>
                                     </children>
                                 </HBox>
-
+                                <!-- Sélection du nouveau type -->
                                 <HBox alignment="CENTER_LEFT" spacing="10">
                                     <children>
                                         <Label text="Type :" prefWidth="80.0"/>
@@ -153,7 +174,7 @@
                                         </ComboBox>
                                     </children>
                                 </HBox>
-
+                                <!-- Boutons modifier/supprimer -->
                                 <HBox spacing="10">
                                     <Button fx:id="btnModifierChambre" text="Modifier la chambre" onAction="#gererModifierChambre"
                                             style="-fx-background-color: #056861; -fx-text-fill: white;" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308">
@@ -161,7 +182,6 @@
                                             <Insets top="10.0" />
                                         </HBox.margin>
                                     </Button>
-
                                     <Button fx:id="btnSupprimerChambre" text="Supprimer" onAction="#gererSupprimerChambre"
                                             style="-fx-background-color: #bc0e0e; -fx-text-fill: white;" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308">
                                         <HBox.margin>

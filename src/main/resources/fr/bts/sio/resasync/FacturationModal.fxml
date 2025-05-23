@@ -71,8 +71,7 @@
                                     <columns>
                                         <TableColumn fx:id="colOptionDescription" prefWidth="250" text="Description" />
                                         <TableColumn fx:id="colOptionQuantite" prefWidth="100" text="Quantité" />
-                                        <TableColumn fx:id="colOptionPrixUnitaire" prefWidth="100" text="Prix unitaire" />
-                                        <TableColumn fx:id="colOptionMontant" prefWidth="100" text="Montant" />
+                                        <TableColumn fx:id="colOptionPrixUnitaire" prefWidth="100" text="Prix unitaire (€)" />
                                     </columns>
                                 </TableView>
                             </VBox>

@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ComprendDAOImpl implements ComprendDAO {
     private Connection connection;
@@ -151,4 +153,43 @@ public class ComprendDAOImpl implements ComprendDAO {
             }
         }
     }
+
+    @Override
+    public List<Comprend> findOptionsByReservationId(int idReservation) {
+        List<Comprend> listeOptions = new ArrayList<>();
+        String sql = "SELECT * FROM comprend WHERE idreservation = ?";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idReservation);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int idOption = rs.getInt("idoption");
+                int quantite = rs.getInt("quantite");
+
+                Comprend option = new Comprend(idReservation, idOption, quantite);
+                listeOptions.add(option);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return listeOptions;
+    }
 }
+
