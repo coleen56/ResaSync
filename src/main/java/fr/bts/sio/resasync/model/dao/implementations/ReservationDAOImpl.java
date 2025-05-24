@@ -99,10 +99,11 @@ public class ReservationDAOImpl implements ReservationDAO {
 
 //----------------------------------------------------------------------------------------------------------------------
     @Override
-    public void save(Reservation reservation) {
+    public int save(Reservation reservation) {
         String sql = "INSERT INTO reservation (dateReservation, dateDebut, dateFin, nbrPersonnes, nbrChambre, idEntreprise, idStatutResa, idClient, idFacture) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+        int generatedId = 0;
         try (
              Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
@@ -128,7 +129,7 @@ public class ReservationDAOImpl implements ReservationDAO {
             if (rowsAffected > 0) {
                 try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
-                        int generatedId = generatedKeys.getInt(1);
+                        generatedId = generatedKeys.getInt(1);
                         reservation.setIdReservation(generatedId); // mise à jour de l'objet en mémoire
                     }
                 }
@@ -136,6 +137,7 @@ public class ReservationDAOImpl implements ReservationDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return generatedId;
     }
 
 
@@ -191,6 +193,31 @@ public class ReservationDAOImpl implements ReservationDAO {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public ArrayList<Integer> getNumChambresByReservation(Reservation reservation) {
+        String sql = "SELECT chambre.numchambre from chambre join relie on relie.idchambre = chambre.idchambre " +
+                "JOIN reservation on reservation.idreservation = relie.idreservation WHERE reservation.idreservation = ?";
+        ArrayList<Integer> retour = new ArrayList<>();
+        try (
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+
+            stmt.setInt(1, reservation.getIdReservation());
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                retour.add(rs.getInt("numchambre"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("erreur");
+            e.printStackTrace();
+        }
+        return retour;
+    }
+
 
     @Override
     public void updateIdFacture(int idReservation, int idFacture) {

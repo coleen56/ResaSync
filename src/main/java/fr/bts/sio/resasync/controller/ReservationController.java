@@ -9,6 +9,7 @@ import fr.bts.sio.resasync.model.entity.*;
 
 import fr.bts.sio.resasync.util.Methods;
 
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.scene.control.ComboBox;
@@ -32,6 +34,7 @@ import javafx.util.StringConverter;
 public class ReservationController {
 
     private ReservationDAOImpl reservationDAO;
+    private RelieDAOImpl relieDAO;
 
     @FXML private Hyperlink lienDashboard;
 
@@ -64,6 +67,11 @@ public class ReservationController {
             e.printStackTrace();
         }
     }
+
+    //déclaration des arraylist contenant les chambres dispos en "globales" pour pourvoir les partager entre les méthodes
+    ArrayList<Chambre> listeChambreDouble = new ArrayList<>();
+    ArrayList<Chambre> listeChambreDeuxSimple = new ArrayList<>();
+    ArrayList<Chambre> listeChambreSimpleSuperpose = new ArrayList<>();
 
 
     // Onglets du tableau des réservations
@@ -132,7 +140,6 @@ public class ReservationController {
     @FXML private javafx.scene.control.DatePicker dateDebutPicker;
     @FXML private javafx.scene.control.DatePicker dateFinPicker;
     @FXML private javafx.scene.control.TextField nbrPersonnesField;
-    @FXML private javafx.scene.control.TextField nbrChambresField;
     @FXML private javafx.scene.control.Label ajouterReservationErreur;
     @FXML private DatePicker dateReservationPicker;
     @FXML private ComboBox<Entreprise> comboEntreprise;
@@ -186,11 +193,23 @@ public class ReservationController {
     // Onglet supprimer une réservation
     @FXML private Label labelConfirmationSuppression;
 
-
+    // choicebox qui permettent de choisir le nombre de chambres pour chaque type
+    @FXML private ChoiceBox<Integer> nombreDouble;
+    @FXML private ChoiceBox<Integer> nombreDeuxSimples;
+    @FXML private ChoiceBox<Integer> nombreSimpleSuperpose;
 
     //-----------------------------------Méthodes pour charger les éléments à l'ouverture de la page--------------------
     @FXML
     public void initialize() {
+        // ajout d'un event listener sur les champs de saisie de date de résa pour ajouter le nombre de chambres dispo
+        ChangeListener<LocalDate> dateListener = (obs, oldValue, newValue) -> {
+            if (dateFinPicker.getValue() != null && dateDebutPicker.getValue() != null) {
+                getChambreDispo(dateDebutPicker.getValue(), dateFinPicker.getValue());
+            }
+        };
+        dateDebutPicker.valueProperty().addListener(dateListener);
+        dateFinPicker.valueProperty().addListener(dateListener);
+
         reservationDAO = new ReservationDAOImpl();
         chargerLibelleOptions();
         dateDebutPicker.valueProperty().addListener((obs, oldDate, newDate) -> updateComboBoxNbJours());
@@ -369,7 +388,7 @@ public class ReservationController {
             LocalDate dateFin = dateFinPicker.getValue();
 
             if (dateReservation == null || dateDebut == null || dateFin == null ||
-                    nbrPersonnesField.getText().isBlank() || nbrChambresField.getText().isBlank() ||
+                    nbrPersonnesField.getText().isBlank() ||
                     comboEntreprise.getValue() == null || comboClient.getValue() == null) {
 
                 ajouterReservationErreur.setText("Veuillez compléter tous les champs pour créer une réservation.");
@@ -385,7 +404,7 @@ public class ReservationController {
 
             // Conversion des champs numériques
             int nbrPersonnes = Integer.parseInt(nbrPersonnesField.getText().trim());
-            int nbrChambres = Integer.parseInt(nbrChambresField.getText().trim());
+            int nbrChambres = nombreDeuxSimples.getValue() + nombreDouble.getValue() + nombreSimpleSuperpose.getValue();
             int idFacture = Integer.parseInt(nbrPersonnesField.getText().trim());
 
             // Entreprise
@@ -413,8 +432,6 @@ public class ReservationController {
 
             int idStatutResa = statutEnCours.getIdStatutResa();
 
-
-
             // Création de l'objet réservation
             Reservation reservation = new Reservation(
                     0,
@@ -429,8 +446,32 @@ public class ReservationController {
                     null
             );
 
-            // Enregistrement
-            reservationDAO.save(reservation);
+            // Enregistrement de la réservation + recup de la clé auto générée
+            int idReservation = reservationDAO.save(reservation);
+
+            relieDAO = new RelieDAOImpl();
+            // ajout d'une ligne en table "relie" pour lier les chambres à la réservation
+            if(nombreDouble.getValue() != 0) {
+                for(int i = 0; i < nombreDouble.getValue(); i++) {
+                    Chambre chambre = listeChambreDouble.get(i);
+                    relieDAO.save(new Relie(chambre.getIdChambre(), idReservation));
+                }
+            }
+            //pour chaque type on insère les n premiers éléments de la liste des chambres dispos,
+            // n étant le nombre choisi de chambre à associer à la réservation
+            if(nombreDeuxSimples.getValue() != 0) {
+                for(int i = 0; i < nombreDeuxSimples.getValue(); i++) {
+                    Chambre chambre = listeChambreDeuxSimple.get(i);
+                    relieDAO.save(new Relie(chambre.getIdChambre(), idReservation));
+                }
+            }
+
+            if(nombreSimpleSuperpose.getValue() != 0) {
+                for(int i = 0; i < nombreSimpleSuperpose.getValue(); i++) {
+                    Chambre chambre = listeChambreSimpleSuperpose.get(i);
+                    relieDAO.save(new Relie(chambre.getIdChambre(), idReservation));
+                }
+            }
 
             // Ajout Des options
 // Ajout des options sélectionnées à la réservation
@@ -467,7 +508,6 @@ public class ReservationController {
             dateDebutPicker.setValue(null);
             dateFinPicker.setValue(null);
             nbrPersonnesField.clear();
-            nbrChambresField.clear();
             comboEntreprise.setValue(null);
             comboClient.setValue(null);
             comboStatutResa.setValue(statutEnCours); // Réafficher "En cours"
@@ -702,12 +742,13 @@ public class ReservationController {
     //-----------------------------------------Méthode pour afficher les détails--------------------------------------------
     private void afficherDetailsReservation(Reservation reservation) {
         if (reservation == null) return;
+        reservationDAO = new ReservationDAOImpl();
 
         labelDateReservationDetail.setText(reservation.getDateReservation().toString());
         labelDateDebutDetail.setText(reservation.getDateDebut().toString());
         labelDateFinDetail.setText(reservation.getDateFin().toString());
         labelNbrPersonnesDetail.setText(String.valueOf(reservation.getNbrPersonnes()));
-        labelNbrChambresDetail.setText(String.valueOf(reservation.getNbrChambre()));
+        labelNbrChambresDetail.setText(String.valueOf(reservationDAO.getNumChambresByReservation(reservation)));
         labelStatutDetail.setText(String.valueOf(reservation.getIdStatutResa()));
         labelClientDetail.setText(String.valueOf(reservation.getIdClient()));
         labelEntrepriseDetail.setText(String.valueOf(reservation.getIdEntreprise()));
@@ -719,13 +760,16 @@ public class ReservationController {
     //-----------------------------------------Méthode supprimer une réservation--------------------------------------------
     @FXML
     private void supprimerReservation() {
+        relieDAO = new RelieDAOImpl();
         Reservation selected = tableViewToutesReservations.getSelectionModel().getSelectedItem();
         if (selected == null) selected = tableViewReservationsEnCours.getSelectionModel().getSelectedItem();
         if (selected == null) selected = tableViewReservationsTerminees.getSelectionModel().getSelectedItem();
         if (selected == null) selected = tableViewReservationsAnnulees.getSelectionModel().getSelectedItem();
 
         if (selected != null && selected.getIdReservation() > 0) {
+            relieDAO.deleteAllFromIdReservation(selected.getIdReservation());
             reservationDAO.delete(selected.getIdReservation());
+
             labelConfirmationSuppression.setText("La réservation numéro " + selected.getIdReservation() + " a été supprimée avec succès !");
             labelConfirmationSuppression.setVisible(true);
 
@@ -760,5 +804,33 @@ public class ReservationController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void remplirChoiceBox(ChoiceBox<Integer> choiceBox, int valeurMax) {
+        for (int i = 0; i <= valeurMax; i++) {
+            choiceBox.getItems().add(i);
+        }
+        choiceBox.setValue(0);
+    }
+
+    public void getChambreDispo(LocalDate startDate, LocalDate endDate) {
+        ChambreDAOImpl chambreDAO = new ChambreDAOImpl();
+        // on récupère les chambres dispos en fonction du type et des dates
+        listeChambreDouble = chambreDAO.getChambreDisponibles(startDate, endDate, 1);
+        listeChambreDeuxSimple = chambreDAO.getChambreDisponibles(startDate, endDate, 2);
+        listeChambreSimpleSuperpose = chambreDAO.getChambreDisponibles(startDate, endDate, 3);
+        // comptage des éléments de chaque arraylist pour changer les valeurs des choicebox
+        int compteurDouble = listeChambreDouble.size();
+        int compteurDeuxSimple = listeChambreDeuxSimple.size();
+        int compteurSimpleSuperpose = listeChambreSimpleSuperpose.size();
+        //vidage des choicebox avant mise a jour ;
+        nombreDouble.getItems().clear();
+        nombreDeuxSimples.getItems().clear();
+        nombreSimpleSuperpose.getItems().clear();
+
+        // remplissage des choicebox
+        remplirChoiceBox(nombreDouble, compteurDouble);
+        remplirChoiceBox(nombreDeuxSimples, compteurDeuxSimple);
+        remplirChoiceBox(nombreSimpleSuperpose, compteurSimpleSuperpose);
     }
 }

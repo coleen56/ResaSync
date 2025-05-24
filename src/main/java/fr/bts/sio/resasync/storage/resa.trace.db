@@ -6250,7 +6250,220 @@ SELECT COUNT (idchambre) FROM chambre JOIN relie ON chambre.idchambre = relie.id
 	at org.h2.server.web.WebThread.process(WebThread.java:188)
 	at org.h2.server.web.WebThread.run(WebThread.java:101)
 	at java.base/java.lang.Thread.run(Thread.java:1570)
-2025-05-23 15:03:46 jdbc[3]: exception
+2025-05-23 12:16:56 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "INSERT INTO reservation (dateReservation, dateDebut, dateFin, nbrPersonnes, nbrChambre, idEntreprise, idStatutResa, idClient, idFacture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?[*]"; attendu "[, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"
 Syntax error in SQL statement "INSERT INTO reservation (dateReservation, dateDebut, dateFin, nbrPersonnes, nbrChambre, idEntreprise, idStatutResa, idClient, idFacture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?[*]"; expected "[, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"; SQL statement:
 INSERT INTO reservation (dateReservation, dateDebut, dateFin, nbrPersonnes, nbrChambre, idEntreprise, idStatutResa, idClient, idFacture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? [42001-220]
+2025-05-23 14:18:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CHAMMBRE" non trouvée
+Table "CHAMMBRE" not found; SQL statement:
+select * from chammbre [42102-220]
+2025-05-23 14:23:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "SELECT * FROM chambre WHERE chambre.idchambre NOT IN (SELECT chambre.idchambre FROM chambre JOIN relie ON relie.idchambre = chambre.idchambre JOIN reservation ON reservation.idreservation = relie.idreservation WHERE ((reservation.datedebut BETWEEN ? AND ?) OR [*]"" + (reservation.datefin BETWEEN ? AND ?) OR (reservation.datedebut <= ? AND reservation.datefin >= ?)"
+Syntax error in SQL statement "SELECT * FROM chambre WHERE chambre.idchambre NOT IN (SELECT chambre.idchambre FROM chambre JOIN relie ON relie.idchambre = chambre.idchambre JOIN reservation ON reservation.idreservation = relie.idreservation WHERE ((reservation.datedebut BETWEEN ? AND ?) OR [*]"" + (reservation.datefin BETWEEN ? AND ?) OR (reservation.datedebut <= ? AND reservation.datefin >= ?)"; SQL statement:
+SELECT * FROM chambre WHERE chambre.idchambre NOT IN (SELECT chambre.idchambre FROM chambre JOIN relie ON relie.idchambre = chambre.idchambre JOIN reservation ON reservation.idreservation = relie.idreservation WHERE ((reservation.datedebut BETWEEN ? AND ?) OR " + (reservation.datefin BETWEEN ? AND ?) OR (reservation.datedebut <= ? AND reservation.datefin >= ?) [42000-220]
+2025-05-23 14:23:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "SELECT * FROM chambre WHERE chambre.idchambre NOT IN (SELECT chambre.idchambre FROM chambre JOIN relie ON relie.idchambre = chambre.idchambre JOIN reservation ON reservation.idreservation = relie.idreservation WHERE ((reservation.datedebut BETWEEN ? AND ?) OR (reservation.datefin BETWEEN ? AND ?) OR (reservation.datedebut <= ? AND reservation.datefin >= ?)[*]"; attendu "[, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"
+Syntax error in SQL statement "SELECT * FROM chambre WHERE chambre.idchambre NOT IN (SELECT chambre.idchambre FROM chambre JOIN relie ON relie.idchambre = chambre.idchambre JOIN reservation ON reservation.idreservation = relie.idreservation WHERE ((reservation.datedebut BETWEEN ? AND ?) OR (reservation.datefin BETWEEN ? AND ?) OR (reservation.datedebut <= ? AND reservation.datefin >= ?)[*]"; expected "[, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"; SQL statement:
+SELECT * FROM chambre WHERE chambre.idchambre NOT IN (SELECT chambre.idchambre FROM chambre JOIN relie ON relie.idchambre = chambre.idchambre JOIN reservation ON reservation.idreservation = relie.idreservation WHERE ((reservation.datedebut BETWEEN ? AND ?) OR (reservation.datefin BETWEEN ? AND ?) OR (reservation.datedebut <= ? AND reservation.datefin >= ?) [42001-220]
+2025-05-23 14:24:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "SELECT * FROM chambre WHERE chambre.idchambre NOT IN (SELECT chambre.idchambre FROM chambre JOIN relie ON relie.idchambre = chambre.idchambre JOIN reservation ON reservation.idreservation = relie.idreservation WHERE ((reservation.datedebut BETWEEN ? AND ?) OR (reservation.datefin BETWEEN ? AND ?) OR (reservation.datedebut <= ? AND reservation.datefin >= ?))[*]"; attendu "[, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, _LOCAL_AND_GLOBAL_, OR, GROUP BY, HAVING, WINDOW, QUALIFY, INTERSECT, UNION, EXCEPT, MINUS, ORDER BY, OFFSET, FETCH, LIMIT, FOR, ,, )"
+Syntax error in SQL statement "SELECT * FROM chambre WHERE chambre.idchambre NOT IN (SELECT chambre.idchambre FROM chambre JOIN relie ON relie.idchambre = chambre.idchambre JOIN reservation ON reservation.idreservation = relie.idreservation WHERE ((reservation.datedebut BETWEEN ? AND ?) OR (reservation.datefin BETWEEN ? AND ?) OR (reservation.datedebut <= ? AND reservation.datefin >= ?))[*]"; expected "[, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, _LOCAL_AND_GLOBAL_, OR, GROUP BY, HAVING, WINDOW, QUALIFY, INTERSECT, UNION, EXCEPT, MINUS, ORDER BY, OFFSET, FETCH, LIMIT, FOR, ,, )"; SQL statement:
+SELECT * FROM chambre WHERE chambre.idchambre NOT IN (SELECT chambre.idchambre FROM chambre JOIN relie ON relie.idchambre = chambre.idchambre JOIN reservation ON reservation.idreservation = relie.idreservation WHERE ((reservation.datedebut BETWEEN ? AND ?) OR (reservation.datefin BETWEEN ? AND ?) OR (reservation.datedebut <= ? AND reservation.datefin >= ?)) [42001-220]
+2025-05-23 14:24:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: La paramètre "#1" n'est pas initialisé
+Parameter "#1" is not set; SQL statement:
+SELECT * 
+FROM chambre 
+WHERE chambre.idchambre NOT IN (
+    SELECT chambre.idchambre 
+    FROM chambre 
+    JOIN relie ON relie.idchambre = chambre.idchambre 
+    JOIN reservation ON reservation.idreservation = relie.idreservation 
+    WHERE 
+        (
+            (reservation.datedebut BETWEEN ? AND ?) 
+            OR (reservation.datefin BETWEEN ? AND ?) 
+            OR (reservation.datedebut <= ? AND reservation.datefin >= ?)
+        )
+) [90012-220]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:658)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.Parameter.checkSet(Parameter.java:75)
+	at org.h2.command.Prepared.checkParameters(Prepared.java:207)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:251)
+	at org.h2.command.Command.executeQuery(Command.java:191)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:247)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1109)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1096)
+	at org.h2.server.web.WebThread.process(WebThread.java:188)
+	at org.h2.server.web.WebThread.run(WebThread.java:101)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+2025-05-23 14:25:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "2025-05-15" non trouvée
+Column "2025-05-15" not found; SQL statement:
+SELECT * 
+FROM chambre 
+WHERE chambre.idchambre NOT IN (
+    SELECT chambre.idchambre 
+    FROM chambre 
+    JOIN relie ON relie.idchambre = chambre.idchambre 
+    JOIN reservation ON reservation.idreservation = relie.idreservation 
+    WHERE 
+        (
+            (reservation.datedebut BETWEEN "2025-05-15" AND "2025-05-20") 
+            OR (reservation.datefin BETWEEN "2025-05-15" AND "2025-05-20") 
+            OR (reservation.datedebut <= "2025-05-15" AND reservation.datefin >=  "2025-05-20")
+        )
+) [42122-220]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.expression.condition.BetweenPredicate.optimize(BetweenPredicate.java:71)
+	at org.h2.expression.condition.ConditionAndOrN.optimize(ConditionAndOrN.java:168)
+	at org.h2.expression.condition.ConditionAndOr.optimize(ConditionAndOr.java:136)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1177)
+	at org.h2.command.query.Query.prepare(Query.java:218)
+	at org.h2.expression.condition.PredicateWithSubquery.optimize(PredicateWithSubquery.java:37)
+	at org.h2.expression.condition.ConditionInQuery.optimize(ConditionInQuery.java:160)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1177)
+	at org.h2.command.query.Query.prepare(Query.java:218)
+	at org.h2.command.Parser.prepareCommand(Parser.java:583)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:634)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:557)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1109)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1096)
+	at org.h2.server.web.WebThread.process(WebThread.java:188)
+	at org.h2.server.web.WebThread.run(WebThread.java:101)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+2025-05-23 14:27:22 database: flush
+org.h2.message.DbException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:212)
+	at com.h2database@2.2.220/org.h2.message.DbException.convert(DbException.java:407)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.handleException(MVStore.java:1547)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.panic(MVStore.java:371)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:291)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore$Builder.open(MVStore.java:2036)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.<init>(Store.java:133)
+	at com.h2database@2.2.220/org.h2.engine.Database.<init>(Database.java:324)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:92)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:222)
+	at com.h2database@2.2.220/org.h2.engine.Engine.createSession(Engine.java:201)
+	at com.h2database@2.2.220/org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at com.h2database@2.2.220/org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:682)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.utils.DatabaseConnection.getConnection(DatabaseConnection.java:17)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.ChambreDAOImpl.getChambreDisponibles(ChambreDAOImpl.java:251)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.ResaSyncMain.main(ResaSyncMain.java:45)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1164)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 27 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]
+	at com.h2database@2.2.220/org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:286)
+	... 21 more
+2025-05-23 14:41:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "RSERVATION" non trouvée
+Table "RSERVATION" not found; SQL statement:
+update rservation set datefin = '2025-05-25' where idreservation = 16 [42102-220]
+2025-05-23 14:42:47 database: flush
+org.h2.message.DbException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.get(DbException.java:212)
+	at com.h2database@2.2.220/org.h2.message.DbException.convert(DbException.java:407)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.handleException(MVStore.java:1547)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.panic(MVStore.java:371)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:291)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore$Builder.open(MVStore.java:2036)
+	at com.h2database@2.2.220/org.h2.mvstore.db.Store.<init>(Store.java:133)
+	at com.h2database@2.2.220/org.h2.engine.Database.<init>(Database.java:324)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:92)
+	at com.h2database@2.2.220/org.h2.engine.Engine.openSession(Engine.java:222)
+	at com.h2database@2.2.220/org.h2.engine.Engine.createSession(Engine.java:201)
+	at com.h2database@2.2.220/org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at com.h2database@2.2.220/org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at com.h2database@2.2.220/org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:682)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.utils.DatabaseConnection.getConnection(DatabaseConnection.java:17)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.model.dao.implementations.ChambreDAOImpl.getChambreDisponibles(ChambreDAOImpl.java:251)
+	at fr.bts.sio.resasync/fr.bts.sio.resasync.ResaSyncMain.main(ResaSyncMain.java:45)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1164)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Erreur générale: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]" [50000-220]
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at com.h2database@2.2.220/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 27 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/admin/IdeaProjects/ResaSync/src/main/java/fr/bts/sio/resasync/storage/resa.mv.db [2.2.220/7]
+	at com.h2database@2.2.220/org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at com.h2database@2.2.220/org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at com.h2database@2.2.220/org.h2.mvstore.MVStore.<init>(MVStore.java:286)
+	... 21 more
+2025-05-23 16:52:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: L'objet est déjà fermé
+The object is already closed [90007-220]
+2025-05-23 16:52:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: L'objet est déjà fermé
+The object is already closed [90007-220]
+2025-05-23 16:52:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: L'objet est déjà fermé
+The object is already closed [90007-220]
+2025-05-23 16:57:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: L'objet est déjà fermé
+The object is already closed [90007-220]
+2025-05-23 16:57:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: L'objet est déjà fermé
+The object is already closed [90007-220]
+2025-05-23 17:00:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: L'objet est déjà fermé
+The object is already closed [90007-220]
+2025-05-23 17:00:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: L'objet est déjà fermé
+The object is already closed [90007-220]
+2025-05-23 17:00:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: L'objet est déjà fermé
+The object is already closed [90007-220]
+2025-05-23 17:00:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: L'objet est déjà fermé
+The object is already closed [90007-220]

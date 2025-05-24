@@ -6,4 +6,5 @@ public interface RelieDAO {
     Relie findById(int idChambre, int idReservation);
     void save(Relie relie);
     void delete(Relie relie);
+    void deleteAllFromIdReservation(int idreservation);
 }

@@ -23,6 +23,11 @@ public class Chambre {
         this.statutChambre = statutChambre;
     }
 
+    public Chambre(int idChambre, int numChambre) {
+        this.idChambre = idChambre;
+        this.numChambre = numChambre;
+    }
+
     // Constructeur sans ID de chambre (pour l'insertion d'une nouvelle chambre)
     public Chambre(int numChambre, TypeChambre typeChambre, StatutChambre statutChambre) {
         if (typeChambre == null) {
@@ -76,5 +81,15 @@ public class Chambre {
 
     public void setStatutChambre(StatutChambre statutChambre) {
         this.statutChambre = statutChambre;
+    }
+
+    @Override
+    public String toString() {
+        return "Chambre{" +
+                "idChambre=" + idChambre +
+                ", numChambre=" + numChambre +
+                ", typeChambre=" + typeChambre +
+                ", statutChambre=" + statutChambre +
+                '}';
     }
 }

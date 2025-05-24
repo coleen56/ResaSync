@@ -1,5 +1,6 @@
 package fr.bts.sio.resasync;
 
+import fr.bts.sio.resasync.model.dao.implementations.ChambreDAOImpl;
 import fr.bts.sio.resasync.model.dao.implementations.NiveauDroitsDAOImpl;
 import fr.bts.sio.resasync.model.dao.implementations.UtilisateurDAOImpl;
 import fr.bts.sio.resasync.model.dao.interfaces.NiveauDroitsDAO;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class ResaSyncMain extends Application {
     @Override
@@ -36,6 +38,11 @@ public class ResaSyncMain extends Application {
             fr.bts.sio.resasync.config.ConfigManager.load("src/main/java/fr/bts/sio/resasync/storage/config.json");
 
             launch(args);
+
+//            ChambreDAOImpl dao = new ChambreDAOImpl();
+//            LocalDate date1 = LocalDate.of(2025, 5, 15);
+//            LocalDate date2 = LocalDate.of(2025, 5, 20);
+//            System.out.println(dao.getChambreDisponibles(date1, date2, 3));
 
         } catch (Exception e) {
             e.printStackTrace();
