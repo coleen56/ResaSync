@@ -48,7 +48,7 @@ public class EntrepriseDAOImpl implements EntrepriseDAO {
                 );
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         } finally {
             try {
                 if (rs != null) rs.close();

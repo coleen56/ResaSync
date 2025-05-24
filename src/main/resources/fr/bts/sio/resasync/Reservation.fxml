@@ -85,10 +85,10 @@
                                                 <PropertyValueFactory property="raisonSociale" />
                                             </cellValueFactory>
                                         </TableColumn>                                        <TableColumn fx:id="colLibelleStatut" text="Statut Réservation">
-                                        <cellValueFactory>
-                                            <PropertyValueFactory property="libelleStatut" />
-                                        </cellValueFactory>
-                                    </TableColumn>
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="libelleStatut" />
+                                            </cellValueFactory>
+                                        </TableColumn>
                                         <TableColumn fx:id="colNomClient" text="Nom">
                                             <cellValueFactory>
                                                 <PropertyValueFactory property="nomClient" />
@@ -278,7 +278,6 @@
                                                 </GridPane>
                                             </VBox>
                                         </TitledPane>
-
                                         <Button fx:id="boutonDetailsFactuResa" mnemonicParsing="false" onAction="#ouvrirFacturationModal" prefHeight="41.0" prefWidth="274.0" style="-fx-background-color: green;" text="Détails Facturation Réservation" textFill="WHITE" translateX="150.0" translateY="50.0">
                                             <VBox.margin>
                                                 <Insets />
@@ -326,50 +325,50 @@
                                                 <TextField fx:id="nbrPersonnesField" promptText="ex: 2" />
 
                                                 <Label text="Nombre de chambres :" />
-                                                <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="551.0" spacing="10.0">
-                                                    <children>
-                                                        <Label text="1 Lit double :">
-                                                            <HBox.margin>
-                                                                <Insets left="20.0" />
-                                                            </HBox.margin>
-                                                        </Label>
-                                                        <ChoiceBox fx:id="nombreDouble" />
-                                                    </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="285.0" prefHeight="23.0" prefWidth="551.0" spacing="10.0">
-                                                    <children>
-                                                        <Label text="2 Lits simples :">
-                                                            <HBox.margin>
-                                                                <Insets left="20.0" />
-                                                            </HBox.margin>
-                                                        </Label>
-                                                        <ChoiceBox fx:id="nombreDeuxSimples" />
-                                                    </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="551.0" spacing="10.0">
-                                                    <children>
-                                                        <Label text="1 Lit simple + 2 lits superposés :">
-                                                            <HBox.margin>
-                                                                <Insets left="20.0" />
-                                                            </HBox.margin>
-                                                        </Label>
-                                                        <ChoiceBox fx:id="nombreSimpleSuperpose" />
-                                                    </children>
-                                                </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="551.0" spacing="10.0">
+                                       <children>
+                                          <Label text="1 Lit double :">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <ChoiceBox fx:id="nombreDouble" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="285.0" prefHeight="23.0" prefWidth="551.0" spacing="10.0">
+                                       <children>
+                                          <Label text="2 Lits simples :">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <ChoiceBox fx:id="nombreDeuxSimples" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="551.0" spacing="10.0">
+                                       <children>
+                                          <Label text="1 Lit simple + 2 lits superposés :">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <ChoiceBox fx:id="nombreSimpleSuperpose" />
+                                       </children>
+                                    </HBox>
 
                                                 <!-- Ligne avec Entreprise/Client à gauche et Options à droite -->
-                                                <HBox alignment="TOP_LEFT" spacing="30">
+                                        <HBox alignment="TOP_LEFT" spacing="30">
 
                                                     <!-- Colonne Entreprise / Client -->
                                                     <VBox spacing="10">
-                                                    <Label text="Entreprise :" />
-                                                    <ComboBox fx:id="comboEntreprise" prefWidth="200" />
+                                                        <Label text="Entreprise :" />
+                                                        <ComboBox fx:id="comboEntreprise" prefWidth="200" />
                                                     </VBox>
-                                                    <Label text="Statut réservation:" />
-                                                    <ComboBox fx:id="comboStatutResa" disable="true" editable="false" prefWidth="200" />
+                                                <Label text="Statut réservation:" />
+                                                <ComboBox fx:id="comboStatutResa" disable="true" editable="false" prefWidth="200" />
 
-                                                    <Label text="Client :" />
-                                                    <ComboBox fx:id="comboClient" prefWidth="200" />
+                                                <Label text="Client :" />
+                                                <ComboBox fx:id="comboClient" prefWidth="200" />
 
                                                     <!-- Options à droite -->
                                                     <!-- Bloc des options à droite -->

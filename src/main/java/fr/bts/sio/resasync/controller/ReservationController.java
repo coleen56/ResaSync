@@ -216,13 +216,12 @@ public class ReservationController {
         dateFinPicker.valueProperty().addListener((obs, oldDate, newDate) -> updateComboBoxNbJours());
         labelConfirmationSuppression.setVisible(false);
 //        labelNbJoursInfo.setText("Veuillez sélectionner des dates de séjour.");
-        comboOptionNbJours.setDisable(true);
         boutonDetailsFactuResa.disableProperty().bind(
                 tableViewToutesReservations.getSelectionModel().selectedItemProperty().isNull()
         );
         colLibelleOption.setCellValueFactory(new PropertyValueFactory<>("libelle"));
         colQuantiteOption.setCellValueFactory(new PropertyValueFactory<>("quantite"));
-        colNbJoursOption.setCellValueFactory(new PropertyValueFactory<>("nbJours"));
+//        colNbJoursOption.setCellValueFactory(new PropertyValueFactory<>("nbJours"));
 // Colonne de bouton supprimer (à faire avec un cellFactory)
         tableOptions.setItems(optionsAjoutees);
         ajouterColonneSupprimer();
@@ -606,25 +605,14 @@ public class ReservationController {
         LocalDate dateDebut = dateDebutPicker.getValue();
         LocalDate dateFin = dateFinPicker.getValue();
 
-        comboOptionNbJours.getItems().clear();
-
-        if (dateDebut != null && dateFin != null && !dateFin.isBefore(dateDebut)) {
-            int nbJours = (int) (java.time.temporal.ChronoUnit.DAYS.between(dateDebut, dateFin));
-            if (nbJours > 0) {
-                for (int i = 1; i <= nbJours; i++) {
-                    comboOptionNbJours.getItems().add(i);
-                }
-                comboOptionNbJours.setValue(1);
-                labelNbJoursInfo.setText("");
-                comboOptionNbJours.setDisable(false);
-            } else {
-                labelNbJoursInfo.setText("La date de fin doit être après la date de début.");
-                comboOptionNbJours.setDisable(true);
-            }
-        } else {
-            labelNbJoursInfo.setText("Veuillez sélectionner des dates de séjour.");
-            comboOptionNbJours.setDisable(true);
-        }
+//        if (dateDebut != null && dateFin != null && !dateFin.isBefore(dateDebut)) {
+//            int nbJours = (int) (java.time.temporal.ChronoUnit.DAYS.between(dateDebut, dateFin));
+//            if (nbJours > 0) {
+//                for (int i = 1; i <= nbJours; i++) {
+//                    comboOptionNbJours.getItems().add(i);
+//                }
+//            }
+//        }
     }
     private ObservableList<OptionSelectionnee> optionsAjoutees = FXCollections.observableArrayList();
 
@@ -632,9 +620,8 @@ public class ReservationController {
     private void ajouterOptionALaListe() {
         String libelle = comboOptionLibelle.getValue();
         Integer quantite = comboOptionQuantite.getValue();
-        Integer nbJours = comboOptionNbJours.getValue();
 
-        if(libelle != null && quantite != null && nbJours != null && quantite > 0) {
+        if(libelle != null && quantite != null && quantite > 0) {
             optionsAjoutees.add(new OptionSelectionnee(libelle, quantite));
             // (Facultatif) Réinitialiser les champs
         }
@@ -742,7 +729,11 @@ public class ReservationController {
     //-----------------------------------------Méthode pour afficher les détails--------------------------------------------
     private void afficherDetailsReservation(Reservation reservation) {
         if (reservation == null) return;
+        ClientDAOImpl clientDAO = new ClientDAOImpl();
+        EntrepriseDAOImpl entrepriseDAO = new EntrepriseDAOImpl();
         reservationDAO = new ReservationDAOImpl();
+        Client client = clientDAO.findById(reservation.getIdClient());
+        Entreprise entreprise = entrepriseDAO.findById(reservation.getIdEntreprise());
 
         labelDateReservationDetail.setText(reservation.getDateReservation().toString());
         labelDateDebutDetail.setText(reservation.getDateDebut().toString());
@@ -750,7 +741,7 @@ public class ReservationController {
         labelNbrPersonnesDetail.setText(String.valueOf(reservation.getNbrPersonnes()));
         labelNbrChambresDetail.setText(String.valueOf(reservationDAO.getNumChambresByReservation(reservation)));
         labelStatutDetail.setText(String.valueOf(reservation.getIdStatutResa()));
-        labelClientDetail.setText(String.valueOf(reservation.getIdClient()));
+        labelClientDetail.setText(String.valueOf(client.getNom() + " " + client.getPrenom()));
         labelEntrepriseDetail.setText(String.valueOf(reservation.getIdEntreprise()));
 
     }
@@ -761,6 +752,7 @@ public class ReservationController {
     @FXML
     private void supprimerReservation() {
         relieDAO = new RelieDAOImpl();
+        ComprendDAOImpl comprendDAO = new ComprendDAOImpl();
         Reservation selected = tableViewToutesReservations.getSelectionModel().getSelectedItem();
         if (selected == null) selected = tableViewReservationsEnCours.getSelectionModel().getSelectedItem();
         if (selected == null) selected = tableViewReservationsTerminees.getSelectionModel().getSelectedItem();
@@ -768,6 +760,7 @@ public class ReservationController {
 
         if (selected != null && selected.getIdReservation() > 0) {
             relieDAO.deleteAllFromIdReservation(selected.getIdReservation());
+            comprendDAO.deleteAllFromIdReservation(selected.getIdReservation());
             reservationDAO.delete(selected.getIdReservation());
 
             labelConfirmationSuppression.setText("La réservation numéro " + selected.getIdReservation() + " a été supprimée avec succès !");
