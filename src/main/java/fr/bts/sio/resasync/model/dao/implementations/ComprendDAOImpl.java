@@ -1,7 +1,6 @@
 package fr.bts.sio.resasync.model.dao.implementations;
 
 import fr.bts.sio.resasync.model.dao.interfaces.ComprendDAO;
-import fr.bts.sio.resasync.model.entity.Chambre;
 import fr.bts.sio.resasync.model.entity.Comprend;
 import fr.bts.sio.resasync.model.utils.DatabaseConnection;
 
@@ -190,6 +189,31 @@ public class ComprendDAOImpl implements ComprendDAO {
         }
 
         return listeOptions;
+    }
+
+    @Override
+    public void deleteAllFromIdReservation(int idreservation) {
+        String sql = "DELETE FROM comprend WHERE idreservation = ?";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, idreservation);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 

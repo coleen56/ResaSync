@@ -10,5 +10,7 @@ public interface ComprendDAO {
     void update(Comprend compr);
     void delete(Comprend compr);
     List<Comprend> findOptionsByReservationId(int idReservation);
-    }
+
+    void deleteAllFromIdReservation(int idreservation);
+}
 
