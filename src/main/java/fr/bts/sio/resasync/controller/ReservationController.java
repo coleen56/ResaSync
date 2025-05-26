@@ -733,7 +733,6 @@ public class ReservationController {
         EntrepriseDAOImpl entrepriseDAO = new EntrepriseDAOImpl();
         reservationDAO = new ReservationDAOImpl();
         Client client = clientDAO.findById(reservation.getIdClient());
-        Entreprise entreprise = entrepriseDAO.findById(reservation.getIdEntreprise());
 
         labelDateReservationDetail.setText(reservation.getDateReservation().toString());
         labelDateDebutDetail.setText(reservation.getDateDebut().toString());

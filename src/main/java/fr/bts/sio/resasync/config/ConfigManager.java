@@ -61,8 +61,8 @@ public class ConfigManager {
 
     public static void updateConstante(String libelle, String nouvelleValeur) throws IOException {
         // chargement du fichier json
-        //Config config = load("./config.json");
-        Config config = load("src/main/java/fr/bts/sio/resasync/storage/config.json");
+        Config config = load("./config.json");
+        //Config config = load("src/main/java/fr/bts/sio/resasync/storage/config.json");
         List<Constantes> constantes = config.getConstantes(); // recupération des constantes dans le fichier sous forme de list
 
         boolean updated = false;
