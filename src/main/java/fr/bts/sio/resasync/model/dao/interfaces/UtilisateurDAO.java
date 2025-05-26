@@ -1,9 +1,12 @@
 package fr.bts.sio.resasync.model.dao.interfaces;
 
-<<<<<<< Updated upstream
-public interface UtilisateurDAO {
+import fr.bts.sio.resasync.model.entity.Utilisateur;
 
-=======
-public class UtilisateurDAO {
->>>>>>> Stashed changes
+public interface UtilisateurDAO {
+    Utilisateur findById(int idUtilisateur);
+    void save(Utilisateur utilisateur);
+    void update(Utilisateur utilisateur);
+    void delete(Utilisateur utilisateur);
+    Utilisateur findByLogin(String login);
+
 }

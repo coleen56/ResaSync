@@ -1,34 +1,47 @@
 package fr.bts.sio.resasync.model.entity;
 
 import java.time.LocalDate;
-
+import java.time.format.DateTimeFormatter;
+/**
+ * Représente une réservation dans le système.
+ * Contient les informations relatives à la réservation : dates, nombre de personnes, chambres, client, entreprise, statut et facture associée.
+ */
 
 public class Reservation {
     private int idReservation;
-    private String statusReservation;
     private LocalDate dateReservation;
     private LocalDate dateDebut;
-    private String nbrPersonnes;
+    private LocalDate dateFin;
+    private int nbrPersonnes;
     private int nbrChambre;
-    private int idStatusResa;
+    private int idEntreprise;
+    private String raisonSociale;
+    private int idStatutResa;
+    private String libelleStatut;
     private int idClient;
-    private int idFacture;
-    private int idResp;
+    private String nomClient;
+    private String prenomClient;
+    private Integer idFacture;
 
-    public Reservation(int idReservation,String statusReservation, LocalDate dateReservation, LocalDate dateDebut,String nbrPersonnes,int nbrChambre,int idStatusResa,int idClient,int idFacture,int idResp){
+
+
+    public Reservation(int idReservation, LocalDate dateReservation, LocalDate dateDebut, LocalDate dateFin, int nbrPersonnes, int nbrChambre, int idEntreprise, int idStatutResa, int idClient, Integer idFacture) {
         this.idReservation = idReservation;
-        this.statusReservation = statusReservation;
         this.dateReservation = dateReservation;
         this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
         this.nbrPersonnes = nbrPersonnes;
         this.nbrChambre = nbrChambre;
-        this.idStatusResa = idStatusResa;
+        this.idEntreprise = idEntreprise;
+        this.idStatutResa = idStatutResa;
         this.idClient = idClient;
         this.idFacture = idFacture;
-        this.idResp = idResp;
     }
 
-    //Getters and Setters
+    // Constructeur vide
+    public Reservation() {
+    }
+
 
     public int getIdReservation() {
         return idReservation;
@@ -36,14 +49,6 @@ public class Reservation {
 
     public void setIdReservation(int idReservation) {
         this.idReservation = idReservation;
-    }
-
-    public String getStatusReservation() {
-        return statusReservation;
-    }
-
-    public void setStatusReservation(String statusReservation) {
-        this.statusReservation = statusReservation;
     }
 
     public LocalDate getDateReservation() {
@@ -62,11 +67,19 @@ public class Reservation {
         this.dateDebut = dateDebut;
     }
 
-    public String getNbrPersonnes() {
+    public LocalDate getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(LocalDate dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public int getNbrPersonnes() {
         return nbrPersonnes;
     }
 
-    public void setNbrPersonnes(String nbrPersonnes) {
+    public void setNbrPersonnes(int nbrPersonnes) {
         this.nbrPersonnes = nbrPersonnes;
     }
 
@@ -78,12 +91,36 @@ public class Reservation {
         this.nbrChambre = nbrChambre;
     }
 
-    public int getIdStatusResa() {
-        return idStatusResa;
+    public int getIdEntreprise() {
+        return idEntreprise;
     }
 
-    public void setIdStatusResa(int idStatusResa) {
-        this.idStatusResa = idStatusResa;
+    public void setIdEntreprise(int idEntreprise) {
+        this.idEntreprise = idEntreprise;
+    }
+
+    public String getRaisonSociale() {
+        return raisonSociale;
+    }
+
+    public void setRaisonSociale(String raisonSociale) {
+        this.raisonSociale = raisonSociale;
+    }
+
+    public int getIdStatutResa() {
+        return idStatutResa;
+    }
+
+    public void setIdStatutResa(int idStatutResa) {
+        this.idStatutResa = idStatutResa;
+    }
+
+    public String getLibelleStatut() {
+        return libelleStatut;
+    }
+
+    public void setLibelleStatut(String libelleStatut) {
+        this.libelleStatut = libelleStatut;
     }
 
     public int getIdClient() {
@@ -94,7 +131,23 @@ public class Reservation {
         this.idClient = idClient;
     }
 
-    public int getIdFacture() {
+    public String getNomClient() {
+        return nomClient;
+    }
+
+    public void setNomClient(String nomClient) {
+        this.nomClient = nomClient;
+    }
+
+    public String getPrenomClient() {
+        return prenomClient;
+    }
+
+    public void setPrenomClient(String prenomClient) {
+        this.prenomClient = prenomClient;
+    }
+
+    public Integer  getIdFacture() {
         return idFacture;
     }
 
@@ -102,30 +155,24 @@ public class Reservation {
         this.idFacture = idFacture;
     }
 
-    public int getIdResp() {
-        return idResp;
-    }
-
-    public void setIdResp(int idResp) {
-        this.idResp = idResp;
-    }
-
-
-    //ToString
-
     @Override
     public String toString() {
         return "Reservation{" +
                 "idReservation=" + idReservation +
-                ", statusReservation='" + statusReservation + '\'' +
                 ", dateReservation=" + dateReservation +
                 ", dateDebut=" + dateDebut +
-                ", nbrPersonnes='" + nbrPersonnes + '\'' +
+                ", dateFin=" + dateFin +
+                ", nbrPersonnes=" + nbrPersonnes +
                 ", nbrChambre=" + nbrChambre +
-                ", idStatusResa=" + idStatusResa +
+                ", idEntreprise=" + idEntreprise +
+                ", idStatutResa=" + idStatutResa +
                 ", idClient=" + idClient +
                 ", idFacture=" + idFacture +
-                ", idResp=" + idResp +
                 '}';
+    }
+
+
+    private String format(LocalDate date, DateTimeFormatter formatter) {
+        return (date != null) ? date.format(formatter) : "non renseignée";
     }
 }
